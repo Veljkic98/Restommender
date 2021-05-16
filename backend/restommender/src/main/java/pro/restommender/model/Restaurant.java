@@ -1,10 +1,14 @@
 package pro.restommender.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -47,8 +51,11 @@ public class Restaurant {
   @Column(name = "kid_friendly")
   private Boolean kidFriendly;
 
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Reservation> reservations;
 
-  public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly) {
+
+  public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, List<Reservation> reservations) {
     this.id = id;
     this.name = name;
     this.location = location;
@@ -61,6 +68,7 @@ public class Restaurant {
     this.nonAlcoholicDrinks = nonAlcoholicDrinks;
     this.petFriendly = petFriendly;
     this.kidFriendly = kidFriendly;
+    this.reservations = reservations;
   }
 
   public Long getId() {
@@ -181,6 +189,14 @@ public class Restaurant {
 
   public void setKidFriendly(Boolean kidFriendly) {
     this.kidFriendly = kidFriendly;
+  }
+
+  public List<Reservation> getReservations() {
+    return this.reservations;
+  }
+
+  public void setReservations(List<Reservation> reservations) {
+    this.reservations = reservations;
   }
 
 }
