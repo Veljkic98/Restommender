@@ -20,4 +20,6 @@ public class Reservation {
   @ManyToOne
   private Restaurant restaurant;
 
+  //TODO: dodati broj osoba za stolom
+
 }

@@ -13,8 +13,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>restommender</name>
 	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>11</java.version>
+		<kie.version>7.17.0.Final</kie.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -41,6 +43,25 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+	<!-- drools -->
+		<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-ci</artifactId>
+				<version>${kie.version}</version>
+		</dependency>
+		<dependency>
+				<groupId>org.kie</groupId>
+				<artifactId>kie-spring</artifactId>
+				<version>${kie.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>pro</groupId>
+			<artifactId>drools-kjar</artifactId>
+			<!-- <type>jar</type> -->
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
