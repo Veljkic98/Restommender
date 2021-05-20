@@ -1,0 +1,29 @@
+package rules
+
+import model.Zahtev;
+
+
+rule "Vrsta cveca na osnovu razloga kupovine - vencanje"
+    when
+        $z: Zahtev( razlogKupovine == "vencanje")
+    then
+    	System.out.println("Simbolika sadrzi vencanje");
+
+end
+
+rule "Vrsta cveca na osnovu razloga kupovine - pomen"
+    when
+        $z: Zahtev( razlogKupovine == "pomen")
+    then
+    	System.out.println("Simbolika sadrzi pomen");
+
+end
+
+rule "Vrsta cveca na osnovu razloga kupovine - dom"
+    when
+        $z: Zahtev( razlogKupovine == "dom")
+    then
+    	System.out.println("Simbolika sadrzi dom");
+
+end
+
