@@ -1,0 +1,16 @@
+package pro.restommender.dto;
+
+public class RestaurantDTO {
+  
+  public String name;
+  public double location;
+  public String music;
+  public String accomodation;
+  public String type;
+  public Boolean smokingArea;
+  public Boolean nonSmokingArea;
+  public Boolean alcoholicDrinks;
+  public Boolean nonAlcoholicDrinks;
+  public Boolean petFriendly;
+  public Boolean kidFriendly;
+}
