@@ -1,5 +1,6 @@
 package pro.restommender.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Reservation {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -20,6 +22,7 @@ public class Reservation {
   @ManyToOne
   private Restaurant restaurant;
 
-  //TODO: dodati broj osoba za stolom
+  @Column(name = "num_of_persons")
+  private int numOfPersons;
 
 }

@@ -51,7 +51,7 @@ public class Restaurant {
   @Column(name = "kid_friendly")
   private Boolean kidFriendly;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
 
 
