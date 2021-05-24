@@ -5,7 +5,7 @@
       "name": "Spring Boot-RestommenderApplication<restommender>",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
+      "console": "internalConsole",
       "mainClass": "pro.restommender.RestommenderApplication",
       "projectName": "restommender",
       "args": ""
