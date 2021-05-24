@@ -54,6 +54,9 @@ public class Restaurant {
   @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
 
+  public Restaurant() {
+  }
+
 
   public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, List<Reservation> reservations) {
     this.id = id;

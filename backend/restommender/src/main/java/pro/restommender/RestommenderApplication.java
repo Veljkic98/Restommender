@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import pro.restommender.model.Message;
+import pro.restommender.model.Restaurant;
 
 @SpringBootApplication
 @EnableScheduling
@@ -16,6 +17,39 @@ public class RestommenderApplication {
 
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(RestommenderApplication.class, args);
+		testLocation();
+	}
+
+	@Bean
+	public KieContainer kieContainer() {
+		KieServices ks = KieServices.Factory.get();
+		KieContainer kContainer = ks
+				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
+		KieScanner kScanner = ks.newKieScanner(kContainer);
+		kScanner.start(10_000);
+		return kContainer;
+	}
+
+
+	public static void testLocation() {
+		Restaurant r = new Restaurant();
+		r.setLocation(7.2);
+
+
+		KieServices ks = KieServices.Factory.get();
+		KieContainer kContainer = ks
+				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
+		KieSession kieSession = kContainer.newKieSession();
+		kieSession.getAgenda().getAgendaGroup("location").setFocus();
+		kieSession.insert(r);
+		int num = kieSession.fireAllRules();
+		kieSession.dispose();
+
+		System.out.println("----------------------");
+		System.out.println("Fired rules: " + num);
+	}
+
+	public static void testMessage() throws Exception{
 		Message message = new Message();
 		message.setMessage("Hello World");
 		message.setStatus(Message.GOODBYE);
@@ -32,16 +66,6 @@ public class RestommenderApplication {
 
 		System.out.println("----------------------");
 		System.out.println("Fired rules: " + num);
-	}
-
-	@Bean
-	public KieContainer kieContainer() {
-		KieServices ks = KieServices.Factory.get();
-		KieContainer kContainer = ks
-				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
-		KieScanner kScanner = ks.newKieScanner(kContainer);
-		kScanner.start(10_000);
-		return kContainer;
 	}
 
 	/**
