@@ -15,7 +15,7 @@ import pro.restommender.model.Message;
 @EnableScheduling
 public class RestommenderApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(RestommenderApplication.class, args);
 		Message message = new Message();
 		message.setMessage("Hello World");
@@ -26,7 +26,9 @@ public class RestommenderApplication {
 				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
 		KieSession kieSession = kContainer.newKieSession();
 		kieSession.insert(message);
+		Thread.sleep(1000);
 		int num = kieSession.fireAllRules();
+		Thread.sleep(1000);
 		kieSession.dispose();
 
 		System.out.println("----------------------");
