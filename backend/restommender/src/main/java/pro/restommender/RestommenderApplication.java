@@ -43,25 +43,49 @@ public class RestommenderApplication {
 
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(RestommenderApplication.class, args);
-		testLocation();
+		testRestourantMusic();
 	}
 
 	public static void testRestourantMusic() {
 		
 		Restaurant r = new Restaurant();
+		r.setId(1L);
 		r.setMusic("relaxing");
+		r.setAccomodation("udobno");
+		Restaurant r2 = new Restaurant();
+		r2.setId(2L);
+		r2.setMusic("relaxing");
+		r2.setAccomodation("tradicionalno");
+
+		List<Restaurant> restaurants = new ArrayList<>();
+		restaurants.add(r);
+		restaurants.add(r2);
+		RelevantRestaurants rr = new RelevantRestaurants();
+		rr.setRelevantRestaurants(restaurants);
 
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks
 				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
 		KieSession kieSession = kContainer.newKieSession();
 		kieSession.getAgenda().getAgendaGroup("music").setFocus();
-		kieSession.insert(r);
+		kieSession.insert(rr);
 		int num = kieSession.fireAllRules();
-		kieSession.dispose();
+		// kieSession.dispose();
 
 		System.out.println("----------------------");
 		System.out.println("Fired rules: " + num);
+		System.out.println(rr.getRelevantRestaurants().size());
+
+
+
+		kieSession.getAgenda().getAgendaGroup("accomodation").setFocus();
+		kieSession.insert(rr);
+		num = kieSession.fireAllRules();
+		// kieSession.dispose();
+
+		System.out.println("----------------------");
+		System.out.println("Fired rules: " + num);
+		System.out.println(rr.getRelevantRestaurants().size());
 	}
 
 	public static void testReservationDiscount() {

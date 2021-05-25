@@ -14,44 +14,69 @@ rule "Classify Restaurant - In Center"
     System.out.println( "in center------------------" );
 end
 
-rule "asdf"
+rule "Classify Restaurant - Near Center"
   agenda-group "location"
   when 
     $restaurants: RelevantRestaurants()
-    $filteredRestaurants: List() from collect(Restaurant(location > 0.5) from $restaurants.getRelevantRestaurants())
+    $filteredRestaurants: List() from collect(Restaurant(location > 1 && location <= 5) from $restaurants.getRelevantRestaurants())
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    System.out.println( "in center------------------" );
+    System.out.println( "near center------------------" );
 end
 
-// rule "Classify Restaurant - Near Center"
-//   agenda-group "location"
-//   when 
-//     $r: Restaurant(location > 1 && location <= 5 )
-//   then 
-//     System.out.println( "near center------------------" );
-// end
+rule "Classify Restaurant - Far Away From Center"
+  agenda-group "location"
+  when 
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(location > 5) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println( "far away from center------------------" );
+end
 
-// rule "Classify Restaurant - Far Away From Center"
-//   agenda-group "location"
-//   when 
-//     $r: Restaurant(location > 5 )
-//   then 
-//     System.out.println( "far away from center------------------" );
-// end
+rule "Classify Restaurant with music - Relaxing"
+  agenda-group "music"
+  when 
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(music == "relaxing") from $restaurants.getRelevantRestaurants())
+    eval($filteredRestaurants.size() != 0)
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with relaxing music.");
+end
 
-// rule "Classify Restaurant by music - Chill"
-//   agenda-group "music"
-//   when 
-//     $r: Restaurant(music == "relaxing" )
-//   then 
-//     System.out.println("Get restaurants by relaxing music.");
-// end
+rule "Classify Restaurant with music - Loud"
+  agenda-group "music"
+  when 
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(music == "loud") from $restaurants.getRelevantRestaurants())
+    eval($filteredRestaurants.size() != 0)
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with loud music.");
+end
 
-// rule "Classify Restaurant by music - Loud"
-//   agenda-group "music"
-//   when 
-//     $r: Restaurant(music == "loud" )
-//   then 
-//     System.out.println("Get restaurants by loud music.");
-// end
+rule "Classify Restaurant sa udobnim sedistima"
+  agenda-group "accomodation"
+  when 
+    // TODO: NAPRAVITI SEARCH 
+    $search: Search(accomodation == "udobno")
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(accomodation== "udobno") from $restaurants.getRelevantRestaurants())
+    // eval($filteredRestaurants.size() != 0)
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with udobno brreeeeee.");
+end
+
+rule "Classify Restaurant sa tradicionalnim sedistima"
+  agenda-group "accomodation"
+  when 
+    $search: Search(accomodation == "tradicionalno")
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(accomodation== "tradicionalno") from $restaurants.getRelevantRestaurants())
+    // eval($filteredRestaurants.size() != 0)
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with tradicionalno breeee.");
+end
