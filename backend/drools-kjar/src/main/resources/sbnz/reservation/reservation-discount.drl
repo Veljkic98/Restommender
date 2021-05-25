@@ -1,0 +1,16 @@
+package sbnz.reservation;
+
+import pro.restommender.model.Reservation;
+
+rule "Classify Discount - Level 0"
+  agenda-group "reservation-number-discount"
+  when 
+    // TODO: proveriti da li da ostavimo samo jednu liniju, ili ove 3, 
+    // jer u uve tri koristimo napredne funkcije, a ova jedna je jednostavnija
+    // $r: Reservation ($user: user)
+    // $rezervacije: ArrayList() from collect(Reservation() from $user.getReservations())
+    // eval($rezervacije.size() < 2)
+    $r: Reservation (user.getReservations().size() < 2)
+  then 
+    System.out.println("reservation number manji od 2");
+end

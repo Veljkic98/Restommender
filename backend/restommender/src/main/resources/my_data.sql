@@ -15,6 +15,6 @@ insert into restaurant (name, location, music, accomodation, type, smoking_area,
 insert into restaurant (name, location, music, accomodation, type, smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, kid_friendly) values
     ('atrijum', 10, 'opustajuca', 'udobno', 'svirka', true, false, true, true, false, true);
 
-insert into reservation (user_id, restaurant_id, num_of_persons) values (2, 1, 2);
-insert into reservation (user_id, restaurant_id, num_of_persons) values (3, 2, 4);
-insert into reservation (user_id, restaurant_id, num_of_persons) values (4, 3, 5);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (3, 2, 4, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (4, 3, 5, 0);
