@@ -49,15 +49,15 @@ public class RestommenderApplication {
 		User u = new User();
 		Reservation r1 = new Reservation();
 		r1.setUser(u);
-		Reservation r2 = new Reservation();
-		r2.setUser(u);
-		Reservation r3 = new Reservation();
-		r3.setUser(u);
+		// Reservation r2 = new Reservation();
+		// r2.setUser(u);
+		// Reservation r3 = new Reservation();
+		// r3.setUser(u);
 
 		List<Reservation> reservations = new ArrayList<>();
 		reservations.add(r1);
-		reservations.add(r2);
-		reservations.add(r3);
+		// reservations.add(r2);
+		// reservations.add(r3);
 		u.setReservations(reservations);
 
 		KieServices ks = KieServices.Factory.get();
