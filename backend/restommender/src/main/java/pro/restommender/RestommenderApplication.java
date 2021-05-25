@@ -20,11 +20,6 @@ import pro.restommender.model.User;
 @EnableScheduling
 public class RestommenderApplication {
 
-	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(RestommenderApplication.class, args);
-		testReservationDiscount();
-	}
-
 	@Bean
 	public KieContainer kieContainer() {
 		KieServices ks = KieServices.Factory.get();
@@ -35,19 +30,34 @@ public class RestommenderApplication {
 		return kContainer;
 	}
 
+	/*
+	 * pokretanje:
+	 * 1. cd backend/drools-kjar
+	 * 2. ./mvnw  clean install
+	 * 
+	 * 1. cd backend/restommender
+	 * 2. ./mvnw  clean package
+	 * 3. run restommender
+	 */
+
+	public static void main(String[] args) throws InterruptedException {
+		SpringApplication.run(RestommenderApplication.class, args);
+		testReservationDiscount();
+	}
+
 	public static void testReservationDiscount() {
 		User u = new User();
 		Reservation r1 = new Reservation();
 		r1.setUser(u);
-		// Reservation r2 = new Reservation();
-		// r2.setUser(u);
-		// Reservation r3 = new Reservation();
-		// r3.setUser(u);
+		Reservation r2 = new Reservation();
+		r2.setUser(u);
+		Reservation r3 = new Reservation();
+		r3.setUser(u);
 
 		List<Reservation> reservations = new ArrayList<>();
 		reservations.add(r1);
-		// reservations.add(r2);
-		// reservations.add(r3);
+		reservations.add(r2);
+		reservations.add(r3);
 		u.setReservations(reservations);
 
 		KieServices ks = KieServices.Factory.get();
@@ -104,7 +114,7 @@ public class RestommenderApplication {
 		System.out.println("Fired rules: " + num);
 	}
 
-	/**
+	/*
 	 * pokretanje:
 	 * 1. cd backend/drools-kjar
 	 * 2. ./mvnw  clean install

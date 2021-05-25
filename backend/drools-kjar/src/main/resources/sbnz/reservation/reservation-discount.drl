@@ -12,5 +12,23 @@ rule "Classify Discount - Level 0"
     // eval($rezervacije.size() < 2)
     $r: Reservation (user.getReservations().size() < 2)
   then 
-    System.out.println("reservation number manji od 2");
+    System.out.println("reservation number lt 2");
+end
+
+rule "Classify Discount - Level 1"
+  agenda-group "reservation-number-discount"
+  when 
+    // TODO: isto sto i gore
+    $r: Reservation (user.getReservations().size() >= 2 && user.getReservations().size() < 4)
+  then 
+    System.out.println("reservation number between 2 and 4");
+end
+
+rule "Classify Discount - Level 2"
+  agenda-group "reservation-number-discount"
+  when 
+    // TODO: isto sto i gore
+    $r: Reservation (user.getReservations().size() >= 4)
+  then 
+    System.out.println("reservation number gt 4");
 end
