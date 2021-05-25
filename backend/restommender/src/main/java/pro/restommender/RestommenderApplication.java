@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import pro.restommender.model.Message;
+import pro.restommender.model.RelevantRestaurants;
 import pro.restommender.model.Reservation;
 import pro.restommender.model.Restaurant;
 import pro.restommender.model.User;
@@ -42,7 +43,7 @@ public class RestommenderApplication {
 
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(RestommenderApplication.class, args);
-		testRestourantMusic();
+		testLocation();
 	}
 
 	public static void testRestourantMusic() {
@@ -89,12 +90,24 @@ public class RestommenderApplication {
 
 		System.out.println("----------------------");
 		System.out.println("Fired rules: " + num);
+		System.out.println("new dicount: " + r1.getDiscount());
 	}
 
 
 	public static void testLocation() {
-		Restaurant r = new Restaurant();
-		r.setLocation(7.2);
+		Restaurant r1 = new Restaurant();
+		r1.setLocation(0.2);
+		Restaurant r2 = new Restaurant();
+		r2.setLocation(6.5);
+		Restaurant r3 = new Restaurant();
+		r3.setLocation(0.7);
+		List<Restaurant> restaurants = new ArrayList<>();
+		restaurants.add(r1);
+		restaurants.add(r2);
+		restaurants.add(r3);
+		RelevantRestaurants rr = new RelevantRestaurants();
+		rr.setRelevantRestaurants(restaurants);
+
 
 
 		KieServices ks = KieServices.Factory.get();
@@ -102,12 +115,13 @@ public class RestommenderApplication {
 				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
 		KieSession kieSession = kContainer.newKieSession();
 		kieSession.getAgenda().getAgendaGroup("location").setFocus();
-		kieSession.insert(r);
+		kieSession.insert(rr);
 		int num = kieSession.fireAllRules();
 		kieSession.dispose();
 
 		System.out.println("----------------------");
 		System.out.println("Fired rules: " + num);
+		System.out.println(rr.getRelevantRestaurants());
 	}
 
 	public static void testMessage() throws Exception{

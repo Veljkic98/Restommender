@@ -202,4 +202,24 @@ public class Restaurant {
     this.reservations = reservations;
   }
 
+
+  @Override
+  public String toString() {
+    return "{" +
+      " id='" + getId() + "'" +
+      ", name='" + getName() + "'" +
+      ", location='" + getLocation() + "'" +
+      ", music='" + getMusic() + "'" +
+      ", accomodation='" + getAccomodation() + "'" +
+      ", type='" + getType() + "'" +
+      ", smokingArea='" + isSmokingArea() + "'" +
+      ", nonSmokingArea='" + isNonSmokingArea() + "'" +
+      ", alcoholicDrinks='" + isAlcoholicDrinks() + "'" +
+      ", nonAlcoholicDrinks='" + isNonAlcoholicDrinks() + "'" +
+      ", petFriendly='" + isPetFriendly() + "'" +
+      ", kidFriendly='" + isKidFriendly() + "'" +
+      ", reservations='" + getReservations() + "'" +
+      "}";
+  }
+
 }

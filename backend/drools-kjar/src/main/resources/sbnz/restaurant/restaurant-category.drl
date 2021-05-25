@@ -1,43 +1,57 @@
 package sbnz.restaurant;
 
 import pro.restommender.model.Restaurant;
+import pro.restommender.model.RelevantRestaurants;
+import java.util.List;
 
 rule "Classify Restaurant - In Center"
   agenda-group "location"
   when 
-    $r: Restaurant(location <= 1 )
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(location <1) from $restaurants.getRelevantRestaurants())
   then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
     System.out.println( "in center------------------" );
 end
 
-rule "Classify Restaurant - Near Center"
+rule "asdf"
   agenda-group "location"
   when 
-    $r: Restaurant(location > 1 && location <= 5 )
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(location > 0.5) from $restaurants.getRelevantRestaurants())
   then 
-    System.out.println( "near center------------------" );
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println( "in center------------------" );
 end
 
-rule "Classify Restaurant - Far Away From Center"
-  agenda-group "location"
-  when 
-    $r: Restaurant(location > 5 )
-  then 
-    System.out.println( "far away from center------------------" );
-end
+// rule "Classify Restaurant - Near Center"
+//   agenda-group "location"
+//   when 
+//     $r: Restaurant(location > 1 && location <= 5 )
+//   then 
+//     System.out.println( "near center------------------" );
+// end
 
-rule "Classify Restaurant by music - Chill"
-  agenda-group "music"
-  when 
-    $r: Restaurant(music == "relaxing" )
-  then 
-    System.out.println("Get restaurants by relaxing music.");
-end
+// rule "Classify Restaurant - Far Away From Center"
+//   agenda-group "location"
+//   when 
+//     $r: Restaurant(location > 5 )
+//   then 
+//     System.out.println( "far away from center------------------" );
+// end
 
-rule "Classify Restaurant by music - Loud"
-  agenda-group "music"
-  when 
-    $r: Restaurant(music == "loud" )
-  then 
-    System.out.println("Get restaurants by loud music.");
-end
+// rule "Classify Restaurant by music - Chill"
+//   agenda-group "music"
+//   when 
+//     $r: Restaurant(music == "relaxing" )
+//   then 
+//     System.out.println("Get restaurants by relaxing music.");
+// end
+
+// rule "Classify Restaurant by music - Loud"
+//   agenda-group "music"
+//   when 
+//     $r: Restaurant(music == "loud" )
+//   then 
+//     System.out.println("Get restaurants by loud music.");
+// end
