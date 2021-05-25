@@ -25,3 +25,19 @@ rule "Classify Restaurant - Far Away From Center"
   then 
     System.out.println( "far away from center------------------" );
 end
+
+rule "Classify Restaurant by music - Chill"
+  agenda-group "music"
+  when 
+    $r: Restaurant(music == "relaxing" )
+  then 
+    System.out.println("Get restaurants by relaxing music.");
+end
+
+rule "Classify Restaurant by music - Loud"
+  agenda-group "music"
+  when 
+    $r: Restaurant(music == "loud" )
+  then 
+    System.out.println("Get restaurants by loud music.");
+end

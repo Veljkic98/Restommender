@@ -42,7 +42,25 @@ public class RestommenderApplication {
 
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(RestommenderApplication.class, args);
-		testReservationDiscount();
+		testRestourantMusic();
+	}
+
+	public static void testRestourantMusic() {
+		
+		Restaurant r = new Restaurant();
+		r.setMusic("relaxing");
+
+		KieServices ks = KieServices.Factory.get();
+		KieContainer kContainer = ks
+				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
+		KieSession kieSession = kContainer.newKieSession();
+		kieSession.getAgenda().getAgendaGroup("music").setFocus();
+		kieSession.insert(r);
+		int num = kieSession.fireAllRules();
+		kieSession.dispose();
+
+		System.out.println("----------------------");
+		System.out.println("Fired rules: " + num);
 	}
 
 	public static void testReservationDiscount() {
@@ -71,9 +89,6 @@ public class RestommenderApplication {
 
 		System.out.println("----------------------");
 		System.out.println("Fired rules: " + num);
-
-	
-
 	}
 
 

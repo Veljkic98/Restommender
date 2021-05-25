@@ -25,7 +25,7 @@ public class Restaurant {
   private double location;
 
   @Column(name = "music")
-  private String music;
+  private String music; // relaxing, loud
 
   @Column(name = "accomodation")
   private String accomodation;
