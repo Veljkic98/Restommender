@@ -11,6 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import pro.restommender.dto.Search;
 import pro.restommender.model.Message;
 import pro.restommender.model.RelevantRestaurants;
 import pro.restommender.model.Reservation;
@@ -47,14 +49,19 @@ public class RestommenderApplication {
 	}
 
 	public static void testRestourantMusic() {
-		
+		// search obj
+		Search s = new Search();
+		s.setMusic("relaxing");
+		s.setAccomodation("udobno");
+
+		// restorani
 		Restaurant r = new Restaurant();
 		r.setId(1L);
 		r.setMusic("relaxing");
 		r.setAccomodation("udobno");
 		Restaurant r2 = new Restaurant();
 		r2.setId(2L);
-		r2.setMusic("relaxing");
+		r2.setMusic("loud");
 		r2.setAccomodation("tradicionalno");
 
 		List<Restaurant> restaurants = new ArrayList<>();
@@ -69,6 +76,7 @@ public class RestommenderApplication {
 		KieSession kieSession = kContainer.newKieSession();
 		kieSession.getAgenda().getAgendaGroup("music").setFocus();
 		kieSession.insert(rr);
+		kieSession.insert(s);
 		int num = kieSession.fireAllRules();
 		// kieSession.dispose();
 
@@ -81,7 +89,7 @@ public class RestommenderApplication {
 		kieSession.getAgenda().getAgendaGroup("accomodation").setFocus();
 		kieSession.insert(rr);
 		num = kieSession.fireAllRules();
-		// kieSession.dispose();
+		kieSession.dispose();
 
 		System.out.println("----------------------");
 		System.out.println("Fired rules: " + num);
