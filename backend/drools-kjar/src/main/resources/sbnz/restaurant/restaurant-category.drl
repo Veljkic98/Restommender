@@ -10,7 +10,7 @@ import java.util.List;
 // -------------------------------------------------------------------
 
 rule "Classify Restaurant with music - Relaxing"
-  agenda-group "music"
+  agenda-group "filter"
   when 
     $search: Search(music == "relaxing")
     $restaurants: RelevantRestaurants()
@@ -23,7 +23,7 @@ rule "Classify Restaurant with music - Relaxing"
 end
 
 rule "Classify Restaurant with music - Loud"
-  agenda-group "music"
+  agenda-group "filter"
   when 
     $search: Search(music == "loud")
     $restaurants: RelevantRestaurants()
@@ -35,12 +35,11 @@ rule "Classify Restaurant with music - Loud"
     System.out.println("Get restaurants with loud music.");
 end
 
-
 // ------------------------Pravila drugog nivoa------------------------
 // --------------------------------------------------------------------
 
 rule "Classify Restaurant sa udobnim sedistima"
-  agenda-group "accomodation"
+  agenda-group "filter"
   when 
     $search: Search(accomodation == "udobno")
     $restaurants: RelevantRestaurants()
@@ -53,7 +52,7 @@ rule "Classify Restaurant sa udobnim sedistima"
 end
 
 rule "Classify Restaurant sa tradicionalnim sedistima"
-  agenda-group "accomodation"
+  agenda-group "filter"
   when 
     $search: Search(accomodation == "tradicionalno")
     $restaurants: RelevantRestaurants()
@@ -69,7 +68,7 @@ end
 // --------------------------------------------------------------------
 
 rule "Classify Restaurant with snon-smoking areaa"
-  agenda-group "accomodation"
+  agenda-group "filter"
   when 
     $search: Search(nonSmokingArea == true)
     $restaurants: RelevantRestaurants()
@@ -82,7 +81,7 @@ rule "Classify Restaurant with snon-smoking areaa"
 end
 
 rule "Classify Restaurant with smoking area"
-  agenda-group "accomodation"
+  agenda-group "filter"
   when 
     $search: Search(smokingArea == true)
     $restaurants: RelevantRestaurants()
@@ -95,7 +94,7 @@ rule "Classify Restaurant with smoking area"
 end
 
 rule "Classify Restaurant with kid- friendly area"
-  agenda-group "accomodation"
+  agenda-group "filter"
   when 
     $search: Search(kidFriendly == true)
     $restaurants: RelevantRestaurants()
@@ -111,7 +110,7 @@ end
 // --------------------------------------------------------------------
 
 rule "Classify Restaurant with non-alcoholic drinks"
-  agenda-group "accomodation"
+  agenda-group "filter"
   when 
     $search: Search(nonAlcoholicDrinks == true)
     $restaurants: RelevantRestaurants()
@@ -124,7 +123,7 @@ rule "Classify Restaurant with non-alcoholic drinks"
 end
 
 rule "Classify Restaurant with alcoholic drinks"
-  agenda-group "accomodation"
+  agenda-group "filter"
   when 
     $search: Search(alcoholicDrinks == true)
     $restaurants: RelevantRestaurants()
@@ -140,7 +139,7 @@ end
 // -----------------------------------------------------------------
 
 rule "Classify Restaurant with pet-friendly area"
-  agenda-group "accomodation"
+  agenda-group "filter"
   when 
     $search: Search(petFriendly == true)
     $restaurants: RelevantRestaurants()

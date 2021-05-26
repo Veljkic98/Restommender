@@ -47,7 +47,64 @@ public class RestommenderApplication {
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(RestommenderApplication.class, args);
 		
-		testReservationDiscount();
+		testRestourantsCategory();
+	}
+
+	public static void testRestourantsCategory() {
+
+		Search search = new Search();
+		search.setMusic("relaxing");
+		search.setAccomodation("udobno");
+		search.setNonSmokingArea(true);
+		search.setKidFriendly(true);
+		search.setNonAlcoholicDrinks(true);
+		search.setPetFriendly(true);
+
+		Restaurant r = new Restaurant();
+		r.setId(1L);
+		r.setMusic("relaxing");
+		r.setAccomodation("udobno");
+		r.setNonSmokingArea(true);
+		r.setKidFriendly(true);
+		r.setNonAlcoholicDrinks(true);
+		r.setPetFriendly(true);
+		Restaurant r2 = new Restaurant();
+		r2.setId(2L);
+		r2.setMusic("relaxing");
+		r2.setAccomodation("tradicionalno");
+		r2.setNonSmokingArea(true);
+		r2.setKidFriendly(true);
+		r2.setNonAlcoholicDrinks(true);
+		r2.setPetFriendly(true);
+
+		List<Restaurant> restaurants = new ArrayList<>();
+		restaurants.add(r);
+		restaurants.add(r2);
+
+		RelevantRestaurants rr = new RelevantRestaurants();
+		rr.setRelevantRestaurants(restaurants);
+
+		Rule rule = new Rule();
+
+
+
+		KieServices ks = KieServices.Factory.get();
+		KieContainer kContainer = ks
+				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
+		KieSession kieSession = kContainer.newKieSession();
+		kieSession.getAgenda().getAgendaGroup("filter").setFocus();
+		kieSession.insert(rr);
+		kieSession.insert(search);
+		kieSession.insert(rule);
+		int num = kieSession.fireAllRules();
+
+		System.out.println("----------------------");
+		System.out.println("Fired rules: " + num);
+		System.out.println(rr.getRelevantRestaurants().size());
+
+
+		kieSession.dispose();
+
 	}
 
 	public static void testRestourantMusic() {
@@ -120,8 +177,6 @@ public class RestommenderApplication {
 		s.setNumOfPersons(numOfPersons);
 
 		Rule rule = new Rule();
-		rule.setFact("");
-		rule.setRule("");
 
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks
@@ -138,9 +193,7 @@ public class RestommenderApplication {
 		System.out.println("Fired rules: " + num);
 		System.out.println("new dicount: " + r1.getDiscount());
 		System.out.println("Izvrseno pravilo: " + rule.getRule());
-		System.out.println("Izvrsena cinjenica: " + rule.getFact());
 	}
-
 
 	public static void testLocation() {
 		Restaurant r1 = new Restaurant();

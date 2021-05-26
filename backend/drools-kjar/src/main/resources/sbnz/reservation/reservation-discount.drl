@@ -15,14 +15,13 @@ rule "Classify Discount - Level 1 - D1 => X1"
     // TODO: proveriti da li da ostavimo samo jednu liniju, ili ove 3, 
     // jer u uve tri koristimo napredne funkcije, a ova jedna je jednostavnija
     $r: Reservation ($user: user, $dis: discount)
-    $rule: Rule(rule == "", fact == "")
+    $rule: Rule(rule == "")
     $rezervacije: List() from collect(Reservation() from $user.getReservations())
     eval($rezervacije.size() < 2)
     // $r: Reservation (user.getReservations().size() < 2)
   then 
     modify($r) {setDiscount($dis + 5)}
     modify($rule) {setRule("D1")}
-    modify($rule) {setFact("X1")}
     System.out.println("reservation number lt 2");
 end
 
@@ -31,11 +30,10 @@ rule "Classify Discount - Level 1 - D2 => X2"
   when 
     // TODO: isto sto i gore
     $r: Reservation (user.getReservations().size() >= 2 && user.getReservations().size() < 4, $dis: discount)
-    $rule: Rule(rule == "", fact == "")
+    $rule: Rule(rule == "")
   then 
     modify($r) {setDiscount($dis + 10)}
     modify($rule) {setRule("D2")}
-    modify($rule) {setFact("X2")}
     System.out.println("reservation number between 2 and 4");
 end
 
@@ -44,11 +42,10 @@ rule "Classify Discount - Level 1 - D3 => X3"
   when 
     // TODO: isto sto i gore
     $r: Reservation (user.getReservations().size() >= 4, $dis: discount)
-    $rule: Rule(rule == "", fact == "")
+    $rule: Rule(rule == "")
   then 
     modify($r) {setDiscount($dis + 15)}
     modify($rule) {setRule("D3")}
-    modify($rule) {setFact("X3")}
     System.out.println("reservation number gt 4");
 end
 
@@ -61,11 +58,10 @@ rule "Classify Discount - Level 2 - D4 => X4"
   when 
     $search: Search(numOfPersons != 0)
     $r: Reservation($discount: discount)
-    $rule: Rule(rule == "D1", fact == "X1")
+    $rule: Rule(rule == "D1")
   then 
     modify($r) { setDiscount($discount + 2); }
     modify($rule) {setRule("D4")}
-    modify($rule) {setFact("X4")}
     System.out.println("Classify Discount - Level 2 - D4 => X4");
 end
 
@@ -75,11 +71,10 @@ rule "Classify Discount - Level 2 - D5 => X5"
   when 
     $search: Search(numOfPersons != 0)
     $r: Reservation($discount: discount)
-    $rule: Rule(rule == "D2", fact == "X2")
+    $rule: Rule(rule == "D2")
   then 
     modify($r) { setDiscount($discount + 3); }
     modify($rule) {setRule("D5")}
-    modify($rule) {setFact("X5")}
     System.out.println("Classify Discount - Level 2 - D5 => X5");
 end
 
@@ -89,11 +84,10 @@ rule "Classify Discount - Level 2 - D6 => X6"
   when 
     $search: Search(numOfPersons != 0)
     $r: Reservation($discount: discount)
-    $rule: Rule(rule == "D3", fact == "X3")
+    $rule: Rule(rule == "D3")
   then 
     modify($r) { setDiscount($discount + 4); }
     modify($rule) {setRule("D6")}
-    modify($rule) {setFact("X6")}
     System.out.println("Classify Discount - Level 2 - D6 => X6");
 end
 
@@ -105,11 +99,10 @@ rule "Classify Discount - Level 3 - D7 => X7"
   when 
     // TODO: isto sto i gore
     $r: Reservation (user.getReservations().size() >= 10 && user.getReservations().size() < 15, $dis: discount)
-    $rule: Rule(rule == "D4", fact == "X4")
+    $rule: Rule(rule == "D4")
   then 
     modify($r) {setDiscount($dis + 2)}
     modify($rule) {setRule("D7")}
-    modify($rule) {setFact("X7")}
     System.out.println("Classify Discount - Level 3 - D7 => X7");
 end
 
@@ -118,11 +111,10 @@ rule "Classify Discount - Level 3 - D8 => X8"
   when 
     // TODO: isto sto i gore
     $r: Reservation (user.getReservations().size() >= 15 && user.getReservations().size() < 20, $dis: discount)
-    $rule: Rule(rule == "D5", fact == "X5")
+    $rule: Rule(rule == "D5")
   then 
     modify($r) {setDiscount($dis + 3)}
     modify($rule) {setRule("D8")}
-    modify($rule) {setFact("X8")}
     System.out.println("Classify Discount - Level 3 - D8 => X8");
 end
 
@@ -131,10 +123,9 @@ rule "Classify Discount - Level 3 - D9 => X9"
   when 
     // TODO: isto sto i gore
     $r: Reservation (user.getReservations().size() >= 20, $dis: discount)
-    $rule: Rule(rule == "D6", fact == "X6")
+    $rule: Rule(rule == "D6")
   then 
     modify($r) {setDiscount($dis + 4)}
     modify($rule) {setRule("D9")}
-    modify($rule) {setFact("X9")}
     System.out.println("Classify Discount - Level 3 - D9 => X9");
 end
