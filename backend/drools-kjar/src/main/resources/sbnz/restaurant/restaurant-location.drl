@@ -1,0 +1,36 @@
+package sbnz.restaurant;
+
+import pro.restommender.model.Restaurant;
+import pro.restommender.model.RelevantRestaurants;
+import pro.restommender.dto.Search;
+import java.util.List;
+
+rule "Classify Restaurant - In Center"
+  agenda-group "location"
+  when 
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(location <1) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println( "in center------------------" );
+end
+
+rule "Classify Restaurant - Near Center"
+  agenda-group "location"
+  when 
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(location > 1 && location <= 5) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println( "near center------------------" );
+end
+
+rule "Classify Restaurant - Far Away From Center"
+  agenda-group "location"
+  when 
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(location > 5) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println( "far away from center------------------" );
+end
