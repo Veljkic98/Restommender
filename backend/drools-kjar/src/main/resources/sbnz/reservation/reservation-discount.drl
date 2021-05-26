@@ -120,7 +120,7 @@ rule "Classify Discount - Level 3 - D8 => X8"
     $r: Reservation (user.getReservations().size() >= 15 && user.getReservations().size() < 20, $dis: discount)
     $rule: Rule(rule == "D5", fact == "X5")
   then 
-    modify($r) {setDiscount($dis + 2)}
+    modify($r) {setDiscount($dis + 3)}
     modify($rule) {setRule("D8")}
     modify($rule) {setFact("X8")}
     System.out.println("Classify Discount - Level 3 - D8 => X8");
@@ -133,7 +133,7 @@ rule "Classify Discount - Level 3 - D9 => X9"
     $r: Reservation (user.getReservations().size() >= 20, $dis: discount)
     $rule: Rule(rule == "D6", fact == "X6")
   then 
-    modify($r) {setDiscount($dis + 2)}
+    modify($r) {setDiscount($dis + 4)}
     modify($rule) {setRule("D9")}
     modify($rule) {setFact("X9")}
     System.out.println("Classify Discount - Level 3 - D9 => X9");
