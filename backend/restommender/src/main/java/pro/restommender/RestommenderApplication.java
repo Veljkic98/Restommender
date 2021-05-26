@@ -45,7 +45,8 @@ public class RestommenderApplication {
 
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(RestommenderApplication.class, args);
-		testRestourantMusic();
+		
+		testReservationDiscount();
 	}
 
 	public static void testRestourantMusic() {
@@ -97,9 +98,12 @@ public class RestommenderApplication {
 	}
 
 	public static void testReservationDiscount() {
+
+		int numOfPersons = 5;
 		User u = new User();
 		Reservation r1 = new Reservation();
 		r1.setUser(u);
+		r1.setNumOfPersons(numOfPersons);
 		// Reservation r2 = new Reservation();
 		// r2.setUser(u);
 		// Reservation r3 = new Reservation();
@@ -111,12 +115,16 @@ public class RestommenderApplication {
 		// reservations.add(r3);
 		u.setReservations(reservations);
 
+		Search s = new Search();
+		s.setNumOfPersons(numOfPersons);
+
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks
 				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
 		KieSession kieSession = kContainer.newKieSession();
 		kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
 		kieSession.insert(r1);
+		kieSession.insert(s);
 		int num = kieSession.fireAllRules();
 		kieSession.dispose();
 

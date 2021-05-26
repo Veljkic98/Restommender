@@ -1,6 +1,7 @@
 package sbnz.reservation;
 
 import pro.restommender.model.Reservation;
+import pro.restommender.dto.Search;
 
 import java.util.List;
 
@@ -36,4 +37,34 @@ rule "Classify Discount - Level 2"
   then 
     modify($r) {setDiscount(15)}
     System.out.println("reservation number gt 4");
+end
+
+rule "Classify Discount - number of persons lt 4"
+  agenda-group "reservation-number-discount"
+  no-loop
+  when 
+    $search: Search(numOfPersons < 4)
+    $r: Reservation($discount: discount)
+  then 
+    modify($r) { setDiscount($discount + 2); }
+end
+
+rule "Classify Discount - number of persons is 4"
+  agenda-group "reservation-number-discount"
+  no-loop
+  when 
+    $search: Search(numOfPersons == 4)
+    $r: Reservation($discount: discount)
+  then 
+    modify($r) { setDiscount($discount + 3); }
+end
+
+rule "Classify Discount - number of persons gt 4"
+  agenda-group "reservation-number-discount"
+  no-loop
+  when 
+    $search: Search(numOfPersons > 4)
+    $r: Reservation($discount: discount)
+  then 
+    modify($r) { setDiscount($discount + 4); }
 end

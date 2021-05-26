@@ -26,7 +26,7 @@ public class Reservation {
   private int numOfPersons;
 
   @Column(name = "discount")
-  private double discount;
+  private double discount = 0;
 
 
   public Long getId() {
