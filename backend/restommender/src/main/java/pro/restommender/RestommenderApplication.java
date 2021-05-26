@@ -17,6 +17,7 @@ import pro.restommender.model.Message;
 import pro.restommender.model.RelevantRestaurants;
 import pro.restommender.model.Reservation;
 import pro.restommender.model.Restaurant;
+import pro.restommender.model.Rule;
 import pro.restommender.model.User;
 
 @SpringBootApplication
@@ -118,6 +119,10 @@ public class RestommenderApplication {
 		Search s = new Search();
 		s.setNumOfPersons(numOfPersons);
 
+		Rule rule = new Rule();
+		rule.setFact("");
+		rule.setRule("");
+
 		KieServices ks = KieServices.Factory.get();
 		KieContainer kContainer = ks
 				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
@@ -125,12 +130,15 @@ public class RestommenderApplication {
 		kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
 		kieSession.insert(r1);
 		kieSession.insert(s);
+		kieSession.insert(rule);
 		int num = kieSession.fireAllRules();
 		kieSession.dispose();
 
 		System.out.println("----------------------");
 		System.out.println("Fired rules: " + num);
 		System.out.println("new dicount: " + r1.getDiscount());
+		System.out.println("Izvrseno pravilo: " + rule.getRule());
+		System.out.println("Izvrsena cinjenica: " + rule.getFact());
 	}
 
 

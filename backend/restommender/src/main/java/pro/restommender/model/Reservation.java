@@ -28,7 +28,6 @@ public class Reservation {
   @Column(name = "discount")
   private double discount = 0;
 
-
   public Long getId() {
     return this.id;
   }
