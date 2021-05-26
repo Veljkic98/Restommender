@@ -55,46 +55,46 @@ end
 // ------------------------Pravila drugog nivoa------------------------
 // --------------------------------------------------------------------
 
-rule "Classify Discount - number of persons lt 4 - Level 2 - D4 => X4"
+rule "Classify Discount - Level 2 - D4 => X4"
   agenda-group "reservation-number-discount"
   no-loop
   when 
-    $search: Search(numOfPersons < 4)
+    $search: Search(numOfPersons != 0)
     $r: Reservation($discount: discount)
     $rule: Rule(rule == "D1", fact == "X1")
   then 
     modify($r) { setDiscount($discount + 2); }
     modify($rule) {setRule("D4")}
     modify($rule) {setFact("X4")}
-    System.out.println("Classify Discount - number of persons lt 4 - Level 2 - D4 => X4");
+    System.out.println("Classify Discount - Level 2 - D4 => X4");
 end
 
-rule "Classify Discount - number of persons is 4 - Level 2 - D5 => X5"
+rule "Classify Discount - Level 2 - D5 => X5"
   agenda-group "reservation-number-discount"
   no-loop
   when 
-    $search: Search(numOfPersons == 4)
+    $search: Search(numOfPersons != 0)
     $r: Reservation($discount: discount)
     $rule: Rule(rule == "D2", fact == "X2")
   then 
     modify($r) { setDiscount($discount + 3); }
     modify($rule) {setRule("D5")}
     modify($rule) {setFact("X5")}
-    System.out.println("Classify Discount - number of persons is 4 - Level 2 - D5 => X5");
+    System.out.println("Classify Discount - Level 2 - D5 => X5");
 end
 
-rule "Classify Discount - number of persons gt 4 - Level 2 - D6 => X6"
+rule "Classify Discount - Level 2 - D6 => X6"
   agenda-group "reservation-number-discount"
   no-loop
   when 
-    $search: Search(numOfPersons > 4)
+    $search: Search(numOfPersons != 0)
     $r: Reservation($discount: discount)
     $rule: Rule(rule == "D3", fact == "X3")
   then 
     modify($r) { setDiscount($discount + 4); }
     modify($rule) {setRule("D6")}
     modify($rule) {setFact("X6")}
-    System.out.println("Classify Discount - number of persons gt 4 - Level 2 - D6 => X6");
+    System.out.println("Classify Discount - Level 2 - D6 => X6");
 end
 
 // ------------------------Pravila treceg nivoa------------------------
@@ -104,7 +104,7 @@ rule "Classify Discount - Level 3 - D7 => X7"
   agenda-group "reservation-number-discount"
   when 
     // TODO: isto sto i gore
-    $r: Reservation (user.getReservations().size() > 20, $dis: discount)
+    $r: Reservation (user.getReservations().size() >= 10 && user.getReservations().size() < 15, $dis: discount)
     $rule: Rule(rule == "D4", fact == "X4")
   then 
     modify($r) {setDiscount($dis + 2)}
@@ -117,10 +117,10 @@ rule "Classify Discount - Level 3 - D8 => X8"
   agenda-group "reservation-number-discount"
   when 
     // TODO: isto sto i gore
-    $r: Reservation (user.getReservations().size() > 20 && user.getReservations().size() < 30, $dis: discount)
+    $r: Reservation (user.getReservations().size() >= 15 && user.getReservations().size() < 20, $dis: discount)
     $rule: Rule(rule == "D5", fact == "X5")
   then 
-    modify($r) {setDiscount($dis + 2)}
+    modify($r) {setDiscount($dis + 3)}
     modify($rule) {setRule("D8")}
     modify($rule) {setFact("X8")}
     System.out.println("Classify Discount - Level 3 - D8 => X8");
@@ -130,10 +130,10 @@ rule "Classify Discount - Level 3 - D9 => X9"
   agenda-group "reservation-number-discount"
   when 
     // TODO: isto sto i gore
-    $r: Reservation (user.getReservations().size() > 20 && user.getReservations().size() < 30, $dis: discount)
+    $r: Reservation (user.getReservations().size() >= 20, $dis: discount)
     $rule: Rule(rule == "D6", fact == "X6")
   then 
-    modify($r) {setDiscount($dis + 2)}
+    modify($r) {setDiscount($dis + 4)}
     modify($rule) {setRule("D9")}
     modify($rule) {setFact("X9")}
     System.out.println("Classify Discount - Level 3 - D9 => X9");
