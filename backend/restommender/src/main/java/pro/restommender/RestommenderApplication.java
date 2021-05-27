@@ -3,12 +3,16 @@ package pro.restommender;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.PostLoad;
+
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -19,20 +23,22 @@ import pro.restommender.model.Reservation;
 import pro.restommender.model.Restaurant;
 import pro.restommender.model.Rule;
 import pro.restommender.model.User;
+import pro.restommender.service.Testovi;
 
 @SpringBootApplication
 @EnableScheduling
+@ConfigurationPropertiesScan
 public class RestommenderApplication {
 
-	@Bean
-	public KieContainer kieContainer() {
-		KieServices ks = KieServices.Factory.get();
-		KieContainer kContainer = ks
-				.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
-		KieScanner kScanner = ks.newKieScanner(kContainer);
-		kScanner.start(10_000);
-		return kContainer;
-	}
+	// @Bean
+	// public KieContainer kieContainer() {
+	// 	KieServices ks = KieServices.Factory.get();
+	// 	KieContainer kContainer = ks
+	// 			.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
+	// 	KieScanner kScanner = ks.newKieScanner(kContainer);
+	// 	kScanner.start(10_000);
+	// 	return kContainer;
+	// }
 
 	/*
 	 * pokretanje:
@@ -47,7 +53,15 @@ public class RestommenderApplication {
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(RestommenderApplication.class, args);
 		
-		testRestourantsCategory();
+		// testRestourantsCategory();
+	}
+
+	@PostConstruct
+	public static void test(){
+		System.out.println("---------------------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------------------");
+		// Testovi t = new Testovi();
+		// t.testRestourantsCategory();
 	}
 
 	public static void testRestourantsCategory() {
