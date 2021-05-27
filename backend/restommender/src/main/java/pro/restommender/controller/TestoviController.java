@@ -19,9 +19,15 @@ public class TestoviController {
   @GetMapping
   public ResponseEntity<?> runtests() {
     try {
+<<<<<<< HEAD
       testovi.testRestourantsCategory();
       // testovi.testLocation();
       // testovi.testReservationDiscount();
+=======
+      // testovi.testRestourantsCategory();
+      // testovi.testLocation();
+      testovi.testReservationDiscount();
+>>>>>>> 4d93126032e2f1f7c2d28825b757a7eb32b06b08
       // testovi.testRestourantMusic();
       return new ResponseEntity<>(HttpStatus.OK);
     } catch (Exception e) {
