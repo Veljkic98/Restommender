@@ -25,7 +25,7 @@ public class Restaurant {
   private double location;
 
   @Column(name = "music")
-  private String music;
+  private String music; // relaxing, loud
 
   @Column(name = "accomodation")
   private String accomodation;
@@ -51,8 +51,11 @@ public class Restaurant {
   @Column(name = "kid_friendly")
   private Boolean kidFriendly;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
+
+  public Restaurant() {
+  }
 
 
   public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, List<Reservation> reservations) {
@@ -197,6 +200,26 @@ public class Restaurant {
 
   public void setReservations(List<Reservation> reservations) {
     this.reservations = reservations;
+  }
+
+
+  @Override
+  public String toString() {
+    return "{" +
+      " id='" + getId() + "'" +
+      ", name='" + getName() + "'" +
+      ", location='" + getLocation() + "'" +
+      ", music='" + getMusic() + "'" +
+      ", accomodation='" + getAccomodation() + "'" +
+      ", type='" + getType() + "'" +
+      ", smokingArea='" + isSmokingArea() + "'" +
+      ", nonSmokingArea='" + isNonSmokingArea() + "'" +
+      ", alcoholicDrinks='" + isAlcoholicDrinks() + "'" +
+      ", nonAlcoholicDrinks='" + isNonAlcoholicDrinks() + "'" +
+      ", petFriendly='" + isPetFriendly() + "'" +
+      ", kidFriendly='" + isKidFriendly() + "'" +
+      ", reservations='" + getReservations() + "'" +
+      "}";
   }
 
 }

@@ -1,0 +1,131 @@
+package sbnz.restaurant;
+
+import pro.restommender.model.Restaurant;
+import pro.restommender.model.RelevantRestaurants;
+import pro.restommender.model.Rule;
+import pro.restommender.dto.Search;
+import java.util.List;
+
+// ------------------------Pravila prvog nivoa------------------------
+// -------------------------------------------------------------------
+
+rule "Classify Restaurant with music - Relaxing"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "relaxing")
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(music == "relaxing") from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with relaxing music.");
+end
+
+rule "Classify Restaurant with music - Loud"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "loud")
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(music == "loud") from $restaurants.getRelevantRestaurants())
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with loud music.");
+end
+
+// ------------------------Pravila drugog nivoa------------------------
+// --------------------------------------------------------------------
+
+rule "Classify Restaurant sa udobnim sedistima"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "relaxing", accomodation == "udobno")
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(accomodation== "udobno") from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with udobno.");
+end
+
+rule "Classify Restaurant sa tradicionalnim sedistima"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "loud", accomodation == "tradicionalno")
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(accomodation== "tradicionalno") from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with tradicionalno.");
+end
+
+// ------------------------Pravila treceg nivoa------------------------
+// --------------------------------------------------------------------
+
+rule "Classify Restaurant with snon-smoking areaa"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "relaxing", accomodation == "udobno", nonSmokingArea == true)
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(nonSmokingArea == true) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with non-smoking area.");
+end
+
+rule "Classify Restaurant with smoking area"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "loud", accomodation == "tradicionalno", smokingArea == true)
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(smokingArea == true) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with smoking area.");
+end
+
+rule "Classify Restaurant with kid- friendly area"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "relaxing", accomodation == "udobno", kidFriendly == true)
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(kidFriendly == true) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with kid- friendly area.");
+end
+
+// ------------------------Pravila cetvrtog nivoa----------------------
+// --------------------------------------------------------------------
+
+rule "Classify Restaurant with non-alcoholic drinks"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "relaxing", accomodation == "udobno", nonSmokingArea == true, nonAlcoholicDrinks == true)
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(nonAlcoholicDrinks == true) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with non-alcoholic drinks.");
+end
+
+rule "Classify Restaurant with alcoholic drinks"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "loud", accomodation == "tradicionalno", smokingArea == true, alcoholicDrinks == true)
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(alcoholicDrinks == true) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with alcoholic drinks.");
+end
+
+// ------------------------Pravila petog nivoa----------------------
+// -----------------------------------------------------------------
+
+rule "Classify Restaurant with pet-friendly area"
+  agenda-group "filter"
+  when 
+    $search: Search(music == "relaxing", accomodation == "udobno", nonSmokingArea == true, nonAlcoholicDrinks == true, petFriendly == true)
+    $restaurants: RelevantRestaurants()
+    $filteredRestaurants: List() from collect(Restaurant(petFriendly == true) from $restaurants.getRelevantRestaurants())
+  then 
+    modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
+    System.out.println("Get restaurants with pet-friendly area.");
+end
