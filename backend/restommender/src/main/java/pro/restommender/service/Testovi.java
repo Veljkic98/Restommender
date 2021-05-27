@@ -1,20 +1,11 @@
 package pro.restommender.service;
 
-import org.kie.api.runtime.KieContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
-import org.kie.api.KieServices;
-import org.kie.api.builder.KieScanner;
 import org.kie.api.runtime.KieSession;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import pro.restommender.dto.Search;
 import pro.restommender.model.Message;

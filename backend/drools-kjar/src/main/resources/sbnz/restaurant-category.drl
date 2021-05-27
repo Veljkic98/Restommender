@@ -15,10 +15,8 @@ rule "Classify Restaurant with music - Relaxing"
     $search: Search(music == "relaxing")
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(music == "relaxing") from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "")
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("A1")}
     System.out.println("Get restaurants with relaxing music.");
 end
 
@@ -28,10 +26,7 @@ rule "Classify Restaurant with music - Loud"
     $search: Search(music == "loud")
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(music == "loud") from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "")
-  then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("B1")}
     System.out.println("Get restaurants with loud music.");
 end
 
@@ -41,26 +36,22 @@ end
 rule "Classify Restaurant sa udobnim sedistima"
   agenda-group "filter"
   when 
-    $search: Search(accomodation == "udobno")
+    $search: Search(music == "relaxing", accomodation == "udobno")
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(accomodation== "udobno") from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "A1")
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("A2")}
     System.out.println("Get restaurants with udobno.");
 end
 
 rule "Classify Restaurant sa tradicionalnim sedistima"
   agenda-group "filter"
   when 
-    $search: Search(accomodation == "tradicionalno")
+    $search: Search(music == "loud", accomodation == "tradicionalno")
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(accomodation== "tradicionalno") from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "B1")
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("B2")}
     System.out.println("Get restaurants with tradicionalno.");
 end
 
@@ -70,39 +61,33 @@ end
 rule "Classify Restaurant with snon-smoking areaa"
   agenda-group "filter"
   when 
-    $search: Search(nonSmokingArea == true)
+    $search: Search(music == "relaxing", accomodation == "udobno", nonSmokingArea == true)
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(nonSmokingArea == true) from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "A2")
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("A3")}
     System.out.println("Get restaurants with non-smoking area.");
 end
 
 rule "Classify Restaurant with smoking area"
   agenda-group "filter"
   when 
-    $search: Search(smokingArea == true)
+    $search: Search(music == "loud", accomodation == "tradicionalno", smokingArea == true)
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(smokingArea == true) from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "B2")
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("B3")}
     System.out.println("Get restaurants with smoking area.");
 end
 
 rule "Classify Restaurant with kid- friendly area"
   agenda-group "filter"
   when 
-    $search: Search(kidFriendly == true)
+    $search: Search(music == "relaxing", accomodation == "udobno", kidFriendly == true)
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(kidFriendly == true) from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "A2")
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("E3")}
     System.out.println("Get restaurants with kid- friendly area.");
 end
 
@@ -112,26 +97,22 @@ end
 rule "Classify Restaurant with non-alcoholic drinks"
   agenda-group "filter"
   when 
-    $search: Search(nonAlcoholicDrinks == true)
+    $search: Search(music == "relaxing", accomodation == "udobno", nonSmokingArea == true, nonAlcoholicDrinks == true)
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(nonAlcoholicDrinks == true) from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "A3")
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("A4")}
     System.out.println("Get restaurants with non-alcoholic drinks.");
 end
 
 rule "Classify Restaurant with alcoholic drinks"
   agenda-group "filter"
   when 
-    $search: Search(alcoholicDrinks == true)
+    $search: Search(music == "loud", accomodation == "tradicionalno", smokingArea == true, alcoholicDrinks == true)
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(alcoholicDrinks == true) from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "B3")
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("B4")}
     System.out.println("Get restaurants with alcoholic drinks.");
 end
 
@@ -141,12 +122,10 @@ end
 rule "Classify Restaurant with pet-friendly area"
   agenda-group "filter"
   when 
-    $search: Search(petFriendly == true)
+    $search: Search(music == "relaxing", accomodation == "udobno", nonSmokingArea == true, nonAlcoholicDrinks == true, petFriendly == true)
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(petFriendly == true) from $restaurants.getRelevantRestaurants())
-    $rule: Rule(rule == "A4")
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    modify($rule) {setRule("A5")}
     System.out.println("Get restaurants with pet-friendly area.");
 end
