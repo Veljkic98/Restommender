@@ -19,10 +19,10 @@ public class TestoviController {
   @GetMapping
   public ResponseEntity<?> runtests() {
     try {
-      testovi.testRestourantsCategory();
-      testovi.testLocation();
+      // testovi.testRestourantsCategory();
+      // testovi.testLocation();
       testovi.testReservationDiscount();
-      testovi.testRestourantMusic();
+      // testovi.testRestourantMusic();
       return new ResponseEntity<>(HttpStatus.OK);
     } catch (Exception e) {
       e.printStackTrace();
