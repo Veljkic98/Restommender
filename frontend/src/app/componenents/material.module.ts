@@ -17,11 +17,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from './features/users/login/login.component';
 
 @NgModule({
     declarations: [
         ToolbarComponent,
         HomePageComponent,
+        LoginComponent,
     ],
     imports: [
         CommonModule,

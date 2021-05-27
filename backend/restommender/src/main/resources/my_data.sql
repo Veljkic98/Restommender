@@ -1,6 +1,6 @@
 insert into authority (name) values ('ROLE_AUTH_USER');
 
-insert into authenticated_user (id, email, username, password, first_name, last_name, type) values (nextval('person_seq'), 'mail1@gmail.com', 'miro', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Miroslav', 'Kostic', 0);
+insert into authenticated_user (id, email, username, password, first_name, last_name, type) values (nextval('person_seq'), 'mail1@gmail.com', 'mail1@gmail.com', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Miroslav', 'Kostic', 0);
 insert into authenticated_user (id, email, username, password, first_name, last_name, type) values (nextval('person_seq'), 'mail2@gmail.com', 'veki', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Veljko', 'Drazic', 1);
 insert into authenticated_user (id, email, username, password, first_name, last_name, type) values (nextval('person_seq'), 'mail3@gmail.com', 'niki', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Nikola', 'Skundric', 1);
 insert into authenticated_user (id, email, username, password, first_name, last_name, type) values (nextval('person_seq'), 'mail4@gmail.com', 'jova', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Ivica', 'Dacic', 1);
