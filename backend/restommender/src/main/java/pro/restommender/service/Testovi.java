@@ -113,41 +113,41 @@ public class Testovi {
 	}
 
   
-	public void testReservationDiscount() {
+	// public void testReservationDiscount() {
 
-		int numOfPersons = 5;
-		User u = new User();
-		Reservation r1 = new Reservation();
-		r1.setUser(u);
-		r1.setNumOfPersons(numOfPersons);
-		Reservation r2 = new Reservation();
-		r2.setUser(u);
-		Reservation r3 = new Reservation();
-		r3.setUser(u);
+	// 	int numOfPersons = 5;
+	// 	User u = new User();
+	// 	Reservation r1 = new Reservation();
+	// 	r1.setUser(u);
+	// 	r1.setNumOfPersons(numOfPersons);
+	// 	Reservation r2 = new Reservation();
+	// 	r2.setUser(u);
+	// 	Reservation r3 = new Reservation();
+	// 	r3.setUser(u);
 
-		List<Reservation> reservations = new ArrayList<>();
-		reservations.add(r1);
-		reservations.add(r2);
-		reservations.add(r3);
-		u.setReservations(reservations);
+	// 	List<Reservation> reservations = new ArrayList<>();
+	// 	reservations.add(r1);
+	// 	reservations.add(r2);
+	// 	reservations.add(r3);
+	// 	u.setReservations(reservations);
 
-		Search s = new Search();
-		s.setNumOfPersons(numOfPersons);
+	// 	Search s = new Search();
+	// 	s.setNumOfPersons(numOfPersons);
 
-		Rule rule = new Rule();
+	// 	Rule rule = new Rule();
 
 		
-		kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
-		kieSession.insert(r1);
-		kieSession.insert(s);
-		kieSession.insert(rule);
-		int num = kieSession.fireAllRules();
+	// 	kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
+	// 	kieSession.insert(r1);
+	// 	kieSession.insert(s);
+	// 	kieSession.insert(rule);
+	// 	int num = kieSession.fireAllRules();
 
-		System.out.println("----------------------");
-		System.out.println("Fired rules: " + num);
-		System.out.println("new dicount: " + r1.getDiscount());
-		System.out.println("Izvrseno pravilo: " + rule.getRule());
-	}
+	// 	System.out.println("----------------------");
+	// 	System.out.println("Fired rules: " + num);
+	// 	System.out.println("new dicount: " + r1.getDiscount());
+	// 	System.out.println("Izvrseno pravilo: " + rule.getRule());
+	// }
 
 	public void testLocation() {
 		Restaurant r1 = new Restaurant();
