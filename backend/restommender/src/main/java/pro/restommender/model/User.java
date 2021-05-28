@@ -1,37 +1,38 @@
 package pro.restommender.model;
 
+import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "user")
-public class User {
-  
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class User implements UserDetails {
+
   public enum Type {
     USER, ADMIN
   };
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSON_SEQ")
+  @SequenceGenerator(sequenceName = "person_seq", name = "PERSON_SEQ", allocationSize = 1)
   private Long id;
 
-  @Column(name = "username",nullable = false,unique = true)
-  private String username;
-  
-  @Column(name = "password",nullable = false)
+  // @Column(name = "username", nullable = false, unique = true)
+  // private String username;
+
+  @Column(name = "email", nullable = false, unique = true)
+  private String email;
+
+  @Column(name = "password", nullable = false)
   private String password;
-  
+
   @Column(name = "first_name")
   private String firstName;
-  
+
   @Column(name = "last_name")
   private String lastName;
 
@@ -41,6 +42,23 @@ public class User {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
 
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+  private List<Authority> authorities;
+
+  public User() {
+  }
+
+  public User(Long id, String email, String password, String firstName, String lastName, Type type) {
+    this.id = id;
+    // this.username = username;
+    this.email = email;
+    this.password = password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.type = type;
+  }
+
   public Long getId() {
     return this.id;
   }
@@ -49,21 +67,13 @@ public class User {
     this.id = id;
   }
 
-  public String getUsername() {
-    return this.username;
-  }
+  // public String getUsername() {
+  //   return this.username;
+  // }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getPassword() {
-    return this.password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
+  // public void setUsername(String username) {
+  //   this.username = username;
+  // }
 
   public String getFirstName() {
     return this.firstName;
@@ -81,6 +91,22 @@ public class User {
     this.lastName = lastName;
   }
 
+  public String getEmail() {
+    return this.email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPassword() {
+    return this.password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
   public Type getType() {
     return this.type;
   }
@@ -95,6 +121,18 @@ public class User {
 
   public void setReservations(List<Reservation> reservations) {
     this.reservations = reservations;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return authorities;
+  }
+
+  @Override
+  public String toString() {
+    return "{" + " id='" + getId() + "'" + "'" + ", firstName='" + getFirstName() + "'"
+        + ", lastName='" + getLastName() + "'" + ", email='" + getEmail() + "'" + ", password='" + getPassword() + "'"
+        + "}";
   }
 
 }
