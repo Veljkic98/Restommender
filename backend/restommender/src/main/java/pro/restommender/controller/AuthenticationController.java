@@ -42,13 +42,8 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody UserLoginRequestDTO authenticationRequest,
             HttpServletResponse response) {
 
-        System.out.println("---------------------------1-------------------------");
-        System.out.println(authenticationRequest.getUsername() + authenticationRequest.getPassword());
-
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 authenticationRequest.getUsername(), authenticationRequest.getPassword()));
-
-        System.out.println("---------------------------2-------------------------");
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
