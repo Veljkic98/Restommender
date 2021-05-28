@@ -17,7 +17,7 @@ public class Reservation {
   private Long id;
 
   @ManyToOne
-  private User user;
+  private AuthenticatedUser user;
 
   @ManyToOne
   private Restaurant restaurant;
@@ -36,11 +36,11 @@ public class Reservation {
     this.id = id;
   }
 
-  public User getUser() {
+  public AuthenticatedUser getUser() {
     return this.user;
   }
 
-  public void setUser(User user) {
+  public void setUser(AuthenticatedUser user) {
     this.user = user;
   }
 
