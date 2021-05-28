@@ -1,0 +1,35 @@
+<div class="center">
+  <h3> Search restaurants</h3>
+  <div style="float:left; ">
+    <p style="margin: 0px; color: rgb(216, 131, 3)">Music</p>
+    <mat-radio-group [(ngModel)]="music">
+      <mat-radio-button class="example-radio-button" *ngFor="let opt of musicOptions" [value]="opt">
+        {{opt}}
+      </mat-radio-button>
+    </mat-radio-group>
+    
+  </div>
+  
+  <div style="margin-left: 300px;">
+    <p style="margin: 0px; color: rgb(216, 131, 3)">Accomodation</p>
+    <mat-radio-group  [(ngModel)]="accomodation">
+      <mat-radio-button class="example-radio-button" *ngFor="let opt of accomodationOptions" [value]="opt">
+        {{opt}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  
+  <div style="margin-top: 15px;">
+    <p style="margin: 0px; color: rgb(216, 131, 3)">Other</p>
+    <section class="example-section" [formGroup]="restaurantsSearch">
+      <mat-checkbox formControlName="smokingArea">Smoking Area</mat-checkbox>
+      <mat-checkbox formControlName="nonSmokingArea">Non-smoking Area</mat-checkbox>
+      <mat-checkbox formControlName="alcoholicDrinks">Alcoholic Drinks</mat-checkbox>
+      <mat-checkbox formControlName="nonAlcoholicDrinks">Non-alcoholic Drinks</mat-checkbox>
+      <mat-checkbox formControlName="petFriendly">Pet Friendly</mat-checkbox>
+      <mat-checkbox formControlName="kidFriendly">Kid Friendly</mat-checkbox>
+    </section>
+  </div>
+  
+  <button mat-raised-button color="accent" style="margin: 5px;">Search</button>
+</div>

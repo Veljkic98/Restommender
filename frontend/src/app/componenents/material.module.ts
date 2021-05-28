@@ -19,12 +19,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatChipsModule} from '@angular/material/chips';
-
+import { SearchComponent } from './search/search.component';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
     declarations: [
         ToolbarComponent,
         HomePageComponent,
         DashboardComponent,
+        SearchComponent,
     ],
     imports: [
         CommonModule,
@@ -44,7 +46,8 @@ import {MatChipsModule} from '@angular/material/chips';
         MatNativeDateModule,
         MatCheckboxModule,
         MatDialogModule,
-        MatChipsModule
+        MatChipsModule,
+        MatRadioModule
     ],
     providers: [
         MatDatepickerModule,
