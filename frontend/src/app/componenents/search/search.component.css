@@ -1,0 +1,16 @@
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.mat-checkbox {
+  margin: 3px;
+}
+
+.center {
+  background-color: rgb(243, 243, 253);
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-bottom: 5px;
+}

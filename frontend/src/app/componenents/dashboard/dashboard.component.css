@@ -1,0 +1,26 @@
+.center {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 50px;
+  min-width: 500px;
+}
+table {
+  width: 100%;
+}
+h1{
+  text-align: center;
+}
+
+.attr {
+  font-size: large;
+  padding: 3px;
+}
+
+mat-icon {
+  color: rgb(48, 184, 48);
+  vertical-align: bottom;
+}
+mat-card {
+  background-color: whitesmoke;
+}
