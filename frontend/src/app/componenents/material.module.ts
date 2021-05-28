@@ -17,16 +17,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { SearchComponent } from './search/search.component';
 import {MatRadioModule} from '@angular/material/radio';
+
+import { LoginComponent } from './features/users/login/login.component';
+
 @NgModule({
     declarations: [
         ToolbarComponent,
         HomePageComponent,
         DashboardComponent,
         SearchComponent,
+        LoginComponent,
+
     ],
     imports: [
         CommonModule,

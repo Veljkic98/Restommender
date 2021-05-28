@@ -21,20 +21,20 @@ public abstract class User implements UserDetails {
   @SequenceGenerator(sequenceName = "person_seq", name = "PERSON_SEQ", allocationSize = 1)
   private Long id;
 
-  @Column(name = "username", nullable = false, unique = true)
-  private String username;
-
-  @Column(name = "first_name")
-  private String firstName;
-
-  @Column(name = "last_name")
-  private String lastName;
+  // @Column(name = "username", nullable = false, unique = true)
+  // private String username;
 
   @Column(name = "email", nullable = false, unique = true)
   private String email;
 
   @Column(name = "password", nullable = false)
   private String password;
+
+  @Column(name = "first_name")
+  private String firstName;
+
+  @Column(name = "last_name")
+  private String lastName;
 
   @Column(name = "type")
   private Type type;
@@ -46,6 +46,19 @@ public abstract class User implements UserDetails {
   @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
   private List<Authority> authorities;
 
+  public User() {
+  }
+
+  public User(Long id, String email, String password, String firstName, String lastName, Type type) {
+    this.id = id;
+    // this.username = username;
+    this.email = email;
+    this.password = password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.type = type;
+  }
+
   public Long getId() {
     return this.id;
   }
@@ -54,13 +67,13 @@ public abstract class User implements UserDetails {
     this.id = id;
   }
 
-  public String getUsername() {
-    return this.username;
-  }
+  // public String getUsername() {
+  //   return this.username;
+  // }
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+  // public void setUsername(String username) {
+  //   this.username = username;
+  // }
 
   public String getFirstName() {
     return this.firstName;
@@ -117,7 +130,7 @@ public abstract class User implements UserDetails {
 
   @Override
   public String toString() {
-    return "{" + " id='" + getId() + "'" + ", username='" + getUsername() + "'" + ", firstName='" + getFirstName() + "'"
+    return "{" + " id='" + getId() + "'" + "'" + ", firstName='" + getFirstName() + "'"
         + ", lastName='" + getLastName() + "'" + ", email='" + getEmail() + "'" + ", password='" + getPassword() + "'"
         + "}";
   }
