@@ -26,6 +26,7 @@ rule "Classify Restaurant with music - Loud"
     $search: Search(music == "loud")
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(music == "loud") from $restaurants.getRelevantRestaurants())
+  then
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
     System.out.println("Get restaurants with loud music.");
 end
