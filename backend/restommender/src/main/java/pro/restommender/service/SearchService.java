@@ -40,19 +40,43 @@ public class SearchService {
         RelevantRestaurants relevantRestaurants = new RelevantRestaurants();
         relevantRestaurants.setRelevantRestaurants(restaurants);
 
-		System.out.println(relevantRestaurants.getRelevantRestaurants().size());
-        doRestourantsCategory(search, relevantRestaurants);
-		System.out.println(relevantRestaurants.getRelevantRestaurants().size());
+        // doFilter(search, relevantRestaurants);
+
+        doLocation(search, relevantRestaurants);
+
+        // doRestourantMusic(search, relevantRestaurants);
+
+        // doDiscount();
 
 
 
-
-        
 
         return relevantRestaurants.getRelevantRestaurants();
     }
 
-    private void doRestourantsCategory(Search search, RelevantRestaurants relevantRestaurants) {
+    // TODO: popraviti jer mi je lista na kraju uvek 0
+    private void doLocation(Search search, RelevantRestaurants relevantRestaurants) {
+
+        System.out.println("****** SEARCH LOCATION ******");
+
+        kieSession.getAgenda().getAgendaGroup("location").setFocus();
+		kieSession.insert(relevantRestaurants);
+		kieSession.insert(search);
+		int num = kieSession.fireAllRules();
+
+		System.out.println("Fired rules: " + num);
+        System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
+    }
+
+    /**
+     * 
+     * 
+     * @param search
+     * @param relevantRestaurants
+     */
+    private void doFilter(Search search, RelevantRestaurants relevantRestaurants) {
+
+        System.out.println("****** SEARCH FILTER ******");
 
         kieSession.getAgenda().getAgendaGroup("filter").setFocus();
 		kieSession.insert(relevantRestaurants);
@@ -60,7 +84,7 @@ public class SearchService {
 		int num = kieSession.fireAllRules();
 
 		System.out.println("Fired rules: " + num);
-
+        System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
     }
 
 }
