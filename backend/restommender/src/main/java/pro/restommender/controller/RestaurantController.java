@@ -26,11 +26,14 @@ public class RestaurantController {
    */
   @PostMapping
   public ResponseEntity<?> add(@RequestBody Restaurant restaurant) {
+    
     try {
       restaurantService.add(restaurant);
+      
       return new ResponseEntity<>(HttpStatus.CREATED);
     } catch (Exception e) {
       e.printStackTrace();
+      
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   }

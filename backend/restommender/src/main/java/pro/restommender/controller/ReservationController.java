@@ -14,17 +14,20 @@ import pro.restommender.service.ReservationService;
 @RestController
 @RequestMapping("reservations")
 public class ReservationController {
-  
+
   @Autowired
   ReservationService reservationService;
 
   @PostMapping
-  public ResponseEntity<?> newReservation(@RequestBody Reservation reservation){ 
+  public ResponseEntity<?> newReservation(@RequestBody Reservation reservation) {
+
     try {
       reservationService.add(reservation);
+
       return new ResponseEntity<>(HttpStatus.CREATED);
     } catch (Exception e) {
       e.printStackTrace();
+
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   }
