@@ -59,12 +59,12 @@ public class Testovi {
 		RelevantRestaurants rr = new RelevantRestaurants();
 		rr.setRelevantRestaurants(restaurants);
 
-		Rule rule = new Rule();
+		// Rule rule = new Rule();
 
 		kieSession.getAgenda().getAgendaGroup("filter").setFocus();
 		kieSession.insert(rr);
 		kieSession.insert(search);
-		kieSession.insert(rule);
+		// kieSession.insert(rule);
 		int num = kieSession.fireAllRules();
 
 		System.out.println("----------------------");
