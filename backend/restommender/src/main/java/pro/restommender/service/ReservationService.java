@@ -13,6 +13,7 @@ public class ReservationService {
   ReservationRepository reservationRepository;
 
   public Reservation add(Reservation reservation) {
+    //TODO: provuci rezervaciju kroz pravila
     return reservationRepository.save(reservation);
   }
 }
