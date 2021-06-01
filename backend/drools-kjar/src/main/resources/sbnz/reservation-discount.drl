@@ -19,7 +19,7 @@ rule "Classify Discount - Level 1 - D1 => X1"
     // $r: Reservation (user.getReservations().size() < 2)
   then 
     modify($r) {setDiscount($dis + 5)}
-    System.out.println("reservation number lt 2");
+    System.out.println("Level 1 - discount was: 0, discount is: 5");
 end
 
 rule "Classify Discount - Level 1 - D2 => X2"
@@ -29,7 +29,7 @@ rule "Classify Discount - Level 1 - D2 => X2"
     $r: Reservation (user.getReservations().size() >= 2 && user.getReservations().size() < 4, $dis: discount, discount == 0)
   then 
     modify($r) {setDiscount($dis + 10)}
-    System.out.println("reservation number between 2 and 4");
+    System.out.println("Level 1 - discount was: 0, discount is: 10");
 end
 
 rule "Classify Discount - Level 1 - D3 => X3"
@@ -39,7 +39,7 @@ rule "Classify Discount - Level 1 - D3 => X3"
     $r: Reservation (user.getReservations().size() >= 4, $dis: discount, discount == 0)
   then 
     modify($r) {setDiscount($dis + 15)}
-    System.out.println("reservation number gt 4");
+    System.out.println("Level 1 - discount was: 0, discount is: 15");
 end
 
 // ------------------------Pravila drugog nivoa------------------------
@@ -53,7 +53,7 @@ rule "Classify Discount - Level 2 - D4 => X4"
     $r: Reservation($discount: discount, discount == 5)
   then 
     modify($r) { setDiscount($discount + 2); }
-    System.out.println("Classify Discount - Level 2 - D4 => X4");
+    System.out.println("Level 1 - discount was: 5, discount is: 7");
 end
 
 rule "Classify Discount - Level 2 - D5 => X5"
@@ -64,7 +64,7 @@ rule "Classify Discount - Level 2 - D5 => X5"
     $r: Reservation($discount: discount, discount == 10)
   then 
     modify($r) { setDiscount($discount + 3); }
-    System.out.println("Classify Discount - Level 2 - D5 => X5");
+    System.out.println("Level 1 - discount was: 10, discount is: 13");
 end
 
 rule "Classify Discount - Level 2 - D6 => X6"
@@ -75,7 +75,7 @@ rule "Classify Discount - Level 2 - D6 => X6"
     $r: Reservation($discount: discount, discount == 15)
   then 
     modify($r) { setDiscount($discount + 4); }
-    System.out.println("Classify Discount - Level 2 - D6 => X6");
+    System.out.println("Level 1 - discount was: 15, discount is: 19");
 end
 
 // ------------------------Pravila treceg nivoa------------------------
@@ -88,7 +88,7 @@ rule "Classify Discount - Level 3 - D7 => X7"
     $r: Reservation (user.getReservations().size() >= 10 && user.getReservations().size() < 15, $dis: discount, discount == 7)
   then 
     modify($r) {setDiscount($dis + 2)}
-    System.out.println("Classify Discount - Level 3 - D7 => X7");
+    System.out.println("Level 1 - discount was: 7, discount is: 9");
 end
 
 rule "Classify Discount - Level 3 - D8 => X8"
@@ -98,7 +98,7 @@ rule "Classify Discount - Level 3 - D8 => X8"
     $r: Reservation (user.getReservations().size() >= 15 && user.getReservations().size() < 20, $dis: discount, discount == 13)
   then 
     modify($r) {setDiscount($dis + 3)}
-    System.out.println("Classify Discount - Level 3 - D8 => X8");
+    System.out.println("Level 1 - discount was: 13, discount is: 16");
 end
 
 rule "Classify Discount - Level 3 - D9 => X9"
@@ -108,5 +108,5 @@ rule "Classify Discount - Level 3 - D9 => X9"
     $r: Reservation (user.getReservations().size() >= 20, $dis: discount, discount == 19)
   then 
     modify($r) {setDiscount($dis + 4)}
-    System.out.println("Classify Discount - Level 3 - D9 => X9");
+    System.out.println("Level 1 - discount was: 19, discount is: 23");
 end
