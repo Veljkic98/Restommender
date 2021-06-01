@@ -53,7 +53,7 @@ public class Restaurant {
   private Boolean kidFriendly;
 
   @Column(name = "rate")
-  private int rate;
+  private double rate;
 
   @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
@@ -61,7 +61,7 @@ public class Restaurant {
   public Restaurant() {
   }
 
-  public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, int rate, List<Reservation> reservations) {
+  public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, double rate, List<Reservation> reservations) {
     this.id = id;
     this.name = name;
     this.location = location;
@@ -198,11 +198,11 @@ public class Restaurant {
     this.kidFriendly = kidFriendly;
   }
 
-  public int getRate() {
+  public double getRate() {
     return this.rate;
   }
 
-  public void setRate(int rate) {
+  public void setRate(double rate) {
     this.rate = rate;
   }
 

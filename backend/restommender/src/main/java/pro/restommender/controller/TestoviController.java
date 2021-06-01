@@ -20,17 +20,20 @@ public class TestoviController {
   public ResponseEntity<?> runtests() {
 
     try {
-      System.out.println("\n*** TEST CATEGORY ***");
-      testovi.testRestourantsCategory();
+      // System.out.println("\n*** TEST CATEGORY ***");
+      // testovi.testRestourantsCategory();
 
-      System.out.println("\n*** TEST LOCATION ***");
-      testovi.testLocation();
+      // System.out.println("\n*** TEST LOCATION ***");
+      // testovi.testLocation();
+
+      System.out.println("\n*** TEST RATE ***");
+      testovi.testRate();
       
-      System.out.println("\n*** TEST DISCOUNT ***");
-      testovi.testReservationDiscount();
+      // System.out.println("\n*** TEST DISCOUNT ***");
+      // testovi.testReservationDiscount();
       
-      System.out.println("\n*** TEST MUSIC ***");
-      testovi.testRestourantMusic();
+      // System.out.println("\n*** TEST MUSIC ***");
+      // testovi.testRestourantMusic();
       
       return new ResponseEntity<>(HttpStatus.OK);
     } catch (Exception e) {

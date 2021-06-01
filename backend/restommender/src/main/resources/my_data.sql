@@ -21,9 +21,9 @@ insert into user_authority (user_id, authority_id) values (8, 1);
 insert into user_authority (user_id, authority_id) values (9, 1);
 
 insert into restaurant (name, location, music, accomodation, type, smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
-    ('Petrus', 0.2, 'relaxing', 'udobno', 'moderni', true, true, true, true, true, 4, true);
+    ('Petrus', 0.2, 'relaxing', 'udobno', 'moderni', true, true, true, true, true, 0.8, true);
 insert into restaurant (name, location, music, accomodation, type, smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
-    ('corso', 2, 'relaxing', 'visokoSedenje', 'tradicionalni', true, false, true, true, true, 4, false);
+    ('corso', 2, 'relaxing', 'visokoSedenje', 'tradicionalni', true, false, true, true, true, 0.8, false);
 insert into restaurant (name, location, music, accomodation, type, smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
     ('atrijum', 10, 'loud', 'udobno', 'svirka', true, false, true, true, false, 3, true);
 

@@ -28,6 +28,8 @@ public class Search {
 
   private Boolean kidFriendly;
 
+  private double rate;
+
 
   public Long getUserId() {
     return this.userId;
@@ -157,6 +159,14 @@ public class Search {
     this.kidFriendly = kidFriendly;
   }
 
+  public double getRate() {
+    return this.rate;
+  }
+
+  public void setRate(double rate) {
+    this.rate = rate;
+  }
+
   @Override
   public String toString() {
     return "{" +
@@ -173,6 +183,7 @@ public class Search {
       ", nonAlcoholicDrinks='" + isNonAlcoholicDrinks() + "'" +
       ", petFriendly='" + isPetFriendly() + "'" +
       ", kidFriendly='" + isKidFriendly() + "'" +
+      ", rate='" + getRate() + "'" +
       "}";
   }
 
