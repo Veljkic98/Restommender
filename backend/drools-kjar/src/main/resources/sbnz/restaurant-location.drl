@@ -7,9 +7,10 @@ import java.util.List;
 
 rule "Classify Restaurant - In Center"
   agenda-group "location"
-  when 
+  when
+    $search: Search(location <= 1)
     $restaurants: RelevantRestaurants()
-    $filteredRestaurants: List() from collect(Restaurant(location <1) from $restaurants.getRelevantRestaurants())
+    $filteredRestaurants: List() from collect(Restaurant(location <= 1) from $restaurants.getRelevantRestaurants())
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
     System.out.println( "in center------------------" );
@@ -17,7 +18,8 @@ end
 
 rule "Classify Restaurant - Near Center"
   agenda-group "location"
-  when 
+  when
+    $search: Search(location > 1 && location <= 5)
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(location > 1 && location <= 5) from $restaurants.getRelevantRestaurants())
   then 
@@ -27,7 +29,8 @@ end
 
 rule "Classify Restaurant - Far Away From Center"
   agenda-group "location"
-  when 
+  when
+    $search: Search(location > 5)
     $restaurants: RelevantRestaurants()
     $filteredRestaurants: List() from collect(Restaurant(location > 5) from $restaurants.getRelevantRestaurants())
   then 

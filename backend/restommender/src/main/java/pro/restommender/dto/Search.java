@@ -157,4 +157,23 @@ public class Search {
     this.kidFriendly = kidFriendly;
   }
 
+  @Override
+  public String toString() {
+    return "{" +
+      " userId='" + getUserId() + "'" +
+      ", numOfPersons='" + getNumOfPersons() + "'" +
+      ", name='" + getName() + "'" +
+      ", location='" + getLocation() + "'" +
+      ", music='" + getMusic() + "'" +
+      ", accomodation='" + getAccomodation() + "'" +
+      ", type='" + getType() + "'" +
+      ", smokingArea='" + isSmokingArea() + "'" +
+      ", nonSmokingArea='" + isNonSmokingArea() + "'" +
+      ", alcoholicDrinks='" + isAlcoholicDrinks() + "'" +
+      ", nonAlcoholicDrinks='" + isNonAlcoholicDrinks() + "'" +
+      ", petFriendly='" + isPetFriendly() + "'" +
+      ", kidFriendly='" + isKidFriendly() + "'" +
+      "}";
+  }
+
 }
