@@ -83,7 +83,6 @@ public class SearchService {
 
     /**
      * 
-     * 
      * @param search
      * @param relevantRestaurants
      */
@@ -98,6 +97,21 @@ public class SearchService {
 
 		System.out.println("Fired rules: " + num);
         System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
+    }
+
+    private void doRate(Search search, RelevantRestaurants relevantRestaurants, Reservation reservation) {
+
+        System.out.println("****** SET DISCOUNT BY RATES ******");
+
+        kieSession.getAgenda().getAgendaGroup("rate").setFocus();
+		kieSession.insert(relevantRestaurants);
+		kieSession.insert(reservation);
+		kieSession.insert(search);
+		int num = kieSession.fireAllRules();
+
+		System.out.println("----------------------");
+		System.out.println("Fired rules: " + num);
+		System.out.println(reservation.getDiscount());
     }
 
 }
