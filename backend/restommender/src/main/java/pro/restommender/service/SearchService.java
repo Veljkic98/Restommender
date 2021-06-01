@@ -42,11 +42,11 @@ public class SearchService {
 
         // doFilter(search, relevantRestaurants);
 
-        doLocation(search, relevantRestaurants);
+        // doLocation(search, relevantRestaurants);
 
         // doRestourantMusic(search, relevantRestaurants);
 
-        // doDiscount();
+        doDiscount(search, reservations);
 
 
 
@@ -54,7 +54,20 @@ public class SearchService {
         return relevantRestaurants.getRelevantRestaurants();
     }
 
-    // TODO: popraviti jer mi je lista na kraju uvek 0
+    // TODO: ova pravila aktivirati samo kad se dodaju nove rezervacije
+    private void doDiscount(Search search, List<Reservation> reservations) {
+
+        System.out.println("****** SEARCH DISCOUNT ******");
+
+        kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
+		kieSession.insert(reservations.get(0));
+		kieSession.insert(search);
+		int num = kieSession.fireAllRules();
+
+		System.out.println("Fired rules: " + num);
+        System.out.println("Reservations list size is : " + reservations.size());
+    }
+
     private void doLocation(Search search, RelevantRestaurants relevantRestaurants) {
 
         System.out.println("****** SEARCH LOCATION ******");
