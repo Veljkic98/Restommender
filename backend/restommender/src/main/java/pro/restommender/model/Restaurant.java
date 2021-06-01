@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "restaurant")
 public class Restaurant {
+  
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -51,14 +52,16 @@ public class Restaurant {
   @Column(name = "kid_friendly")
   private Boolean kidFriendly;
 
+  @Column(name = "rate")
+  private int rate;
+
   @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
 
   public Restaurant() {
   }
 
-
-  public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, List<Reservation> reservations) {
+  public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, int rate, List<Reservation> reservations) {
     this.id = id;
     this.name = name;
     this.location = location;
@@ -71,6 +74,7 @@ public class Restaurant {
     this.nonAlcoholicDrinks = nonAlcoholicDrinks;
     this.petFriendly = petFriendly;
     this.kidFriendly = kidFriendly;
+    this.rate = rate;
     this.reservations = reservations;
   }
 
@@ -194,6 +198,14 @@ public class Restaurant {
     this.kidFriendly = kidFriendly;
   }
 
+  public int getRate() {
+    return this.rate;
+  }
+
+  public void setRate(int rate) {
+    this.rate = rate;
+  }
+
   public List<Reservation> getReservations() {
     return this.reservations;
   }
@@ -201,7 +213,6 @@ public class Restaurant {
   public void setReservations(List<Reservation> reservations) {
     this.reservations = reservations;
   }
-
 
   @Override
   public String toString() {
@@ -218,6 +229,7 @@ public class Restaurant {
       ", nonAlcoholicDrinks='" + isNonAlcoholicDrinks() + "'" +
       ", petFriendly='" + isPetFriendly() + "'" +
       ", kidFriendly='" + isKidFriendly() + "'" +
+      ", rate='" + getRate() + "'" +
       ", reservations='" + getReservations() + "'" +
       "}";
   }
