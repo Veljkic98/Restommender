@@ -68,4 +68,13 @@ public class Reservation {
     this.discount = discount;
   }
 
+  @Override
+  public String toString() {
+    return "{" +
+      " id='" + getId() + "'" +
+      ", numOfPersons='" + getNumOfPersons() + "'" +
+      ", discount='" + getDiscount() + "'" +
+      "}";
+  }
+
 }
