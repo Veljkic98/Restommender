@@ -1,6 +1,5 @@
 package pro.restommender.dto.responseDTO;
 
-import java.util.List;
 import pro.restommender.model.User.Type;
 
 public class UserResponseDTO {

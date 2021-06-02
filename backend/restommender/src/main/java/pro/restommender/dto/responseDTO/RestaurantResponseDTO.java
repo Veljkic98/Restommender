@@ -1,32 +1,23 @@
 package pro.restommender.dto.responseDTO;
 
+import java.util.List;
+
 public class RestaurantResponseDTO {
 
-    private Long id;
-
-    private String name;
-
-    private double location;
-
-    private String music; // relaxing, loud
-
-    private String accomodation;
-
-    private String type; // moderni, tradicionalni, organizovane svirke, porodicni
-
-    private Boolean smokingArea;
-
-    private Boolean nonSmokingArea;
-
-    private Boolean alcoholicDrinks;
-
-    private Boolean nonAlcoholicDrinks;
-
-    private Boolean petFriendly;
-
-    private Boolean kidFriendly;
-
-    private double rate;
+    public Long id;
+    public String name;
+    public double location;
+    public String music; // relaxing, loud
+    public String accomodation;
+    public String type; // moderni, tradicionalni, organizovane svirke, porodicni
+    public Boolean smokingArea;
+    public Boolean nonSmokingArea;
+    public Boolean alcoholicDrinks;
+    public Boolean nonAlcoholicDrinks;
+    public Boolean petFriendly;
+    public Boolean kidFriendly;
+    public double rate;
+    public List<ReservationResponseDTO> reservations;
 
     public RestaurantResponseDTO() {
     }
@@ -175,6 +166,14 @@ public class RestaurantResponseDTO {
 
     public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    public List<ReservationResponseDTO> getReservations() {
+        return this.reservations;
+    }
+
+    public void setReservations(List<ReservationResponseDTO> reservations) {
+        this.reservations = reservations;
     }
 
 }

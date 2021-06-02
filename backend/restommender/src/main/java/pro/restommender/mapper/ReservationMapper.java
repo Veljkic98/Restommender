@@ -25,10 +25,13 @@ public class ReservationMapper {
     @Autowired
     private AuthenticatedUserRepository userRepository;
 
+    @Autowired
+    private RestaurantMapper restaurantMapper;
+
     public Reservation toEntity(ReservationRequestDTO dto) {
 
         Reservation reservation = new Reservation();
-        
+
         AuthenticatedUser user = userRepository.findById(dto.getUserId()).orElse(null);
         reservation.setUser(user);
 
@@ -36,8 +39,28 @@ public class ReservationMapper {
         reservation.setRestaurant(restaurant);
 
         reservation.setNumOfPersons(dto.getNumOfPersons());
-    
+
         return reservation;
+    }
+
+    public RestaurantResponseDTO toDto(Reservation res) {
+
+        RestaurantResponseDTO resDto = new RestaurantResponseDTO();
+        resDto.setAccomodation(res.getRestaurant().getAccomodation());
+        resDto.setAlcoholicDrinks(res.getRestaurant().getAlcoholicDrinks());
+        resDto.setId(res.getRestaurant().getId());
+        resDto.setKidFriendly(res.getRestaurant().getKidFriendly());
+        resDto.setLocation(res.getRestaurant().getLocation());
+        resDto.setMusic(res.getRestaurant().getMusic());
+        resDto.setName(res.getRestaurant().getName());
+        resDto.setNonAlcoholicDrinks(res.getRestaurant().getNonAlcoholicDrinks());
+        resDto.setNonSmokingArea(res.getRestaurant().getNonSmokingArea());
+        resDto.setPetFriendly(res.getRestaurant().getPetFriendly());
+        resDto.setRate(res.getRestaurant().getRate());
+        resDto.setSmokingArea(res.getRestaurant().getSmokingArea());
+        resDto.setType(res.getRestaurant().getType());
+
+        return resDto;
     }
 
     public List<ReservationResponseDTO> toDtoList(List<Reservation> reservations) {
@@ -49,21 +72,8 @@ public class ReservationMapper {
             dto.setDiscount(res.getDiscount());
             dto.setId(res.getId());
             dto.setNumOfPersons(res.getNumOfPersons());
-            
-            RestaurantResponseDTO resDto = new RestaurantResponseDTO();
-            resDto.setAccomodation(res.getRestaurant().getAccomodation());
-            resDto.setAlcoholicDrinks(res.getRestaurant().getAlcoholicDrinks());
-            resDto.setId(res.getRestaurant().getId());
-            resDto.setKidFriendly(res.getRestaurant().getKidFriendly());
-            resDto.setLocation(res.getRestaurant().getLocation());
-            resDto.setMusic(res.getRestaurant().getMusic());
-            resDto.setName(res.getRestaurant().getName());
-            resDto.setNonAlcoholicDrinks(res.getRestaurant().getNonAlcoholicDrinks());
-            resDto.setNonSmokingArea(res.getRestaurant().getNonSmokingArea());
-            resDto.setPetFriendly(res.getRestaurant().getPetFriendly());
-            resDto.setRate(res.getRestaurant().getRate());
-            resDto.setSmokingArea(res.getRestaurant().getSmokingArea());
-            resDto.setType(res.getRestaurant().getType());
+
+            RestaurantResponseDTO resDto = toDto(res);
 
             dto.setRestaurant(resDto);
 
@@ -82,5 +92,5 @@ public class ReservationMapper {
 
         return dtoList;
     }
-    
+
 }
