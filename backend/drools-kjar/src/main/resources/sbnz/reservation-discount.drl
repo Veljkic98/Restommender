@@ -59,7 +59,7 @@ rule "Classify Discount - Level 2 - D4 => X4"
     $r: Reservation($discount: discount, discount == 5)
   then 
     modify($r) { setDiscount($discount + 2); }
-    System.out.println("Level 1 - discount was: 5, discount is: 7");
+    System.out.println("Level 2 - discount was: 5, discount is: 7");
 end
 
 rule "Classify Discount - Level 2 - D5 => X5"
@@ -70,7 +70,7 @@ rule "Classify Discount - Level 2 - D5 => X5"
     $r: Reservation($discount: discount, discount == 10)
   then 
     modify($r) { setDiscount($discount + 3); }
-    System.out.println("Level 1 - discount was: 10, discount is: 13");
+    System.out.println("Level 2 - discount was: 10, discount is: 13");
 end
 
 rule "Classify Discount - Level 2 - D6 => X6"
@@ -81,7 +81,7 @@ rule "Classify Discount - Level 2 - D6 => X6"
     $r: Reservation($discount: discount, discount == 15)
   then 
     modify($r) { setDiscount($discount + 4); }
-    System.out.println("Level 1 - discount was: 15, discount is: 19");
+    System.out.println("Level 2 - discount was: 15, discount is: 19");
 end
 
 // ------------------------Pravila treceg nivoa------------------------
@@ -92,12 +92,12 @@ rule "Classify Discount - Level 3 - D7 => X7"
   when 
     // $r: Reservation (user.getReservations().size() >= 10 && user.getReservations().size() < 15, $dis: discount, discount == 7)
 
-    $r: Reservation ($user: user, $dis: discount, discount == 7)
+    $r: Reservation ($user: user, $dis: discount, discount == 19)
     $rezervacije: List() from collect(Reservation() from $user.getReservations())
     eval($rezervacije.size() >= 10 && $rezervacije.size() < 15)
   then 
     modify($r) {setDiscount($dis + 2)}
-    System.out.println("Level 1 - discount was: 7, discount is: 9");
+    System.out.println("Level 3 - discount was: 19, discount is: 21");
 end
 
 rule "Classify Discount - Level 3 - D8 => X8"
@@ -105,12 +105,12 @@ rule "Classify Discount - Level 3 - D8 => X8"
   when 
     // $r: Reservation (user.getReservations().size() >= 15 && user.getReservations().size() < 20, $dis: discount, discount == 13)
 
-    $r: Reservation ($user: user, $dis: discount, discount == 13)
+    $r: Reservation ($user: user, $dis: discount, discount == 19)
     $rezervacije: List() from collect(Reservation() from $user.getReservations())
     eval($rezervacije.size() >= 15 && $rezervacije.size() < 20)
   then 
     modify($r) {setDiscount($dis + 3)}
-    System.out.println("Level 1 - discount was: 13, discount is: 16");
+    System.out.println("Level 3 - discount was: 19, discount is: 22");
 end
 
 rule "Classify Discount - Level 3 - D9 => X9"
@@ -123,5 +123,5 @@ rule "Classify Discount - Level 3 - D9 => X9"
     eval($rezervacije.size() >= 20)
   then 
     modify($r) {setDiscount($dis + 4)}
-    System.out.println("Level 1 - discount was: 19, discount is: 23");
+    System.out.println("Level 3 - discount was: 19, discount is: 23");
 end
