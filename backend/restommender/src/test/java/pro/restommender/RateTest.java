@@ -33,9 +33,6 @@ public class RateTest {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    @Autowired
-    private AuthenticatedUserRepository userRepository;
-
     @BeforeEach
     public void init() {
         KieServices ks = KieServices.Factory.get();
@@ -49,8 +46,6 @@ public class RateTest {
 
         Reservation res = reservationRepository.findById(1L).orElse(null);
         res.setNumOfPersons(5);
-        // res.setRestaurant(restaurantRepository.findById(1l).orElse(null));
-        // res.setUser(userRepository.findById(2l).orElse(null));
         res.setId(null);
 
         Search s = new Search();
@@ -73,7 +68,102 @@ public class RateTest {
         System.out.println(rr.getRelevantRestaurants().size());
 
         assertTrue(res.getDiscount() == 0.4);
-        // assertTrue(rr.getRelevantRestaurants().size() == 1);
+        assertEquals(num, 1);
+    }
+
+    @Test
+    void setDiscount_rateGT3_true() {
+
+        KieSession kieSession = kContainer.newKieSession("ksession-rules");
+
+        Reservation res = reservationRepository.findById(1L).orElse(null);
+        res.setNumOfPersons(5);
+        res.setId(null);
+
+        Search s = new Search();
+        s.setRate(4.0);
+
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+
+        RelevantRestaurants rr = new RelevantRestaurants();
+        rr.setRelevantRestaurants(restaurants);
+
+        kieSession.getAgenda().getAgendaGroup("rate").setFocus();
+        kieSession.insert(rr);
+        kieSession.insert(s);
+        kieSession.insert(res);
+        int num = kieSession.fireAllRules();
+
+        kieSession.dispose();
+
+        System.out.println("Fired rules: " + num);
+        System.out.println(rr.getRelevantRestaurants().size());
+
+        assertTrue(res.getDiscount() == 3.2);
+        assertEquals(num, 1);
+    }
+
+    @Test
+    void setDiscount_rate0_true() {
+
+        KieSession kieSession = kContainer.newKieSession("ksession-rules");
+
+        Reservation res = reservationRepository.findById(1L).orElse(null);
+        res.setNumOfPersons(5);
+        res.setId(null);
+
+        Search s = new Search();
+        s.setRate(0);
+
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+
+        RelevantRestaurants rr = new RelevantRestaurants();
+        rr.setRelevantRestaurants(restaurants);
+
+        kieSession.getAgenda().getAgendaGroup("rate").setFocus();
+        kieSession.insert(rr);
+        kieSession.insert(s);
+        kieSession.insert(res);
+        int num = kieSession.fireAllRules();
+
+        kieSession.dispose();
+
+        System.out.println("Fired rules: " + num);
+        System.out.println(rr.getRelevantRestaurants().size());
+
+        assertTrue(res.getDiscount() == 0.4);
+        assertEquals(num, 1);
+    }
+
+    @Test
+    void setDiscount_rate5_true() {
+
+        KieSession kieSession = kContainer.newKieSession("ksession-rules");
+
+        Reservation res = reservationRepository.findById(1L).orElse(null);
+        res.setNumOfPersons(5);
+        res.setId(null);
+
+        Search s = new Search();
+        s.setRate(5);
+
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+
+        RelevantRestaurants rr = new RelevantRestaurants();
+        rr.setRelevantRestaurants(restaurants);
+
+        kieSession.getAgenda().getAgendaGroup("rate").setFocus();
+        kieSession.insert(rr);
+        kieSession.insert(s);
+        kieSession.insert(res);
+        int num = kieSession.fireAllRules();
+
+        kieSession.dispose();
+
+        System.out.println("Fired rules: " + num);
+        System.out.println(rr.getRelevantRestaurants().size());
+
+        assertTrue(res.getDiscount() == 3.2);
         assertEquals(num, 1);
     }
 
