@@ -6,6 +6,13 @@ public class RelevantRestaurants {
 
   private List<Restaurant> relevantRestaurants;
 
+  public RelevantRestaurants() {
+  }
+
+  public RelevantRestaurants(List<Restaurant> relevantRestaurants) {
+    this.relevantRestaurants = relevantRestaurants;
+  }
+
   public List<Restaurant> getRelevantRestaurants() {
     return this.relevantRestaurants;
   }
