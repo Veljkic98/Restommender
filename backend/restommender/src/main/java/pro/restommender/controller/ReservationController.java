@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pro.restommender.dto.requestDTO.ReservationRequestDTO;
@@ -27,11 +28,11 @@ public class ReservationController {
   @Autowired
   private ReservationMapper reservationMapper;
 
-  @PostMapping
-  public ResponseEntity<?> newReservation(@RequestBody ReservationRequestDTO reservationRequestDTO) {
+  @PostMapping(path = "/{rate}")
+  public ResponseEntity<?> newReservation(@RequestBody ReservationRequestDTO reservationRequestDTO, @RequestParam double rate) {
 
     try {
-      Reservation res = reservationService.add(reservationRequestDTO);
+      Reservation res = reservationService.add(reservationRequestDTO, rate);
 
       ReservationResponseDTO response = reservationMapper.toDto(res);
 

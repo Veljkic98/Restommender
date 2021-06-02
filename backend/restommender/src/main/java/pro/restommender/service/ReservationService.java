@@ -31,7 +31,7 @@ public class ReservationService {
   @Autowired
   private KieSession kieSession;
 
-  public Reservation add(ReservationRequestDTO reservationRequestDTO) {
+  public Reservation add(ReservationRequestDTO reservationRequestDTO, double rate) {
 
     // TODO: pozvati pravila
 
@@ -41,7 +41,7 @@ public class ReservationService {
     RelevantRestaurants rr = new RelevantRestaurants(restaurantRepository.findAll());
 
     Search s = new Search();
-    s.setRate(0.5);
+    s.setRate(rate);
     kieSession.getAgenda().getAgendaGroup("rate").setFocus();
 		kieSession.insert(s);
 		kieSession.insert(reservation);

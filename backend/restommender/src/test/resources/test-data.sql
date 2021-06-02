@@ -25,7 +25,7 @@ insert into restaurant (name, location, music, accomodation, type, smoking_area,
 insert into restaurant (name, location, music, accomodation, type, smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
     ('corso', 2, 'relaxing', 'visokoSedenje', 'tradicionalni', true, false, true, true, true, 4, false);
 insert into restaurant (name, location, music, accomodation, type, smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
-    ('atrijum', 10, 'loud', 'udobno', 'svirka', true, false, true, true, false, 3, true);
+    ('atrijum', 10, 'loud', 'udobno', 'svirka', true, false, true, true, false, 2, true);
 
 insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
 insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (3, 2, 4, 0);

@@ -26,7 +26,6 @@ public class LocationTests {
 
 	private KieContainer kContainer;
 
-	// @MockBean
 	@Autowired
 	private RestaurantRepository restaurantRepository;
 
