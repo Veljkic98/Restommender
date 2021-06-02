@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pro.restommender.dto.requestDTO.ReservationRequestDTO;
 import pro.restommender.model.Reservation;
 import pro.restommender.service.ReservationService;
 
@@ -19,10 +20,10 @@ public class ReservationController {
   ReservationService reservationService;
 
   @PostMapping
-  public ResponseEntity<?> newReservation(@RequestBody Reservation reservation) {
+  public ResponseEntity<?> newReservation(@RequestBody ReservationRequestDTO reservationRequestDTO) {
 
     try {
-      reservationService.add(reservation);
+      reservationService.add(reservationRequestDTO);
 
       return new ResponseEntity<>(HttpStatus.CREATED);
     } catch (Exception e) {
