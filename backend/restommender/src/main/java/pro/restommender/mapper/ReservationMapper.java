@@ -43,26 +43,6 @@ public class ReservationMapper {
         return reservation;
     }
 
-    public RestaurantResponseDTO toDto(Reservation res) {
-
-        RestaurantResponseDTO resDto = new RestaurantResponseDTO();
-        resDto.setAccomodation(res.getRestaurant().getAccomodation());
-        resDto.setAlcoholicDrinks(res.getRestaurant().getAlcoholicDrinks());
-        resDto.setId(res.getRestaurant().getId());
-        resDto.setKidFriendly(res.getRestaurant().getKidFriendly());
-        resDto.setLocation(res.getRestaurant().getLocation());
-        resDto.setMusic(res.getRestaurant().getMusic());
-        resDto.setName(res.getRestaurant().getName());
-        resDto.setNonAlcoholicDrinks(res.getRestaurant().getNonAlcoholicDrinks());
-        resDto.setNonSmokingArea(res.getRestaurant().getNonSmokingArea());
-        resDto.setPetFriendly(res.getRestaurant().getPetFriendly());
-        resDto.setRate(res.getRestaurant().getRate());
-        resDto.setSmokingArea(res.getRestaurant().getSmokingArea());
-        resDto.setType(res.getRestaurant().getType());
-
-        return resDto;
-    }
-
     public List<ReservationResponseDTO> toDtoList(List<Reservation> reservations) {
 
         List<ReservationResponseDTO> dtoList = new ArrayList<>();
@@ -73,17 +53,11 @@ public class ReservationMapper {
             dto.setId(res.getId());
             dto.setNumOfPersons(res.getNumOfPersons());
 
-            RestaurantResponseDTO resDto = toDto(res);
+            RestaurantResponseDTO resDto = restaurantMapper.toDto(res);
 
             dto.setRestaurant(resDto);
 
-            UserResponseDTO userDto = new UserResponseDTO();
-            userDto.setEmail(res.getUser().getEmail());
-            userDto.setFirstName(res.getUser().getFirstName());
-            userDto.setId(res.getUser().getId());
-            userDto.setLastName(res.getUser().getLastName());
-            userDto.setPassword(res.getUser().getPassword());
-            userDto.setType(res.getUser().getType());
+            UserResponseDTO userDto = toUserDtoFromEntity(res);
 
             dto.setUser(userDto);
 
@@ -91,6 +65,31 @@ public class ReservationMapper {
         }
 
         return dtoList;
+    }
+
+    public UserResponseDTO toUserDtoFromEntity(Reservation res) {
+
+        UserResponseDTO userDto = new UserResponseDTO();
+        userDto.setEmail(res.getUser().getEmail());
+        userDto.setFirstName(res.getUser().getFirstName());
+        userDto.setId(res.getUser().getId());
+        userDto.setLastName(res.getUser().getLastName());
+        userDto.setPassword(res.getUser().getPassword());
+        userDto.setType(res.getUser().getType());
+
+        return userDto;
+    }
+
+    public ReservationResponseDTO toDto(Reservation res) {
+
+        ReservationResponseDTO dto = new ReservationResponseDTO();
+        dto.setDiscount(res.getDiscount());
+        dto.setId(res.getId());
+        dto.setNumOfPersons(res.getNumOfPersons());
+        dto.setRestaurant(restaurantMapper.toDto(res));
+        dto.setUser(toUserDtoFromEntity(res));
+
+        return dto;
     }
 
 }

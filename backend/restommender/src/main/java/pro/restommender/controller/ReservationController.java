@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pro.restommender.dto.requestDTO.ReservationRequestDTO;
 import pro.restommender.dto.responseDTO.ReservationResponseDTO;
+import pro.restommender.mapper.ReservationMapper;
+import pro.restommender.model.Reservation;
 import pro.restommender.service.ReservationService;
 
 @RestController
@@ -22,13 +24,18 @@ public class ReservationController {
   @Autowired
   ReservationService reservationService;
 
+  @Autowired
+  private ReservationMapper reservationMapper;
+
   @PostMapping
   public ResponseEntity<?> newReservation(@RequestBody ReservationRequestDTO reservationRequestDTO) {
 
     try {
-      reservationService.add(reservationRequestDTO);
+      Reservation res = reservationService.add(reservationRequestDTO);
 
-      return new ResponseEntity<>(HttpStatus.CREATED);
+      ReservationResponseDTO response = reservationMapper.toDto(res);
+
+      return new ResponseEntity<>(response, HttpStatus.CREATED);
     } catch (Exception e) {
       e.printStackTrace();
 
