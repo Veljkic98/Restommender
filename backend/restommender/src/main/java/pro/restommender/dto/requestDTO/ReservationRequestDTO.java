@@ -29,4 +29,13 @@ public class ReservationRequestDTO {
         return this.numOfPersons;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " userId='" + getUserId() + "'" +
+            ", restaurantId='" + getRestaurantId() + "'" +
+            ", numOfPersons='" + getNumOfPersons() + "'" +
+            "}";
+    }
+
 }
