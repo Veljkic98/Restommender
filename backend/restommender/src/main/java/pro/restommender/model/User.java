@@ -39,10 +39,10 @@ public abstract class User implements UserDetails {
   @Column(name = "blocked")
   private Boolean blocked;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
   private List<Authority> authorities;
 
@@ -134,15 +134,9 @@ public abstract class User implements UserDetails {
 
   @Override
   public String toString() {
-    return "{" +
-      " id='" + getId() + "'" +
-      ", email='" + getEmail() + "'" +
-      ", password='" + getPassword() + "'" +
-      ", firstName='" + getFirstName() + "'" +
-      ", lastName='" + getLastName() + "'" +
-      ", type='" + getType() + "'" +
-      ", blocked='" + isBlocked() + "'" +
-      "}";
+    return "{" + " id='" + getId() + "'" + ", email='" + getEmail() + "'" + ", password='" + getPassword() + "'"
+        + ", firstName='" + getFirstName() + "'" + ", lastName='" + getLastName() + "'" + ", type='" + getType() + "'"
+        + ", blocked='" + isBlocked() + "'" + "}";
   }
 
 }
