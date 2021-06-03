@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +41,7 @@ public class UserController {
             // User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
             // if (user.getType().name().equals("USER"))
-            //     return new ResponseEntity<>("User type must be admin.", HttpStatus.UNAUTHORIZED);
+            //     return new ResponseEntity<>("User must be admin.", HttpStatus.UNAUTHORIZED);
 
             List<AuthenticatedUser> users = userService.getAll(true);
 
@@ -61,13 +63,32 @@ public class UserController {
             // User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
             // if (user.getType().name().equals("USER"))
-            //     return new ResponseEntity<>("User type must be admin.", HttpStatus.UNAUTHORIZED);
+            //     return new ResponseEntity<>("User must be admin.", HttpStatus.UNAUTHORIZED);
 
             List<AuthenticatedUser> users = userService.getAll(false);
 
             List<UserResponseDTO> usersDto = userMapper.toDtoList(users);
 
             return new ResponseEntity<>(usersDto, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(path = "unblock/{userId}")
+    // @PreAuthorize("hasRole('ROLE_AUTH_USER')")
+    public ResponseEntity<?> unblock(@PathVariable Long userId) {
+
+        try {
+            // User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            // if (user.getType().name().equals("USER"))
+            //     return new ResponseEntity<>("User must be admin.", HttpStatus.UNAUTHORIZED);
+
+            userService.unblock(userId);
+            
+            return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

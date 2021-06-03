@@ -7,8 +7,8 @@ insert into authenticated_user (id, email, password, first_name, last_name, type
 insert into authenticated_user (id, email, password, first_name, last_name, type, blocked) values (nextval('person_seq'), 'mail5@gmail.com', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Andrej', 'Blazic', 0, false);
 insert into authenticated_user (id, email, password, first_name, last_name, type, blocked) values (nextval('person_seq'), 'mail6@gmail.com', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Lazar', 'Pikic', 0, false);
 insert into authenticated_user (id, email, password, first_name, last_name, type, blocked) values (nextval('person_seq'), 'mail7@gmail.com','$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Aleksandar', 'Petrovic', 0, false);
-insert into authenticated_user (id, email, password, first_name, last_name, type, blocked) values (nextval('person_seq'), 'mail8@gmail.com', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Dragan', 'Krnjajic', 0, false);
-insert into authenticated_user (id, email, password, first_name, last_name, type, blocked) values (nextval('person_seq'), 'mail9@gmail.com', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Dragan', 'Vujinovic', 0, false);
+insert into authenticated_user (id, email, password, first_name, last_name, type, blocked) values (nextval('person_seq'), 'mail8@gmail.com', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Dragan', 'Krnjajic', 0, true);
+insert into authenticated_user (id, email, password, first_name, last_name, type, blocked) values (nextval('person_seq'), 'mail9@gmail.com', '$2a$10$smy7Eo0CdCrhcjYe8lAOMeMoxqeGTHGilpNcOiAAMUQR0F.5EVmHG', 'Dragan', 'Vujinovic', 0, true);
 
 insert into user_authority (user_id, authority_id) values (1, 1);
 insert into user_authority (user_id, authority_id) values (2, 1);

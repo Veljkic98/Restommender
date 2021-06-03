@@ -20,5 +20,17 @@ public class UserService {
 
         return users;
     }
+
+    public void unblock(Long userId) throws Exception {
+
+        AuthenticatedUser user;
+
+        if ((user = userRepository.findById(userId).orElse(null)) == null)
+            throw new Exception();
+
+        user.setBlocked(false);
+
+        userRepository.save(user);
+    }
     
 }
