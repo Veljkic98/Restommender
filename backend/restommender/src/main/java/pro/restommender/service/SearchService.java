@@ -5,11 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.FactHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pro.restommender.dto.Search;
+import pro.restommender.dto.responseDTO.UserResponseDTO;
 import pro.restommender.event.SearchEvent;
+import pro.restommender.model.AuthenticatedUser;
 import pro.restommender.model.RelevantRestaurants;
 import pro.restommender.model.Reservation;
 import pro.restommender.model.Restaurant;
@@ -48,10 +51,8 @@ public class SearchService {
 
         // doRestourantMusic(search, relevantRestaurants);
 
+        // TODO: izmestiti na pravljenje rezervacija
         // doDiscount(search, reservations);
-
-
-
 
         return relevantRestaurants.getRelevantRestaurants();
     }
@@ -62,11 +63,11 @@ public class SearchService {
         System.out.println("****** SEARCH DISCOUNT ******");
 
         kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
-		kieSession.insert(reservations.get(0));
-		kieSession.insert(search);
-		int num = kieSession.fireAllRules();
+        kieSession.insert(reservations.get(0));
+        kieSession.insert(search);
+        int num = kieSession.fireAllRules();
 
-		System.out.println("Fired rules: " + num);
+        System.out.println("Fired rules: " + num);
         System.out.println("Reservations list size is : " + reservations.size());
     }
 
@@ -74,13 +75,22 @@ public class SearchService {
 
         System.out.println("****** SEARCH LOCATION ******");
 
-        kieSession.getAgenda().getAgendaGroup("location").setFocus();
-		kieSession.insert(relevantRestaurants);
-		kieSession.insert(search);
-        kieSession.insert(new SearchEvent(new Date(), search.getUserId()));
-		int num = kieSession.fireAllRules();
+        AuthenticatedUser user = authenticatedUserRepository.findById(search.getUserId()).orElse(null);
 
-		System.out.println("Fired rules: " + num);
+        kieSession.getAgenda().getAgendaGroup("location").setFocus();
+        kieSession.insert(relevantRestaurants);
+        kieSession.insert(user);
+        kieSession.insert(search);
+        kieSession.insert(new SearchEvent(new Date(), search.getUserId()));
+        FactHandle handle = kieSession.insert(user);
+        int num = kieSession.fireAllRules();
+
+        kieSession.delete(handle);
+
+        authenticatedUserRepository.save(user);
+
+        System.out.println("User blodked: " + user.getBlocked());
+        System.out.println("Fired rules: " + num);
         System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
     }
 
@@ -94,11 +104,11 @@ public class SearchService {
         System.out.println("****** SEARCH FILTER ******");
 
         kieSession.getAgenda().getAgendaGroup("filter").setFocus();
-		kieSession.insert(relevantRestaurants);
-		kieSession.insert(search);
-		int num = kieSession.fireAllRules();
+        kieSession.insert(relevantRestaurants);
+        kieSession.insert(search);
+        int num = kieSession.fireAllRules();
 
-		System.out.println("Fired rules: " + num);
+        System.out.println("Fired rules: " + num);
         System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
     }
 
@@ -107,14 +117,14 @@ public class SearchService {
         System.out.println("****** SET DISCOUNT BY RATES ******");
 
         kieSession.getAgenda().getAgendaGroup("rate").setFocus();
-		kieSession.insert(relevantRestaurants);
-		kieSession.insert(reservation);
-		kieSession.insert(search);
-		int num = kieSession.fireAllRules();
+        kieSession.insert(relevantRestaurants);
+        kieSession.insert(reservation);
+        kieSession.insert(search);
+        int num = kieSession.fireAllRules();
 
-		System.out.println("----------------------");
-		System.out.println("Fired rules: " + num);
-		System.out.println(reservation.getDiscount());
+        System.out.println("----------------------");
+        System.out.println("Fired rules: " + num);
+        System.out.println(reservation.getDiscount());
     }
 
 }

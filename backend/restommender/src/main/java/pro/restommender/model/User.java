@@ -21,9 +21,6 @@ public abstract class User implements UserDetails {
   @SequenceGenerator(sequenceName = "person_seq", name = "PERSON_SEQ", allocationSize = 1)
   private Long id;
 
-  // @Column(name = "username", nullable = false, unique = true)
-  // private String username;
-
   @Column(name = "email", nullable = false, unique = true)
   private String email;
 
@@ -39,6 +36,9 @@ public abstract class User implements UserDetails {
   @Column(name = "type")
   private Type type;
 
+  @Column(name = "blocked")
+  private Boolean blocked;
+
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER )
   private List<Reservation> reservations;
 
@@ -49,14 +49,14 @@ public abstract class User implements UserDetails {
   public User() {
   }
 
-  public User(Long id, String email, String password, String firstName, String lastName, Type type) {
+  public User(Long id, String email, String password, String firstName, String lastName, Type type, Boolean blocked) {
     this.id = id;
-    // this.username = username;
     this.email = email;
     this.password = password;
     this.firstName = firstName;
     this.lastName = lastName;
     this.type = type;
+    this.blocked = blocked;
   }
 
   public Long getId() {
@@ -66,14 +66,6 @@ public abstract class User implements UserDetails {
   public void setId(Long id) {
     this.id = id;
   }
-
-  // public String getUsername() {
-  //   return this.username;
-  // }
-
-  // public void setUsername(String username) {
-  //   this.username = username;
-  // }
 
   public String getFirstName() {
     return this.firstName;
@@ -123,6 +115,18 @@ public abstract class User implements UserDetails {
     this.reservations = reservations;
   }
 
+  public Boolean isBlocked() {
+    return this.blocked;
+  }
+
+  public Boolean getBlocked() {
+    return this.blocked;
+  }
+
+  public void setBlocked(Boolean blocked) {
+    this.blocked = blocked;
+  }
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return authorities;
@@ -130,9 +134,15 @@ public abstract class User implements UserDetails {
 
   @Override
   public String toString() {
-    return "{" + " id='" + getId() + "'" + "'" + ", firstName='" + getFirstName() + "'"
-        + ", lastName='" + getLastName() + "'" + ", email='" + getEmail() + "'" + ", password='" + getPassword() + "'"
-        + "}";
+    return "{" +
+      " id='" + getId() + "'" +
+      ", email='" + getEmail() + "'" +
+      ", password='" + getPassword() + "'" +
+      ", firstName='" + getFirstName() + "'" +
+      ", lastName='" + getLastName() + "'" +
+      ", type='" + getType() + "'" +
+      ", blocked='" + isBlocked() + "'" +
+      "}";
   }
 
 }
