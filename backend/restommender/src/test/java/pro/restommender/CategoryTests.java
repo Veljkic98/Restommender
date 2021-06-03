@@ -78,7 +78,7 @@ public class CategoryTests {
   // ------------------------Pravila drugog nivoa------------------------
   // --------------------------------------------------------------------
   @Test
-  void relaxingMusicAndAccomodationUdobno() {
+  void relaxingMusic_AccomodationUdobno() {
     KieSession kieSession = kContainer.newKieSession("ksession-rules");
 
     List<Restaurant> restaurants = restaurantRepository.findAll();
@@ -100,7 +100,7 @@ public class CategoryTests {
   }
 
   @Test
-  void loudMusicAndAccomodationTradicionalno() {
+  void loudMusic_AccomodationTradicionalno() {
     KieSession kieSession = kContainer.newKieSession("ksession-rules");
 
     List<Restaurant> restaurants = restaurantRepository.findAll();
@@ -119,8 +119,152 @@ public class CategoryTests {
     assertEquals(1, rr.getRelevantRestaurants().size());
     assertEquals(2, num);
   }
-  
+
   // ------------------------Pravila treceg nivoa------------------------
   // --------------------------------------------------------------------
+  @Test
+  void relaxingMusic_AccomodationUdobno_NonSmokingArea() {
+    KieSession kieSession = kContainer.newKieSession("ksession-rules");
+
+    List<Restaurant> restaurants = restaurantRepository.findAll();
+    RelevantRestaurants rr = new RelevantRestaurants();
+    rr.setRelevantRestaurants(restaurants);
+    
+    Search search = new Search();
+    search.setMusic("relaxing");
+    search.setAccomodation("udobno");
+    search.setNonSmokingArea(true);
+
+    kieSession.getAgenda().getAgendaGroup("filter").setFocus();
+    kieSession.insert(rr);
+    kieSession.insert(search);
+    int num = kieSession.fireAllRules();
+    kieSession.dispose();
+
+    assertEquals(1, rr.getRelevantRestaurants().size());
+    assertEquals(3, num);
+  }
+
+  @Test
+  void loudMusic_AccomodationTradicionalno_SmokingArea() {
+    KieSession kieSession = kContainer.newKieSession("ksession-rules");
+
+    List<Restaurant> restaurants = restaurantRepository.findAll();
+    RelevantRestaurants rr = new RelevantRestaurants();
+		rr.setRelevantRestaurants(restaurants);
+    Search search = new Search();
+		search.setMusic("loud");
+    search.setAccomodation("tradicionalno");
+    search.setSmokingArea(true);
+
+    kieSession.getAgenda().getAgendaGroup("filter").setFocus();
+    kieSession.insert(rr);
+    kieSession.insert(search);
+    int num = kieSession.fireAllRules();
+    kieSession.dispose();
+
+    assertEquals(1, rr.getRelevantRestaurants().size());
+    assertEquals(3, num);
+  }
+
+  @Test
+  void relaxingMusic_AccomodationUdobno_KidFriendly() {
+    KieSession kieSession = kContainer.newKieSession("ksession-rules");
+
+    List<Restaurant> restaurants = restaurantRepository.findAll();
+    RelevantRestaurants rr = new RelevantRestaurants();
+    rr.setRelevantRestaurants(restaurants);
+    
+    Search search = new Search();
+    search.setMusic("relaxing");
+    search.setAccomodation("udobno");
+    search.setKidFriendly(true);
+
+    kieSession.getAgenda().getAgendaGroup("filter").setFocus();
+    kieSession.insert(rr);
+    kieSession.insert(search);
+    int num = kieSession.fireAllRules();
+    kieSession.dispose();
+
+    assertEquals(2, rr.getRelevantRestaurants().size());
+    assertEquals(3, num);
+  }
+
+  // ------------------------Pravila cetvrtog nivoa----------------------
+  // --------------------------------------------------------------------
+  @Test
+  void relaxingMusic_AccomodationUdobno_NonSmokingArea_NonAlcoholic() {
+    KieSession kieSession = kContainer.newKieSession("ksession-rules");
+
+    List<Restaurant> restaurants = restaurantRepository.findAll();
+    RelevantRestaurants rr = new RelevantRestaurants();
+    rr.setRelevantRestaurants(restaurants);
+    
+    Search search = new Search();
+    search.setMusic("relaxing");
+    search.setAccomodation("udobno");
+    search.setNonSmokingArea(true);
+    search.setNonAlcoholicDrinks(true);
+
+    kieSession.getAgenda().getAgendaGroup("filter").setFocus();
+    kieSession.insert(rr);
+    kieSession.insert(search);
+    int num = kieSession.fireAllRules();
+    kieSession.dispose();
+
+    assertEquals(1, rr.getRelevantRestaurants().size());
+    assertEquals(4, num);
+  }
+
+  @Test
+  void loudMusic_AccomodationTradicionalno_SmokingArea_AlcoholicDrinks() {
+    KieSession kieSession = kContainer.newKieSession("ksession-rules");
+
+    List<Restaurant> restaurants = restaurantRepository.findAll();
+    RelevantRestaurants rr = new RelevantRestaurants();
+		rr.setRelevantRestaurants(restaurants);
+    Search search = new Search();
+		search.setMusic("loud");
+    search.setAccomodation("tradicionalno");
+    search.setSmokingArea(true);
+    search.setAlcoholicDrinks(true);
+
+    kieSession.getAgenda().getAgendaGroup("filter").setFocus();
+    kieSession.insert(rr);
+    kieSession.insert(search);
+    int num = kieSession.fireAllRules();
+    kieSession.dispose();
+
+    assertEquals(1, rr.getRelevantRestaurants().size());
+    assertEquals(4, num);
+  }
+  
+  // ------------------------Pravila petog nivoa----------------------
+  // -----------------------------------------------------------------
+  @Test
+  void relaxingMusic_AccomodationUdobno_NonSmokingArea_NonAlcoholic_PetFriendly() {
+    KieSession kieSession = kContainer.newKieSession("ksession-rules");
+
+    List<Restaurant> restaurants = restaurantRepository.findAll();
+    RelevantRestaurants rr = new RelevantRestaurants();
+    rr.setRelevantRestaurants(restaurants);
+    
+    Search search = new Search();
+    search.setMusic("relaxing");
+    search.setAccomodation("udobno");
+    search.setNonSmokingArea(true);
+    search.setNonAlcoholicDrinks(true);
+    search.setPetFriendly(true);
+
+    kieSession.getAgenda().getAgendaGroup("filter").setFocus();
+    kieSession.insert(rr);
+    kieSession.insert(search);
+    int num = kieSession.fireAllRules();
+    kieSession.dispose();
+
+    assertEquals(1, rr.getRelevantRestaurants().size());
+    assertEquals(5, num);
+  }
+
 }
 

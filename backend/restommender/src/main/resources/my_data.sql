@@ -23,7 +23,7 @@ insert into user_authority (user_id, authority_id) values (9, 1);
 insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
                         ('Petrus', 0.2, 'relaxing', 'udobno', true, true, true, true, true, 4, true);
 insert into restaurant (name, location, music, accomodation, smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
-                        ('corso', 2, 'relaxing', 'tradicionalno', true, false, true, true, true, 4, false);
+                        ('corso', 2, 'relaxing', 'tradicionalno', true, false, true, true, true, 4, true);
 insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
                         ('atrijum', 10, 'loud', 'udobno', true, false, true, true, false, 2, true);
 
