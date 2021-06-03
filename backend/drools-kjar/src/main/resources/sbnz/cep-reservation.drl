@@ -9,7 +9,7 @@ rule "More than 5 new reservations in an hour from one user"
     when
         $user: AuthenticatedUser(blocked == false)
         $t1: ReservationEvent($cId: userId)
-        Number(intValue >= 2) from accumulate(
+        Number(intValue >= 5) from accumulate(
             $t2: ReservationEvent(
                 this != $t1,
                 userId == $cId,
