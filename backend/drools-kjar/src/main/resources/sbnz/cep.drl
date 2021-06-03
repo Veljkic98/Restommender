@@ -6,7 +6,7 @@ import pro.restommender.event.SearchEvent;
 
 declare SuspiciousCustomerEvent
     @role(event)
-    customerId: Long
+    userId: Long
     reason: String
 end
 

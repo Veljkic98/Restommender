@@ -1,6 +1,7 @@
 package pro.restommender.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.kie.api.runtime.KieSession;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pro.restommender.dto.Search;
+import pro.restommender.event.SearchEvent;
 import pro.restommender.model.RelevantRestaurants;
 import pro.restommender.model.Reservation;
 import pro.restommender.model.Restaurant;
@@ -42,11 +44,11 @@ public class SearchService {
 
         // doFilter(search, relevantRestaurants);
 
-        // doLocation(search, relevantRestaurants);
+        doLocation(search, relevantRestaurants);
 
         // doRestourantMusic(search, relevantRestaurants);
 
-        doDiscount(search, reservations);
+        // doDiscount(search, reservations);
 
 
 
@@ -75,6 +77,7 @@ public class SearchService {
         kieSession.getAgenda().getAgendaGroup("location").setFocus();
 		kieSession.insert(relevantRestaurants);
 		kieSession.insert(search);
+        kieSession.insert(new SearchEvent(new Date(), search.getUserId()));
 		int num = kieSession.fireAllRules();
 
 		System.out.println("Fired rules: " + num);
