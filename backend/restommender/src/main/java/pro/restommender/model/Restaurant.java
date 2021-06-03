@@ -28,11 +28,8 @@ public class Restaurant {
   @Column(name = "music")
   private String music; // relaxing, loud
 
-  @Column(name = "accomodation")
+  @Column(name = "accomodation") //udobno, tradicionalno
   private String accomodation;
-
-  @Column(name = "type")
-  private String type; // moderni, tradicionalni, organizovane svirke, porodicni
 
   @Column(name = "smoking_area")
   private Boolean smokingArea;
@@ -61,13 +58,12 @@ public class Restaurant {
   public Restaurant() {
   }
 
-  public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, double rate, List<Reservation> reservations) {
+  public Restaurant(Long id, String name, double location, String music, String accomodation, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, double rate, List<Reservation> reservations) {
     this.id = id;
     this.name = name;
     this.location = location;
     this.music = music;
     this.accomodation = accomodation;
-    this.type = type;
     this.smokingArea = smokingArea;
     this.nonSmokingArea = nonSmokingArea;
     this.alcoholicDrinks = alcoholicDrinks;
@@ -116,14 +112,6 @@ public class Restaurant {
 
   public void setAccomodation(String accomodation) {
     this.accomodation = accomodation;
-  }
-
-  public String getType() {
-    return this.type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
   public Boolean isSmokingArea() {
@@ -222,7 +210,6 @@ public class Restaurant {
       ", location='" + getLocation() + "'" +
       ", music='" + getMusic() + "'" +
       ", accomodation='" + getAccomodation() + "'" +
-      ", type='" + getType() + "'" +
       ", smokingArea='" + isSmokingArea() + "'" +
       ", nonSmokingArea='" + isNonSmokingArea() + "'" +
       ", alcoholicDrinks='" + isAlcoholicDrinks() + "'" +
