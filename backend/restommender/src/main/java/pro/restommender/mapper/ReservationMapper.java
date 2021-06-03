@@ -74,7 +74,6 @@ public class ReservationMapper {
         userDto.setFirstName(res.getUser().getFirstName());
         userDto.setId(res.getUser().getId());
         userDto.setLastName(res.getUser().getLastName());
-        userDto.setPassword(res.getUser().getPassword());
         userDto.setType(res.getUser().getType());
 
         return userDto;

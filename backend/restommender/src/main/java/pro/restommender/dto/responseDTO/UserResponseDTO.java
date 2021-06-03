@@ -8,8 +8,6 @@ public class UserResponseDTO {
 
     private String email;
 
-    private String password;
-
     private String firstName;
 
     private String lastName;
@@ -19,10 +17,10 @@ public class UserResponseDTO {
     public UserResponseDTO() {
     }
 
-    public UserResponseDTO(Long id, String email, String password, String firstName, String lastName, Type type) {
+    public UserResponseDTO(Long id, String email, String firstName, String lastName, Type type) {
         this.id = id;
         this.email = email;
-        this.password = password;
+        // this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.type = type;
@@ -42,14 +40,6 @@ public class UserResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {
