@@ -15,12 +15,20 @@ import pro.restommender.model.Reservation;
 import pro.restommender.model.Restaurant;
 import pro.restommender.model.Rule;
 import pro.restommender.model.User;
+import pro.restommender.repository.ReservationRepository;
+import pro.restommender.repository.RestaurantRepository;
 
 @Service
 public class Testovi {
  
   // @Autowired
   // private KieContainer kieContainer;
+
+  @Autowired
+  private RestaurantRepository restaurantRepository;
+
+  @Autowired
+  private ReservationRepository reservationRepository;
 
   @Autowired
   private KieSession kieSession;
@@ -59,12 +67,12 @@ public class Testovi {
 		RelevantRestaurants rr = new RelevantRestaurants();
 		rr.setRelevantRestaurants(restaurants);
 
-		Rule rule = new Rule();
+		// Rule rule = new Rule();
 
 		kieSession.getAgenda().getAgendaGroup("filter").setFocus();
 		kieSession.insert(rr);
 		kieSession.insert(search);
-		kieSession.insert(rule);
+		// kieSession.insert(rule);
 		int num = kieSession.fireAllRules();
 
 		System.out.println("----------------------");
@@ -164,13 +172,39 @@ public class Testovi {
 		RelevantRestaurants rr = new RelevantRestaurants();
 		rr.setRelevantRestaurants(restaurants);
 
+		Search s = new Search();
+		s.setLocation(0.5);
+
 		kieSession.getAgenda().getAgendaGroup("location").setFocus();
 		kieSession.insert(rr);
+		kieSession.insert(s);
 		int num = kieSession.fireAllRules();
 
 		System.out.println("----------------------");
 		System.out.println("Fired rules: " + num);
 		System.out.println(rr.getRelevantRestaurants());
+	}
+
+	public void testRate() {
+
+		List<Restaurant> restaurants = restaurantRepository.findAll();
+		Reservation res = reservationRepository.getOne(1L);
+
+		RelevantRestaurants rr = new RelevantRestaurants();
+		rr.setRelevantRestaurants(restaurants);
+
+		Search s = new Search();
+		s.setRate(0.2);
+
+		kieSession.getAgenda().getAgendaGroup("rate").setFocus();
+		kieSession.insert(rr);
+		kieSession.insert(res);
+		kieSession.insert(s);
+		int num = kieSession.fireAllRules();
+
+		System.out.println("----------------------");
+		System.out.println("Fired rules: " + num);
+		System.out.println(res.getDiscount());
 	}
 
 	public void testMessage() throws Exception{

@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "restaurant")
 public class Restaurant {
+  
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -27,11 +28,8 @@ public class Restaurant {
   @Column(name = "music")
   private String music; // relaxing, loud
 
-  @Column(name = "accomodation")
+  @Column(name = "accomodation") //udobno, tradicionalno
   private String accomodation;
-
-  @Column(name = "type")
-  private String type; // moderni, tradicionalni, organizovane svirke, porodicni
 
   @Column(name = "smoking_area")
   private Boolean smokingArea;
@@ -51,26 +49,28 @@ public class Restaurant {
   @Column(name = "kid_friendly")
   private Boolean kidFriendly;
 
+  @Column(name = "rate")
+  private double rate;
+
   @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
 
   public Restaurant() {
   }
 
-
-  public Restaurant(Long id, String name, double location, String music, String accomodation, String type, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, List<Reservation> reservations) {
+  public Restaurant(Long id, String name, double location, String music, String accomodation, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, double rate, List<Reservation> reservations) {
     this.id = id;
     this.name = name;
     this.location = location;
     this.music = music;
     this.accomodation = accomodation;
-    this.type = type;
     this.smokingArea = smokingArea;
     this.nonSmokingArea = nonSmokingArea;
     this.alcoholicDrinks = alcoholicDrinks;
     this.nonAlcoholicDrinks = nonAlcoholicDrinks;
     this.petFriendly = petFriendly;
     this.kidFriendly = kidFriendly;
+    this.rate = rate;
     this.reservations = reservations;
   }
 
@@ -112,14 +112,6 @@ public class Restaurant {
 
   public void setAccomodation(String accomodation) {
     this.accomodation = accomodation;
-  }
-
-  public String getType() {
-    return this.type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
   public Boolean isSmokingArea() {
@@ -194,6 +186,14 @@ public class Restaurant {
     this.kidFriendly = kidFriendly;
   }
 
+  public double getRate() {
+    return this.rate;
+  }
+
+  public void setRate(double rate) {
+    this.rate = rate;
+  }
+
   public List<Reservation> getReservations() {
     return this.reservations;
   }
@@ -201,7 +201,6 @@ public class Restaurant {
   public void setReservations(List<Reservation> reservations) {
     this.reservations = reservations;
   }
-
 
   @Override
   public String toString() {
@@ -211,13 +210,13 @@ public class Restaurant {
       ", location='" + getLocation() + "'" +
       ", music='" + getMusic() + "'" +
       ", accomodation='" + getAccomodation() + "'" +
-      ", type='" + getType() + "'" +
       ", smokingArea='" + isSmokingArea() + "'" +
       ", nonSmokingArea='" + isNonSmokingArea() + "'" +
       ", alcoholicDrinks='" + isAlcoholicDrinks() + "'" +
       ", nonAlcoholicDrinks='" + isNonAlcoholicDrinks() + "'" +
       ", petFriendly='" + isPetFriendly() + "'" +
       ", kidFriendly='" + isKidFriendly() + "'" +
+      ", rate='" + getRate() + "'" +
       ", reservations='" + getReservations() + "'" +
       "}";
   }

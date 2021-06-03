@@ -28,6 +28,8 @@ public class Search {
 
   private Boolean kidFriendly;
 
+  private double rate;
+
 
   public Long getUserId() {
     return this.userId;
@@ -155,6 +157,34 @@ public class Search {
 
   public void setKidFriendly(Boolean kidFriendly) {
     this.kidFriendly = kidFriendly;
+  }
+
+  public double getRate() {
+    return this.rate;
+  }
+
+  public void setRate(double rate) {
+    this.rate = rate;
+  }
+
+  @Override
+  public String toString() {
+    return "{" +
+      " userId='" + getUserId() + "'" +
+      ", numOfPersons='" + getNumOfPersons() + "'" +
+      ", name='" + getName() + "'" +
+      ", location='" + getLocation() + "'" +
+      ", music='" + getMusic() + "'" +
+      ", accomodation='" + getAccomodation() + "'" +
+      ", type='" + getType() + "'" +
+      ", smokingArea='" + isSmokingArea() + "'" +
+      ", nonSmokingArea='" + isNonSmokingArea() + "'" +
+      ", alcoholicDrinks='" + isAlcoholicDrinks() + "'" +
+      ", nonAlcoholicDrinks='" + isNonAlcoholicDrinks() + "'" +
+      ", petFriendly='" + isPetFriendly() + "'" +
+      ", kidFriendly='" + isKidFriendly() + "'" +
+      ", rate='" + getRate() + "'" +
+      "}";
   }
 
 }
