@@ -1,0 +1,32 @@
+package cep;
+
+import pro.restommender.model.Reservation;
+import pro.restommender.dto.Search;
+import pro.restommender.event.SearchEvent;
+
+declare SuspiciousCustomerEvent
+    @role(event)
+    customerId: Long
+    reason: String
+end
+
+declare AlarmTriggered
+    userId: Long
+end
+
+rule "More than 5 transactions in an hour from one client"
+    when
+        $t1: SearchEvent($cId: userId)
+        Number(intValue >= 5) from accumulate(
+            $t2: SearchEvent(
+                this != $t1, 
+                userId == $cId, 
+                this meets[1h] $t1
+            ),
+            count($t2)
+        )
+        not (SuspiciousCustomerEvent(userId == $cId, reason == "Many transactions"))
+    then
+        System.out.println("CEP --------------------------- Vise od 5 pokusaja pretraga");
+        insert(new SuspiciousCustomerEvent($cId, "Many transactions"));
+end
