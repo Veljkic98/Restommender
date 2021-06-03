@@ -14,7 +14,7 @@ declare AlarmTriggered
     userId: Long
 end
 
-rule "More than 5 transactions in an hour from one client"
+rule "More than 5 searchs in an hour from one user"
     when
         $t1: SearchEvent($cId: userId)
         Number(intValue >= 5) from accumulate(
@@ -25,8 +25,8 @@ rule "More than 5 transactions in an hour from one client"
             ),
             count($t2)
         )
-        not (SuspiciousCustomerEvent(userId == $cId, reason == "Many transactions"))
+        not (SuspiciousCustomerEvent(userId == $cId, reason == "Many searchs"))
     then
         System.out.println("CEP --------------------------- Vise od 5 pokusaja pretraga");
-        insert(new SuspiciousCustomerEvent($cId, "Many transactions"));
+        insert(new SuspiciousCustomerEvent($cId, "Many searchs"));
 end
