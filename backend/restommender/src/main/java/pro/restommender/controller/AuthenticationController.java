@@ -69,7 +69,6 @@ public class AuthenticationController {
         } catch (BadCredentialsException e) {
             AuthenticatedUser user = repo.findByEmail(authenticationRequest.getUsername());
 
-            kieSession.insert(user);
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             FactHandle handle = kieSession.insert(user);
             kieSession.fireAllRules();

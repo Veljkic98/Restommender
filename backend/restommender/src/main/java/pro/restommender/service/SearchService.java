@@ -63,9 +63,12 @@ public class SearchService {
         System.out.println("****** SEARCH DISCOUNT ******");
 
         kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
-        kieSession.insert(reservations.get(0));
-        kieSession.insert(search);
+        FactHandle rFc = kieSession.insert(reservations.get(0));
+        FactHandle searchFc = kieSession.insert(search);
         int num = kieSession.fireAllRules();
+
+        kieSession.delete(rFc);
+        kieSession.delete(searchFc);
 
         System.out.println("Fired rules: " + num);
         System.out.println("Reservations list size is : " + reservations.size());
@@ -78,14 +81,15 @@ public class SearchService {
         AuthenticatedUser user = authenticatedUserRepository.findById(search.getUserId()).orElse(null);
 
         kieSession.getAgenda().getAgendaGroup("location").setFocus();
-        kieSession.insert(relevantRestaurants);
-        kieSession.insert(user);
-        kieSession.insert(search);
+        FactHandle rrFc = kieSession.insert(relevantRestaurants);
+        FactHandle userFc = kieSession.insert(user);
+        FactHandle searchFc = kieSession.insert(search);
         kieSession.insert(new SearchEvent(new Date(), search.getUserId()));
-        FactHandle handle = kieSession.insert(user);
         int num = kieSession.fireAllRules();
 
-        kieSession.delete(handle);
+        kieSession.delete(rrFc);
+        kieSession.delete(userFc);
+        kieSession.delete(searchFc);
 
         authenticatedUserRepository.save(user);
 
@@ -104,9 +108,12 @@ public class SearchService {
         System.out.println("****** SEARCH FILTER ******");
 
         kieSession.getAgenda().getAgendaGroup("filter").setFocus();
-        kieSession.insert(relevantRestaurants);
-        kieSession.insert(search);
+        FactHandle rrFc =kieSession.insert(relevantRestaurants);
+        FactHandle searchFc =kieSession.insert(search);
         int num = kieSession.fireAllRules();
+
+        kieSession.delete(rrFc);
+        kieSession.delete(searchFc);
 
         System.out.println("Fired rules: " + num);
         System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
@@ -117,10 +124,14 @@ public class SearchService {
         System.out.println("****** SET DISCOUNT BY RATES ******");
 
         kieSession.getAgenda().getAgendaGroup("rate").setFocus();
-        kieSession.insert(relevantRestaurants);
-        kieSession.insert(reservation);
-        kieSession.insert(search);
+        FactHandle rrFc =kieSession.insert(relevantRestaurants);
+        FactHandle reservationFc =kieSession.insert(reservation);
+        FactHandle searchFc =kieSession.insert(search);
         int num = kieSession.fireAllRules();
+
+        kieSession.delete(rrFc);
+        kieSession.delete(reservationFc);
+        kieSession.delete(searchFc);
 
         System.out.println("----------------------");
         System.out.println("Fired rules: " + num);

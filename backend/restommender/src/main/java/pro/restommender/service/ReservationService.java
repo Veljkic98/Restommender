@@ -42,34 +42,31 @@ public class ReservationService {
   public Reservation add(ReservationRequestDTO reservationRequestDTO, double rate) {
 
     Long userId = reservationRequestDTO.getUserId();
-
     Reservation reservation = reservationMapper.toEntity(reservationRequestDTO);
-
     RelevantRestaurants rr = new RelevantRestaurants(restaurantRepository.findAll());
-
     AuthenticatedUser user = userRepository.findById(userId).orElse(null);
 
     Search s = new Search();
     s.setRate(rate);
+
     kieSession.getAgenda().getAgendaGroup("rate").setFocus();
-    kieSession.insert(s);
-    kieSession.insert(reservation);
-    kieSession.insert(rr);
-    kieSession.insert(user);
-
+    FactHandle sFc = kieSession.insert(s);
+    FactHandle rFc = kieSession.insert(reservation);
+    FactHandle rrFc = kieSession.insert(rr);
+    FactHandle userFc = kieSession.insert(user);
     kieSession.insert(new ReservationEvent(new Date(), userId));
-    FactHandle handle = kieSession.insert(user);
-
     int num = kieSession.fireAllRules();
 
-    kieSession.delete(handle);
+    kieSession.delete(sFc);
+    kieSession.delete(rFc);
+    kieSession.delete(rrFc);
+    kieSession.delete(userFc);
 
     System.out.println("Fired rules: " + num);
     System.out.println("User blocked: " + user.getBlocked());
 
-    reservationRepository.save(reservation);
+    // save in db
     userRepository.save(user);
-
     return reservationRepository.save(reservation);
   }
 
