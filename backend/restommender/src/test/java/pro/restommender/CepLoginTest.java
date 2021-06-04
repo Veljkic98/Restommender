@@ -60,7 +60,7 @@ public class CepLoginTest {
         } catch (BadCredentialsException e) {
             AuthenticatedUser user = userRepository.findByEmail(mail);
 
-            kieSession.insert(user);
+            FactHandle userFc =  kieSession.insert(user);
             
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
@@ -68,13 +68,12 @@ public class CepLoginTest {
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
-            
-            FactHandle handle = kieSession.insert(user);
-            kieSession.fireAllRules();
+            int num = kieSession.fireAllRules();
 
-            kieSession.delete(handle);
+            kieSession.delete(userFc);
 
             assertEquals(user.getBlocked(), true);
+            assertEquals(1, num);
         }
     }
 
@@ -106,11 +105,12 @@ public class CepLoginTest {
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             
             FactHandle handle = kieSession.insert(user);
-            kieSession.fireAllRules();
+            int num = kieSession.fireAllRules();
 
             kieSession.delete(handle);
 
             assertEquals(user.getBlocked(), false);
+            assertEquals(0, num);
         }
     }
 
@@ -139,11 +139,12 @@ public class CepLoginTest {
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             
             FactHandle handle = kieSession.insert(user);
-            kieSession.fireAllRules();
+            int num = kieSession.fireAllRules();
 
             kieSession.delete(handle);
 
             assertEquals(user.getBlocked(), false);
+            assertEquals(0, num);
         }
     }
 
