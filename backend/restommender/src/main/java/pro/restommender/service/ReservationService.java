@@ -43,11 +43,13 @@ public class ReservationService {
     Long userId = reservationRequestDTO.getUserId();
     Reservation reservation = reservationMapper.toEntity(reservationRequestDTO);
     AuthenticatedUser user = userRepository.findById(userId).orElse(null);
+
     Search s = new Search();
     s.setRate(rate);
+    s.setNumOfPersons(reservationRequestDTO.getNumOfPersons());
 
     // trigger rules
-    doDiscountRules(s);
+    doDiscountRules(s, reservation);
     doRateRules(s, reservation, user);
 
     // save in db
@@ -81,10 +83,10 @@ public class ReservationService {
     System.out.println("User blocked: " + user.getBlocked());
   }
 
-  private void doDiscountRules(Search search) {
+  private void doDiscountRules(Search search, Reservation reservation) {
     List<Reservation> reservations = reservationRepository.findAll();
     kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
-    FactHandle rFc = kieSession.insert(reservations.get(0));
+    FactHandle rFc = kieSession.insert(reservation);
     FactHandle searchFc = kieSession.insert(search);
     int num = kieSession.fireAllRules();
 
@@ -93,5 +95,5 @@ public class ReservationService {
 
     System.out.println("Fired rules: " + num);
     System.out.println("Reservations list size is : " + reservations.size());
-}
+  }
 }
