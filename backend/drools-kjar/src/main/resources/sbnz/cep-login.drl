@@ -1,0 +1,21 @@
+package cep;
+
+import pro.restommender.model.AuthenticatedUser;
+import pro.restommender.event.LoginEvent;
+
+rule "More than 5 bad logins"
+    when
+        $user: AuthenticatedUser(blocked == false)
+        $t1: LoginEvent($cId: userId)
+        Number(intValue >= 5) from accumulate(
+            $t2: LoginEvent(
+                this != $t1,
+                userId == $cId,
+                this meets[5m] $t1
+            ),
+            count($t2)
+        )
+    then
+        System.out.println("CEP --------------------------- Vise od 5 pokusaja logovanja");
+        modify($user) {setBlocked(true)}
+end

@@ -1,6 +1,5 @@
 package pro.restommender.event;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import org.kie.api.definition.type.Expires;
@@ -10,15 +9,15 @@ import org.kie.api.definition.type.Timestamp;
 @Role(Role.Type.EVENT)
 @Timestamp("executionTime")
 @Expires("2h30m")
-public class SearchEvent {
+public class LoginEvent {
 
     private Date executionTime;
     private Long userId;
 
-    public SearchEvent() {
+    public LoginEvent() {
     }
 
-    public SearchEvent(Date executionTime, Long userId) {
+    public LoginEvent(Date executionTime, Long userId) {
         this.executionTime = executionTime;
         this.userId = userId;
     }
@@ -38,5 +37,5 @@ public class SearchEvent {
     public void setuserId(Long userId) {
         this.userId = userId;
     }
-
+    
 }

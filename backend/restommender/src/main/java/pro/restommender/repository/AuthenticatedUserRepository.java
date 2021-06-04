@@ -1,5 +1,7 @@
 package pro.restommender.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +14,8 @@ public interface AuthenticatedUserRepository extends JpaRepository<Authenticated
     
     @Transactional
     AuthenticatedUser findByEmail(String email);
+
+    @Transactional
+    List<AuthenticatedUser> findAllByBlocked(Boolean blocked);
     
 }
