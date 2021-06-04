@@ -6,7 +6,6 @@ public class RestaurantDTO {
   public double location;
   public String music;
   public String accomodation;
-  public String type;
   public Boolean smokingArea;
   public Boolean nonSmokingArea;
   public Boolean alcoholicDrinks;

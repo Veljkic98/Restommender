@@ -14,8 +14,6 @@ public class Search {
 
   private String accomodation;
 
-  private String type; // moderni, tradicionalni, organizovane svirke, porodicni
-
   private Boolean smokingArea;
 
   private Boolean nonSmokingArea;
@@ -77,14 +75,6 @@ public class Search {
 
   public void setAccomodation(String accomodation) {
     this.accomodation = accomodation;
-  }
-
-  public String getType() {
-    return this.type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
   public Boolean isSmokingArea() {
@@ -176,7 +166,6 @@ public class Search {
       ", location='" + getLocation() + "'" +
       ", music='" + getMusic() + "'" +
       ", accomodation='" + getAccomodation() + "'" +
-      ", type='" + getType() + "'" +
       ", smokingArea='" + isSmokingArea() + "'" +
       ", nonSmokingArea='" + isNonSmokingArea() + "'" +
       ", alcoholicDrinks='" + isAlcoholicDrinks() + "'" +
