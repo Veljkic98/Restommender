@@ -45,7 +45,7 @@ public class SearchService {
         RelevantRestaurants relevantRestaurants = new RelevantRestaurants();
         relevantRestaurants.setRelevantRestaurants(restaurants);
 
-        // doFilter(search, relevantRestaurants);
+        doFilter(search, relevantRestaurants);
 
         doLocation(search, relevantRestaurants);
 
@@ -57,22 +57,6 @@ public class SearchService {
         return relevantRestaurants.getRelevantRestaurants();
     }
 
-    // TODO: ova pravila aktivirati samo kad se dodaju nove rezervacije
-    private void doDiscount(Search search, List<Reservation> reservations) {
-
-        System.out.println("****** SEARCH DISCOUNT ******");
-
-        kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
-        FactHandle rFc = kieSession.insert(reservations.get(0));
-        FactHandle searchFc = kieSession.insert(search);
-        int num = kieSession.fireAllRules();
-
-        kieSession.delete(rFc);
-        kieSession.delete(searchFc);
-
-        System.out.println("Fired rules: " + num);
-        System.out.println("Reservations list size is : " + reservations.size());
-    }
 
     private void doLocation(Search search, RelevantRestaurants relevantRestaurants) {
 
@@ -118,24 +102,4 @@ public class SearchService {
         System.out.println("Fired rules: " + num);
         System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
     }
-
-    private void doRate(Search search, RelevantRestaurants relevantRestaurants, Reservation reservation) {
-
-        System.out.println("****** SET DISCOUNT BY RATES ******");
-
-        kieSession.getAgenda().getAgendaGroup("rate").setFocus();
-        FactHandle rrFc =kieSession.insert(relevantRestaurants);
-        FactHandle reservationFc =kieSession.insert(reservation);
-        FactHandle searchFc =kieSession.insert(search);
-        int num = kieSession.fireAllRules();
-
-        kieSession.delete(rrFc);
-        kieSession.delete(reservationFc);
-        kieSession.delete(searchFc);
-
-        System.out.println("----------------------");
-        System.out.println("Fired rules: " + num);
-        System.out.println(reservation.getDiscount());
-    }
-
 }

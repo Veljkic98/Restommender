@@ -40,30 +40,15 @@ public class ReservationService {
   private KieSession kieSession;
 
   public Reservation add(ReservationRequestDTO reservationRequestDTO, double rate) {
-
     Long userId = reservationRequestDTO.getUserId();
     Reservation reservation = reservationMapper.toEntity(reservationRequestDTO);
-    RelevantRestaurants rr = new RelevantRestaurants(restaurantRepository.findAll());
     AuthenticatedUser user = userRepository.findById(userId).orElse(null);
-
     Search s = new Search();
     s.setRate(rate);
 
-    kieSession.getAgenda().getAgendaGroup("rate").setFocus();
-    FactHandle sFc = kieSession.insert(s);
-    FactHandle rFc = kieSession.insert(reservation);
-    FactHandle rrFc = kieSession.insert(rr);
-    FactHandle userFc = kieSession.insert(user);
-    kieSession.insert(new ReservationEvent(new Date(), userId));
-    int num = kieSession.fireAllRules();
-
-    kieSession.delete(sFc);
-    kieSession.delete(rFc);
-    kieSession.delete(rrFc);
-    kieSession.delete(userFc);
-
-    System.out.println("Fired rules: " + num);
-    System.out.println("User blocked: " + user.getBlocked());
+    // trigger rules
+    doDiscountRules(s);
+    doRateRules(s, reservation, user);
 
     // save in db
     userRepository.save(user);
@@ -71,11 +56,42 @@ public class ReservationService {
   }
 
   public List<ReservationResponseDTO> getAll() {
-
     List<Reservation> reservations = reservationRepository.findAll();
-
     List<ReservationResponseDTO> responseDto = reservationMapper.toDtoList(reservations);
-
     return responseDto;
   }
+
+  private void doRateRules(Search search, Reservation reservation, AuthenticatedUser user) {
+    RelevantRestaurants rr = new RelevantRestaurants(restaurantRepository.findAll());
+
+    kieSession.getAgenda().getAgendaGroup("rate").setFocus();
+    FactHandle searchFc = kieSession.insert(search);
+    FactHandle rFc = kieSession.insert(reservation);
+    FactHandle rrFc = kieSession.insert(rr);
+    FactHandle userFc = kieSession.insert(user);
+    kieSession.insert(new ReservationEvent(new Date(), user.getId()));
+    int num = kieSession.fireAllRules();
+
+    kieSession.delete(searchFc);
+    kieSession.delete(rFc);
+    kieSession.delete(rrFc);
+    kieSession.delete(userFc);
+
+    System.out.println("Fired rules: " + num);
+    System.out.println("User blocked: " + user.getBlocked());
+  }
+
+  private void doDiscountRules(Search search) {
+    List<Reservation> reservations = reservationRepository.findAll();
+    kieSession.getAgenda().getAgendaGroup("reservation-number-discount").setFocus();
+    FactHandle rFc = kieSession.insert(reservations.get(0));
+    FactHandle searchFc = kieSession.insert(search);
+    int num = kieSession.fireAllRules();
+
+    kieSession.delete(rFc);
+    kieSession.delete(searchFc);
+
+    System.out.println("Fired rules: " + num);
+    System.out.println("Reservations list size is : " + reservations.size());
+}
 }
