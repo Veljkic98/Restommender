@@ -9,7 +9,6 @@ public class RestaurantResponseDTO {
     public double location;
     public String music; // relaxing, loud
     public String accomodation;
-    public String type; // moderni, tradicionalni, organizovane svirke, porodicni
     public Boolean smokingArea;
     public Boolean nonSmokingArea;
     public Boolean alcoholicDrinks;
@@ -22,15 +21,13 @@ public class RestaurantResponseDTO {
     public RestaurantResponseDTO() {
     }
 
-    public RestaurantResponseDTO(Long id, String name, double location, String music, String accomodation, String type,
-            Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks,
-            Boolean petFriendly, Boolean kidFriendly, double rate) {
+
+    public RestaurantResponseDTO(Long id, String name, double location, String music, String accomodation, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, double rate, List<ReservationResponseDTO> reservations) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.music = music;
         this.accomodation = accomodation;
-        this.type = type;
         this.smokingArea = smokingArea;
         this.nonSmokingArea = nonSmokingArea;
         this.alcoholicDrinks = alcoholicDrinks;
@@ -38,6 +35,7 @@ public class RestaurantResponseDTO {
         this.petFriendly = petFriendly;
         this.kidFriendly = kidFriendly;
         this.rate = rate;
+        this.reservations = reservations;
     }
 
     public Long getId() {
@@ -78,14 +76,6 @@ public class RestaurantResponseDTO {
 
     public void setAccomodation(String accomodation) {
         this.accomodation = accomodation;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Boolean isSmokingArea() {
