@@ -47,17 +47,18 @@ public class TokenUtils {
      * Function to generate JWT.
      * 
      * @param username of user
-     * @return
+     * @param type is role of user
+     * @return token
      */
-    public String generateToken(String username) {
+    public String generateToken(String username, String type) {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Authority auth = (Authority) user.getAuthorities().toArray()[0];
+        // Authority auth = (Authority) user.getAuthorities().toArray()[0];
 
         return Jwts.builder().setIssuer(APP_NAME).setSubject(username).setAudience(generateAudience())
                 .setIssuedAt(new Date()).setExpiration(generateExpirationDate())
-                .claim("role", auth.getName())
+                .claim("role", type)
                 .claim("id", user.getId())
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }

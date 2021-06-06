@@ -61,7 +61,7 @@ public class AuthenticationController {
             if (user.getBlocked() && user.getType().name().equals("USER"))
                 return new ResponseEntity<>("User is blocked.", HttpStatus.BAD_REQUEST);
 
-            String jwt = tokenUtils.generateToken(user.getEmail()); // prijavljujemo se na sistem sa email adresom
+            String jwt = tokenUtils.generateToken(user.getEmail(), user.getType().name()); // prijavljujemo se na sistem sa email adresom
             int expiresIn = tokenUtils.getExpiredIn();
 
             return new ResponseEntity<>(new UserLoginResponseDTO(jwt, expiresIn), HttpStatus.OK);
