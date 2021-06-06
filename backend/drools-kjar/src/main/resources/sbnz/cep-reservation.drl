@@ -21,3 +21,5 @@ rule "More than 5 new reservations in an hour from one user"
         System.out.println("CEP --------------------------- Vise od 5 pokusaja pretraga");
         modify($user) {setBlocked(true)}
 end
+
+// rule "More than 10 different reservations in 2 hours"
