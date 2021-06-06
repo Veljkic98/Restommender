@@ -95,4 +95,23 @@ public class UserController {
         }
     }
 
+    @PutMapping(path = "block/{userId}")
+    // @PreAuthorize("hasRole('ROLE_AUTH_USER')")
+    public ResponseEntity<?> block(@PathVariable Long userId) {
+
+        try {
+            // User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            // if (user.getType().name().equals("USER"))
+            //     return new ResponseEntity<>("User must be admin.", HttpStatus.UNAUTHORIZED);
+
+            userService.block(userId);
+            
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
