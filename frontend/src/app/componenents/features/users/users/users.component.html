@@ -1,5 +1,11 @@
 <div>
     <h2>{{ title }}</h2>
+    <div id="but">
+        <button mat-raised-button color="primary" (click)="getAllBlocked()">Blocked</button>
+        <span class="button-text"></span>
+        <button mat-raised-button color="primary" (click)="getAllUnblocked()">Unblocked</button>
+
+    </div>
 
     <table mat-table [dataSource]="users" class="mat-elevation-z8">
 
