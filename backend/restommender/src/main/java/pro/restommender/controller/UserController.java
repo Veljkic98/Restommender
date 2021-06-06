@@ -1,13 +1,10 @@
 package pro.restommender.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.restommender.dto.responseDTO.UserResponseDTO;
 import pro.restommender.mapper.UserMapper;
 import pro.restommender.model.AuthenticatedUser;
-import pro.restommender.model.User;
-import pro.restommender.service.AuthenticatedUserService;
 import pro.restommender.service.UserService;
 
 @RestController

@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UsersComponent implements OnInit {
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'type'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'type', 'action'];
   title: string = "";
 
   users: User[] = [];
@@ -20,29 +20,44 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllBlocked();
-    // this.getAllUnblocked();
   }
 
   getAllBlocked() {
-    this.title = "Blocked users";
-    console.log("Get all blocked users");
+    this.title = "Blocked";
 
     this.userService.getAllBlocked()
+      .subscribe(
+        data => {
+          this.users = data;
+        }
+      )
+  }
+
+  getAllUnblocked() {
+    this.title = "Unblocked";
+
+    this.userService.getAllUnblocked()
+      .subscribe(
+        data => {
+          this.users = data
+        }
+      )
+  }
+
+  block(id: number) {
+    this.userService.block(id)
     .subscribe(
       data => {
-        this.users = data;
+        this.getAllUnblocked();
       }
     )
   }
 
-  getAllUnblocked() {
-    this.title = "Unblocked users";
-    console.log("Get all blocked users");
-
-    this.userService.getAllUnblocked()
+  unblock(id: number) {
+    this.userService.unblock(id)
     .subscribe(
       data => {
-        this.users = data
+        this.getAllBlocked();
       }
     )
   }

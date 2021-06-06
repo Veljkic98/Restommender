@@ -22,4 +22,12 @@ export class UserService {
   getAllUnblocked() {
     return this.http.get<Array<User>>(this.url + "unblocked", { headers: this.headers });
   }
+
+  block(id: number) {
+    return this.http.put<User>(this.url + "block/" + id, { headers: this.headers });
+  }
+
+  unblock(id: number) {
+    return this.http.put<User>(this.url + "unblock/" + id, { headers: this.headers });
+  }
 }
