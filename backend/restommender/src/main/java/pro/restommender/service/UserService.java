@@ -32,5 +32,17 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+    public void block(Long userId) throws Exception {
+
+        AuthenticatedUser user;
+
+        if ((user = userRepository.findById(userId).orElse(null)) == null)
+            throw new Exception();
+
+        user.setBlocked(true);
+
+        userRepository.save(user);
+    }
     
 }
