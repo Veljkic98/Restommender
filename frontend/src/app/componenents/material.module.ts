@@ -24,6 +24,7 @@ import { SearchComponent } from './search/search.component';
 import {MatRadioModule} from '@angular/material/radio';
 
 import { LoginComponent } from './features/users/login/login.component';
+import { UsersComponent } from './features/users/users/users.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { LoginComponent } from './features/users/login/login.component';
         DashboardComponent,
         SearchComponent,
         LoginComponent,
+        UsersComponent,
 
     ],
     imports: [

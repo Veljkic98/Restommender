@@ -1,8 +1,9 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <a href="/"> <span> Restommender </span> </a>
-        <button mat-button routerLink="/dashboard">opcija 1</button>
-        <button mat-button routerLink="/">opcija 2</button>
+        <button mat-button routerLink="/dashboard" *ngIf="authService.isLoggedIn()">Dashboard</button>
+        <!-- <button mat-button routerLink="/">opcija 2</button> -->
+        <button mat-button routerLink="/users" *ngIf="authService.getRole() === 'ADMIN'">Users</button>
         
         <span class="menu-spacer"></span>
 

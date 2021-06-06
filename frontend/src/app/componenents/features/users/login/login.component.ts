@@ -52,8 +52,7 @@ export class LoginComponent implements OnInit {
 
           localStorage.setItem('user', JSON.stringify({
             username: this.loginForm.value.email,
-            // dodat password zbog logovanja na hospital app
-            password: this.loginForm.value.password,
+            password: this.loginForm.value.password,  // password je zbog logovanja na hospital app
             token: data.accessToken,
             id: payload.id,
             role: payload.role
