@@ -17,10 +17,19 @@ h1{
   padding: 3px;
 }
 
-mat-icon {
+mat-card {
+  background-color: whitesmoke;
+  margin-bottom: 1rem;
+}
+.yes {
   color: rgb(48, 184, 48);
   vertical-align: bottom;
 }
-mat-card {
-  background-color: whitesmoke;
+.no {
+  color: rgb(235, 98, 83);
+  vertical-align: bottom;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
 }

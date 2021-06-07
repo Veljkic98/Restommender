@@ -1,22 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Restaurant } from '../model/restaurant.model';
-import { Search } from '../model/search.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService {
-
+export class RestaurantsService {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')).token });
 
-  private url: string = "http://localhost:8080/api/search/"; 
+  private url: string = "http://localhost:8080/restaurants";
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) { }
 
-  getRestaurants(search: Search) {
-    return this.http.post<Array<Restaurant>>(this.url, search, { headers: this.headers });
+  getAll() {
+    return this.http.get<Restaurant[]>(`${this.url}`, {headers: this.headers}).toPromise();
+
   }
 }

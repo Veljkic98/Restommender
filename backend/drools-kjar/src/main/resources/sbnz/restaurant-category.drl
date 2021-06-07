@@ -2,7 +2,6 @@ package sbnz.restaurant;
 
 import pro.restommender.model.Restaurant;
 import pro.restommender.model.RelevantRestaurants;
-import pro.restommender.model.Rule;
 import pro.restommender.dto.Search;
 import java.util.List;
 

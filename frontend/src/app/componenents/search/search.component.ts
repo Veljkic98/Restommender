@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Search } from 'src/app/model/search.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-search',
@@ -21,7 +22,8 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private searchService: SearchService,
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +41,13 @@ export class SearchComponent implements OnInit {
     var search = this.getSearchObj();
 
     console.log(search)
+
+    this.searchService.getRestaurants(search)
+    .subscribe(
+      data => {
+        console.log(data);
+      }
+    )
   }
 
   getSearchObj(): Search {
