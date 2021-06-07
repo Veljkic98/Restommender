@@ -1,4 +1,4 @@
-.mat-radio-button ~ .mat-radio-button {
+.mat-radio-button~.mat-radio-button {
   margin-left: 16px;
 }
 
@@ -13,4 +13,18 @@
   padding-top: 1px;
   padding-bottom: 1px;
   margin-bottom: 5px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
 }

@@ -10,7 +10,6 @@ export class AuthService {
 
   // private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')).token });
 
-
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<JWT> {
