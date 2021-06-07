@@ -7,18 +7,18 @@
         {{opt}}
       </mat-radio-button>
     </mat-radio-group>
-    
+
   </div>
-  
+
   <div style="margin-left: 300px;">
     <p style="margin: 0px; color: rgb(216, 131, 3)">Accomodation</p>
-    <mat-radio-group  [(ngModel)]="accomodation">
+    <mat-radio-group [(ngModel)]="accomodation">
       <mat-radio-button class="example-radio-button" *ngFor="let opt of accomodationOptions" [value]="opt">
         {{opt}}
       </mat-radio-button>
     </mat-radio-group>
   </div>
-  
+
   <div style="margin-top: 15px;">
     <p style="margin: 0px; color: rgb(216, 131, 3)">Other</p>
     <section class="example-section" [formGroup]="restaurantsSearch">
@@ -30,6 +30,51 @@
       <mat-checkbox formControlName="kidFriendly">Kid Friendly</mat-checkbox>
     </section>
   </div>
-  
-  <button mat-raised-button color="accent" style="margin: 5px;">Search</button>
+
+  <div style="margin-top: 15px;">
+    <p style="margin: 0px; color: rgb(216, 131, 3)">Other 2</p>
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input matInput
+            [(ngModel)]="name">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Number of person</mat-label>
+            <input matInput 
+            type="number"
+            min="1"
+            max="20"
+            [(ngModel)]="numOfPerson">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Location</mat-label>
+            <input matInput 
+            type="number"
+            min="0"
+            max="1000"
+            [(ngModel)]="location">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Rate</mat-label>
+            <input matInput 
+            type="number"
+            min="0"
+            max="5"
+            [(ngModel)]="rate">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <button mat-raised-button color="accent" style="margin: 5px;" (click)="search()">Search</button>
 </div>
