@@ -25,6 +25,8 @@ import {MatRadioModule} from '@angular/material/radio';
 
 import { LoginComponent } from './features/users/login/login.component';
 import { UsersComponent } from './features/users/users/users.component';
+import { CreateRulesComponent } from './create-rules/create-rules.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { RestaurantsComponent } from './features/restaurant/restaurants/restaurants.component';
 
 @NgModule({
@@ -35,8 +37,8 @@ import { RestaurantsComponent } from './features/restaurant/restaurants/restaura
         SearchComponent,
         LoginComponent,
         UsersComponent,
+        CreateRulesComponent,
         RestaurantsComponent,
-
     ],
     imports: [
         CommonModule,
@@ -57,7 +59,8 @@ import { RestaurantsComponent } from './features/restaurant/restaurants/restaura
         MatCheckboxModule,
         MatDialogModule,
         MatChipsModule,
-        MatRadioModule
+        MatRadioModule,
+        CodemirrorModule
     ],
     providers: [
         MatDatepickerModule,
