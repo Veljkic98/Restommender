@@ -26,6 +26,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { LoginComponent } from './features/users/login/login.component';
 import { UsersComponent } from './features/users/users/users.component';
 import { CreateRulesComponent } from './create-rules/create-rules.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import { CreateRulesComponent } from './create-rules/create-rules.component';
         MatCheckboxModule,
         MatDialogModule,
         MatChipsModule,
-        MatRadioModule
+        MatRadioModule,
+        CodemirrorModule
     ],
     providers: [
         MatDatepickerModule,

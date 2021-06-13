@@ -1,1 +1,21 @@
-<p>create-rules works!</p>
+<div>
+  <ngx-codemirror
+  [(ngModel)]="content"
+  [options]="{
+    lineNumbers: true,
+    theme: 'dracula',
+    mode: 'text/x-java'
+  }"
+  ></ngx-codemirror>
+  <!-- https://stackoverflow.com/questions/57311898/angular-8-with-ngx-codemirror -->
+</div>
+<div style="padding: 10px;">
+  <button 
+  mat-flat-button color="accent" 
+  (click)="createRule()"
+  > 
+    + Create Rule
+  </button>
+
+  <mat-spinner *ngIf="spinnerActive"></mat-spinner>
+</div>
