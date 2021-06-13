@@ -2,6 +2,7 @@ package pro.restommender.dto;
 
 public class RestaurantDTO {
   
+  public Long id;
   public String name;
   public double location;
   public String music;

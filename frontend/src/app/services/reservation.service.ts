@@ -1,20 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Restaurant } from '../model/restaurant.model';
+import { Reservation } from '../model/reservation.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RestaurantsService {
+export class ReservationService {
+
   private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')).token });
 
-  private url: string = "http://localhost:8080/restaurants";
+  private url: string = "http://localhost:8080/api/reservations";
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getAll() {
-    return this.http.get<Restaurant[]>(`${this.url}`, {headers: this.headers}).toPromise();
+  sendReservation(res: Reservation, rate: number) {
+    return this.http.post(`${this.url}/${rate}`, res, {headers: this.headers});
   }
 }

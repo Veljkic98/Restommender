@@ -1,19 +1,19 @@
 <div class="center">
   <h1> Restaurants </h1>
-  
-  <app-search></app-search>
+
+  <app-search (messageEvent)="receiveMessage($event)"></app-search>
 
   <mat-card *ngFor="let restaurant of restaurants">
     <mat-card-title>
-      <mat-icon style="color:rgb(245, 73, 10);vertical-align: top;">restaurant</mat-icon> 
-      <mat-icon style="color:rgb(245, 73, 10);vertical-align: top;">local_bar</mat-icon> 
+      <mat-icon style="color:rgb(245, 73, 10);vertical-align: top;">restaurant</mat-icon>
+      <mat-icon style="color:rgb(245, 73, 10);vertical-align: top;">local_bar</mat-icon>
       {{restaurant.name}}
 
       <div style="padding-bottom: 20px; float:right">
-        <mat-chip-list aria-label="Fish selection" >
+        <mat-chip-list aria-label="Fish selection">
           <!-- lccation -->
           <mat-chip style="background-color: rgb(167, 20, 224)" selected>
-            {{restaurant.location}} km 
+            {{restaurant.location}} km
           </mat-chip>
           <!-- music -->
           <mat-chip color="warn" selected>
@@ -25,46 +25,49 @@
           </mat-chip>
         </mat-chip-list>
       </div>
-      
+
     </mat-card-title>
     <mat-card-subtitle></mat-card-subtitle>
     <mat-card-content>
 
       <!-- smoking area -->
-      <div class="attr"> 
-        smoking area  
-        <mat-icon *ngIf="restaurant.smokingArea" class="yes">done</mat-icon> 
+      <div class="attr">
+        smoking area
+        <mat-icon *ngIf="restaurant.smokingArea" class="yes">done</mat-icon>
         <mat-icon *ngIf="!restaurant.smokingArea" class="no">close</mat-icon>
       </div>
       <!-- non-smoking area -->
-      <div class="attr"> 
-        non-smoking area 
-        <mat-icon *ngIf="restaurant.nonSmokingArea" class="yes">done</mat-icon> 
+      <div class="attr">
+        non-smoking area
+        <mat-icon *ngIf="restaurant.nonSmokingArea" class="yes">done</mat-icon>
         <mat-icon *ngIf="!restaurant.nonSmokingArea" class="no">close</mat-icon>
       </div>
       <!-- alcoholic drinks -->
-      <div class="attr"> 
+      <div class="attr">
         alcoholic drinks
-        <mat-icon *ngIf="restaurant.alcoholicDrinks" class="yes">done</mat-icon> 
+        <mat-icon *ngIf="restaurant.alcoholicDrinks" class="yes">done</mat-icon>
         <mat-icon *ngIf="!restaurant.alcoholicDrinks" class="no">close</mat-icon>
       </div>
       <!-- non-alcoholic drinks -->
-      <div class="attr"> 
+      <div class="attr">
         non-alcoholic drinks
-        <mat-icon *ngIf="restaurant.nonAlcoholicDrinks" class="yes">done</mat-icon> 
+        <mat-icon *ngIf="restaurant.nonAlcoholicDrinks" class="yes">done</mat-icon>
         <mat-icon *ngIf="!restaurant.nonAlcoholicDrinks" class="no">close</mat-icon>
       </div>
       <!-- pet friendly -->
-      <div class="attr"> 
-        pet friendly 
-        <mat-icon *ngIf="restaurant.petFriendly" class="yes">done</mat-icon> 
+      <div class="attr">
+        pet friendly
+        <mat-icon *ngIf="restaurant.petFriendly" class="yes">done</mat-icon>
         <mat-icon *ngIf="!restaurant.petFriendly" class="no">close</mat-icon>
       </div>
       <!-- kid friendly -->
-      <div class="attr"> 
-        kid friendly 
-        <mat-icon *ngIf="restaurant.kidFriendly" class="yes">done</mat-icon> 
+      <div class="attr">
+        kid friendly
+        <mat-icon *ngIf="restaurant.kidFriendly" class="yes">done</mat-icon>
         <mat-icon *ngIf="!restaurant.kidFriendly" class="no">close</mat-icon>
+
+        <button mat-raised-button color="accent" style="float: right;" (click)="makeReservation(restaurant.id)">Make
+          Reservation</button>
       </div>
     </mat-card-content>
   </mat-card>

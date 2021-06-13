@@ -24,6 +24,7 @@ public class RestaurantMapper {
 
         for (Restaurant restaurant : restaurants) {
             RestaurantDTO dto = new RestaurantDTO();
+            dto.id = restaurant.getId();
             dto.accomodation = restaurant.getAccomodation();
             dto.alcoholicDrinks = restaurant.getAlcoholicDrinks();
             dto.kidFriendly = restaurant.getKidFriendly();
