@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Restaurant } from 'src/app/model/restaurant.model';
 import { Search } from 'src/app/model/search.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { SearchService } from 'src/app/services/search.service';
@@ -10,6 +11,7 @@ import { SearchService } from 'src/app/services/search.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+
   restaurantsSearch: FormGroup;
   music: string;
   accomodation: string;
@@ -19,6 +21,8 @@ export class SearchComponent implements OnInit {
   rate: number = 0;
   musicOptions = ['relaxing', 'loud'];
   accomodationOptions = ['udobno', ' tradicionalno'];
+
+  @Output() messageEvent = new EventEmitter<{restaurants: Array<Restaurant>, numOfPerson: number, rate: number}>();
 
   constructor(
     private fb: FormBuilder,
@@ -40,12 +44,11 @@ export class SearchComponent implements OnInit {
   search() {
     var search = this.getSearchObj();
 
-    console.log(search)
-
     this.searchService.getRestaurants(search)
     .subscribe(
       data => {
-        console.log(data);
+        // send restaurants to another component
+        this.messageEvent.emit({restaurants: data, numOfPerson: this.numOfPerson, rate: this.rate});
       }
     )
   }

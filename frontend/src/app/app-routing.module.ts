@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CreateRulesComponent } from './componenents/create-rules/create-rules.component';
 import { DashboardComponent } from './componenents/dashboard/dashboard.component';
+import { RestaurantsComponent } from './componenents/features/restaurant/restaurants/restaurants.component';
 import { LoginComponent } from './componenents/features/users/login/login.component';
 import { UsersComponent } from './componenents/features/users/users/users.component';
 import { HomePageComponent } from './componenents/home-page/home-page.component';
@@ -33,7 +34,13 @@ const routes: Routes = [
         component: CreateRulesComponent,
         canActivate: [LoginGuard],
         data: { expectedRoles: 'ADMIN' }
-      }
+      },
+      {
+        path: 'restaurants',
+        component: RestaurantsComponent,
+        canActivate: [LoginGuard],
+        data: { expectedRoles: 'ADMIN' }
+      },
     ]
   }
 ];
