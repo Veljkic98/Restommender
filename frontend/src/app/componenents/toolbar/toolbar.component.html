@@ -4,7 +4,7 @@
         <button mat-button routerLink="/dashboard" *ngIf="authService.isLoggedIn()">Dashboard</button>
         <!-- <button mat-button routerLink="/">opcija 2</button> -->
         <button mat-button routerLink="/users" *ngIf="authService.getRole() === 'ADMIN'">Users</button>
-        
+        <button mat-button routerLink="/create-rules" *ngIf="authService.getRole() === 'ADMIN'"> + Rules</button>
         <span class="menu-spacer"></span>
 
         <div>

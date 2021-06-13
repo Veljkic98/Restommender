@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CreateRulesComponent } from './componenents/create-rules/create-rules.component';
 import { DashboardComponent } from './componenents/dashboard/dashboard.component';
 import { LoginComponent } from './componenents/features/users/login/login.component';
 import { UsersComponent } from './componenents/features/users/users/users.component';
@@ -27,6 +28,12 @@ const routes: Routes = [
         canActivate: [LoginGuard],
         data: { expectedRoles: 'ADMIN' }
       },
+      {
+        path: 'create-rules',
+        component: CreateRulesComponent,
+        canActivate: [LoginGuard],
+        data: { expectedRoles: 'ADMIN' }
+      }
     ]
   }
 ];

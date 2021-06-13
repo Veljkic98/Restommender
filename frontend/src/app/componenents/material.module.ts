@@ -25,6 +25,7 @@ import {MatRadioModule} from '@angular/material/radio';
 
 import { LoginComponent } from './features/users/login/login.component';
 import { UsersComponent } from './features/users/users/users.component';
+import { CreateRulesComponent } from './create-rules/create-rules.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { UsersComponent } from './features/users/users/users.component';
         SearchComponent,
         LoginComponent,
         UsersComponent,
+        CreateRulesComponent,
 
     ],
     imports: [
