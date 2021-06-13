@@ -1,4 +1,4 @@
-package sbnz.reservation;
+package sbnz;
 
 import pro.restommender.model.Reservation;
 import pro.restommender.dto.Search;

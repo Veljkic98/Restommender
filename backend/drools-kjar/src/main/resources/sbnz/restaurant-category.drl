@@ -1,4 +1,4 @@
-package sbnz.restaurant;
+package sbnz;
 
 import pro.restommender.model.Restaurant;
 import pro.restommender.model.RelevantRestaurants;

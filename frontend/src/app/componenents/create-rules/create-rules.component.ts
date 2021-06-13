@@ -11,7 +11,7 @@ import { RulesService } from 'src/app/services/rules.service';
 export class CreateRulesComponent implements OnInit {
   spinnerActive = false;
 
-  content = `package sbnz.restaurant;
+  content = `package sbnz;
 
 import pro.restommender.model.Restaurant;
 import pro.restommender.model.RelevantRestaurants;

@@ -11,7 +11,7 @@ export class RulesService {
   constructor(private http: HttpClient) { }
 
   async addRule(rule: Rule) {
-    let rulePromise = this.http.post(`https://localhost:8080/api/rules`, rule, {headers: this.headers}).toPromise();
+    let rulePromise = this.http.post(`http://localhost:8080/api/rules`, rule, {headers: this.headers}).toPromise();
     return rulePromise;
   }
 }

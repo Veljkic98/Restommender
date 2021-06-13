@@ -1,4 +1,4 @@
-package cep;
+package sbnz;
 
 import pro.restommender.model.Reservation;
 import pro.restommender.model.AuthenticatedUser;
