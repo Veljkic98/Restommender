@@ -6,14 +6,20 @@ import { Restaurant } from '../model/restaurant.model';
   providedIn: 'root'
 })
 export class RestaurantsService {
+
   private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')).token });
 
   private url: string = "http://localhost:8080/restaurants";
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getAll() {
-    return this.http.get<Restaurant[]>(`${this.url}`, {headers: this.headers}).toPromise();
+    return this.http.get<Restaurant[]>(`${this.url}`, { headers: this.headers }).toPromise();
+  }
 
+  getAllNoPromise() {
+    return this.http.get<Restaurant[]>(`${this.url}`, { headers: this.headers });
   }
 }
