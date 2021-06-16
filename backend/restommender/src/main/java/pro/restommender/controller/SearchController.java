@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.restommender.dto.RestaurantDTO;
 import pro.restommender.dto.Search;
 import pro.restommender.mapper.RestaurantMapper;
+import pro.restommender.model.AuthenticatedUser;
 import pro.restommender.model.Restaurant;
 import pro.restommender.model.User;
+import pro.restommender.repository.AuthenticatedUserRepository;
 import pro.restommender.service.SearchService;
 
 @RestController
@@ -30,12 +32,18 @@ public class SearchController {
     @Autowired
     private RestaurantMapper restaurantMapper;
 
+    @Autowired
+    private AuthenticatedUserRepository userRepository;
+
     @PostMapping
     @PreAuthorize("hasRole('ROLE_AUTH_USER')")
     public ResponseEntity<?> search(@RequestBody Search search) {
 
         try {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            // User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userRepository.findById(search.getUserId()).orElse(null);
+
+            System.out.println(user);
 
             if (user.getBlocked() && user.getType().name().equals("USER"))
                 return new ResponseEntity<>("User is blocked.", HttpStatus.BAD_REQUEST);

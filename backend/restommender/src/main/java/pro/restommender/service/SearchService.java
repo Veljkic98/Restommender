@@ -64,7 +64,7 @@ public class SearchService {
 
         authenticatedUserRepository.save(user);
 
-        System.out.println("User blodked: " + user.getBlocked());
+        System.out.println("User blocked: " + user.getBlocked());
         System.out.println("Fired rules: " + num);
         System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
     }

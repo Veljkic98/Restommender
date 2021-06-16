@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['mail1@gmail.com', [Validators.email, Validators.required]],
+      email: ['mail2@gmail.com', [Validators.email, Validators.required]],
       password: ['123', [Validators.required, Validators.minLength(3)]],
     });
   }
@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           const payload = JSON.parse(window.atob(data.accessToken.split('.')[1]));
+          console.log(payload)
           
           this.loading = false;
           this.success = true;
