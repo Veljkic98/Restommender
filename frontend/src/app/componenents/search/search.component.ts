@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
   location: number = 1;
   rate: number = 0;
   musicOptions = ['relaxing', 'loud'];
-  accomodationOptions = ['udobno', ' tradicionalno'];
+  accomodationOptions = ['udobno', 'tradicionalno'];
 
   @Output() messageEvent = new EventEmitter<{restaurants: Array<Restaurant>, numOfPerson: number, rate: number}>();
 
@@ -43,6 +43,9 @@ export class SearchComponent implements OnInit {
 
   search() {
     var search = this.getSearchObj();
+
+    console.log("Ispod printujemo search obj")
+    console.log(search);
 
     this.searchService.getRestaurants(search)
     .subscribe(

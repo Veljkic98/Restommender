@@ -47,7 +47,7 @@ public class SearchService {
 
         doFilter(search, relevantRestaurants);
 
-        doLocation(search, relevantRestaurants);
+        // doLocation(search, relevantRestaurants);
 
         // doRestourantMusic(search, relevantRestaurants);
 
@@ -56,7 +56,6 @@ public class SearchService {
 
         return relevantRestaurants.getRelevantRestaurants();
     }
-
 
     private void doLocation(Search search, RelevantRestaurants relevantRestaurants) {
 
@@ -92,8 +91,8 @@ public class SearchService {
         System.out.println("****** SEARCH FILTER ******");
 
         kieSession.getAgenda().getAgendaGroup("filter").setFocus();
-        FactHandle rrFc =kieSession.insert(relevantRestaurants);
-        FactHandle searchFc =kieSession.insert(search);
+        FactHandle rrFc = kieSession.insert(relevantRestaurants);
+        FactHandle searchFc = kieSession.insert(search);
         int num = kieSession.fireAllRules();
 
         kieSession.delete(rrFc);

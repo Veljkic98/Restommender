@@ -20,12 +20,16 @@ insert into user_authority (user_id, authority_id) values (7, 1);
 insert into user_authority (user_id, authority_id) values (8, 1);
 insert into user_authority (user_id, authority_id) values (9, 1);
 
-insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
+insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks, nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
                         ('Petrus', 0.2, 'relaxing', 'udobno', true, true, true, true, true, 4, true);
-insert into restaurant (name, location, music, accomodation, smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
-                        ('corso', 2, 'relaxing', 'tradicionalno', true, false, true, true, true, 4, true);
-insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks,nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
-                        ('atrijum', 10, 'loud', 'udobno', true, false, true, true, false, 2, true);
+insert into restaurant (name, location, music, accomodation, smoking_area, nonsmoking_area, alcoholic_drinks, nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
+                        ('Corso', 2, 'relaxing', 'tradicionalno', true, false, true, true, true, 4, true);
+insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks, nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
+                        ('Atrijum', 10, 'loud', 'udobno', true, false, true, true, false, 2, true);
+insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks, nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
+                        ('Loft', 0.6, 'loud', 'tradicionalno', false, false, false, true, false, 3.5, false);
+insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks, nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
+                        ('Cuba', 3, 'loud', 'udobno', false, true, false, false, false, 1.5, false);
 
 insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
 insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (3, 2, 4, 0);
