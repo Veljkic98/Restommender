@@ -3,11 +3,11 @@ import { ReservationView } from 'src/app/model/reservation-view.model';
 import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
-  selector: 'app-restaurants',
-  templateUrl: './restaurants.component.html',
-  styleUrls: ['./restaurants.component.css']
+  selector: 'app-reservations',
+  templateUrl: './reservations.component.html',
+  styleUrls: ['./reservations.component.css']
 })
-export class RestaurantsComponent implements OnInit {
+export class ReservationsComponent implements OnInit {
 
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'restaurant', 'numOfPerson', 'discount'];
 

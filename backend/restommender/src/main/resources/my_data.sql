@@ -29,6 +29,8 @@ insert into restaurant (name, location, music, accomodation,  smoking_area, nons
 insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks, nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
                         ('Loft', 0.6, 'loud', 'tradicionalno', false, false, false, true, false, 3.5, false);
 insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks, nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
+                        ('Masa', 7, 'loud', 'tradicionalno', true, false, true, true, false, 3.5, false);
+insert into restaurant (name, location, music, accomodation,  smoking_area, nonsmoking_area, alcoholic_drinks, nonalcoholic_drinks, pet_friendly, rate, kid_friendly) values
                         ('Cuba', 3, 'loud', 'udobno', false, true, false, false, false, 1.5, false);
 
 insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);

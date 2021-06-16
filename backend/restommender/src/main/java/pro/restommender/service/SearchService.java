@@ -1,6 +1,5 @@
 package pro.restommender.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pro.restommender.dto.Search;
-import pro.restommender.dto.responseDTO.UserResponseDTO;
 import pro.restommender.event.SearchEvent;
 import pro.restommender.model.AuthenticatedUser;
 import pro.restommender.model.RelevantRestaurants;
-import pro.restommender.model.Reservation;
 import pro.restommender.model.Restaurant;
 import pro.restommender.repository.AuthenticatedUserRepository;
 import pro.restommender.repository.ReservationRepository;
@@ -22,9 +19,6 @@ import pro.restommender.repository.RestaurantRepository;
 
 @Service
 public class SearchService {
-
-    @Autowired
-    private ReservationRepository reservationRepository;
 
     @Autowired
     private RestaurantRepository restaurantRepository;
@@ -40,19 +34,13 @@ public class SearchService {
         System.out.println("****** SEARCH SERVICE ******");
 
         List<Restaurant> restaurants = restaurantRepository.findAll();
-        List<Reservation> reservations = reservationRepository.findAll();
 
         RelevantRestaurants relevantRestaurants = new RelevantRestaurants();
         relevantRestaurants.setRelevantRestaurants(restaurants);
 
         doFilter(search, relevantRestaurants);
 
-        // doLocation(search, relevantRestaurants);
-
-        // doRestourantMusic(search, relevantRestaurants);
-
-        // TODO: izmestiti na pravljenje rezervacija
-        // doDiscount(search, reservations);
+        doLocation(search, relevantRestaurants);
 
         return relevantRestaurants.getRelevantRestaurants();
     }
@@ -88,7 +76,7 @@ public class SearchService {
      */
     private void doFilter(Search search, RelevantRestaurants relevantRestaurants) {
 
-        System.out.println("****** SEARCH FILTER ******");
+        System.out.println("\n****** SEARCH FILTER ******");
 
         kieSession.getAgenda().getAgendaGroup("filter").setFocus();
         FactHandle rrFc = kieSession.insert(relevantRestaurants);
