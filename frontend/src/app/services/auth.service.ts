@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JWT } from '../model/jwt.model';
 
@@ -10,7 +11,10 @@ export class AuthService {
 
   // private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + JSON.parse(localStorage.getItem('user')).token });
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    public router: Router,
+  ) { }
 
   login(email: string, password: string): Observable<JWT> {
     return this.http.post<JWT>("http://localhost:8080/api/auth/login", { username: email, password: password });
@@ -19,6 +23,8 @@ export class AuthService {
   logOut(): void {
     localStorage.removeItem('user');
     localStorage.removeItem('user');
+
+    this.router.navigate(['/login']);
   }
 
   getId(): number {

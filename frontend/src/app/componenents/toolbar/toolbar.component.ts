@@ -19,7 +19,6 @@ export class ToolbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logOut();
-    this.router.navigate(['/login']);
   }
 
 }

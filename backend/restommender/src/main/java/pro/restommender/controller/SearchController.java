@@ -46,6 +46,7 @@ public class SearchController {
 
             return new ResponseEntity<>(restaurantsDTO, HttpStatus.OK);
         } catch (Exception e) {
+            System.out.println(e);
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
