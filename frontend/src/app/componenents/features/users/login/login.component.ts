@@ -61,7 +61,11 @@ export class LoginComponent implements OnInit {
             role: payload.role
           }));
 
-          this.router.navigate(['']);
+          if (payload.role === "USER") {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.router.navigate(['']);
+          }
         },
         error => {
           this.error = error.error ? error.error.message : 'Your account is not verified';
