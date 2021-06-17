@@ -8,8 +8,8 @@ import pro.restommender.event.SearchEvent;
 
 rule "More than 5 searches in 5 minutes from one user"
     when
-        $user: AuthenticatedUser(blocked == false)
-        $t1: SearchEvent($cId: userId)
+        $user: AuthenticatedUser(blocked == false, $userIdVeljko: id)
+        $t1: SearchEvent($cId: userId, userId == $userIdVeljko)
         Number(intValue >= 5) from accumulate(
             $t2: SearchEvent(
                 this != $t1,

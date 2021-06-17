@@ -66,7 +66,7 @@ public class SearchService {
 
         System.out.println("User blocked: " + user.getBlocked());
         System.out.println("Fired rules: " + num);
-        System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
+        System.out.println("RR list size is: " + relevantRestaurants.getRelevantRestaurants().size());
     }
 
     /**

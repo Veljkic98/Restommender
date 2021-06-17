@@ -5,8 +5,8 @@ import pro.restommender.event.LoginEvent;
 
 rule "More than 5 bad logins"
     when
-        $user: AuthenticatedUser(blocked == false)
-        $t1: LoginEvent($cId: userId)
+        $user: AuthenticatedUser(blocked == false, $userIdAlek: id)
+        $t1: LoginEvent($cId: userId, userId == $userIdAlek)
         Number(intValue >= 5) from accumulate(
             $t2: LoginEvent(
                 this != $t1,
