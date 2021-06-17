@@ -37,8 +37,8 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-raised-button color="warn" (click)="block(element.id)" *ngIf="title === 'Unblocked'">Block</button>
-                <button mat-raised-button color="primary" (click)="unblock(element.id)" *ngIf="title === 'Blocked'">Unblock</button>
+                <button mat-raised-button color="warn" (click)="block(element.id)" *ngIf="title === 'Unblocked'" >Block</button>
+                <button mat-raised-button color="primary" (click)="unblock(element.id)" *ngIf="title === 'Blocked'" [disabled]="!element.canBeUnblocked">Unblock</button>
             </td>
         </ng-container>
 

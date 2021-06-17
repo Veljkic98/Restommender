@@ -14,16 +14,19 @@ public class UserResponseDTO {
 
     private Type type;
 
+    private boolean canBeUnblocked;
+
     public UserResponseDTO() {
     }
 
-    public UserResponseDTO(Long id, String email, String firstName, String lastName, Type type) {
+    public UserResponseDTO(Long id, String email, String firstName, String lastName, Type type, boolean canBeUnblocked) {
         this.id = id;
         this.email = email;
         // this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.type = type;
+        this.canBeUnblocked = canBeUnblocked;
     }
 
     public Long getId() {
@@ -65,5 +68,14 @@ public class UserResponseDTO {
     public void setType(Type type) {
         this.type = type;
     }
+
+    public boolean getCanBeUnblocked() {
+        return this.canBeUnblocked;
+    }
+
+    public void setCanBeUnblocked(boolean canBeUnblocked) {
+        this.canBeUnblocked = canBeUnblocked;
+    }
+
 
 }

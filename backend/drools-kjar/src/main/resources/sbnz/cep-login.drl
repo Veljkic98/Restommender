@@ -2,6 +2,7 @@ package sbnz;
 
 import pro.restommender.model.AuthenticatedUser;
 import pro.restommender.event.LoginEvent;
+import java.util.Date;
 
 rule "More than 5 bad logins"
     when
@@ -18,4 +19,5 @@ rule "More than 5 bad logins"
     then
         System.out.println("CEP --------------------------- Vise od 5 pokusaja logovanja");
         modify($user) {setBlocked(true)}
+        modify($user) {setBlockedDate(new Date())}
 end

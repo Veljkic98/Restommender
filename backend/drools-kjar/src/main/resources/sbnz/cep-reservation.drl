@@ -4,6 +4,7 @@ import pro.restommender.model.Reservation;
 import pro.restommender.model.AuthenticatedUser;
 import pro.restommender.dto.Search;
 import pro.restommender.event.ReservationEvent;
+import java.util.Date;
 
 rule "More than 5 new reservations in an hour from one user"
     when
@@ -20,4 +21,5 @@ rule "More than 5 new reservations in an hour from one user"
     then
         System.out.println("CEP --------------------------- Vise od 5 pokusaja dodavanja rezervacija");
         modify($user) {setBlocked(true)}
+        modify($user) {setBlockedDate(new Date())}
 end

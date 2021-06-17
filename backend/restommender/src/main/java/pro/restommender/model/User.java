@@ -1,6 +1,7 @@
 package pro.restommender.model;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -40,6 +41,9 @@ public abstract class User implements UserDetails {
 
   @Column(name = "blocked")
   private Boolean blocked;
+
+  @Column(name = "blocked_date")
+  private Date blockedDate;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @Fetch(value = FetchMode.SUBSELECT)
@@ -135,11 +139,30 @@ public abstract class User implements UserDetails {
     return authorities;
   }
 
+
+  public Date getBlockedDate() {
+    return this.blockedDate;
+  }
+
+  public void setBlockedDate(Date blockedDate) {
+    this.blockedDate = blockedDate;
+  }
+
   @Override
   public String toString() {
-    return "{" + " id='" + getId() + "'" + ", email='" + getEmail() + "'" + ", password='" + getPassword() + "'"
-        + ", firstName='" + getFirstName() + "'" + ", lastName='" + getLastName() + "'" + ", type='" + getType() + "'"
-        + ", blocked='" + isBlocked() + "'" + "}";
+    return "{" +
+      " id='" + getId() + "'" +
+      ", email='" + getEmail() + "'" +
+      ", password='" + getPassword() + "'" +
+      ", firstName='" + getFirstName() + "'" +
+      ", lastName='" + getLastName() + "'" +
+      ", type='" + getType() + "'" +
+      ", blocked='" + isBlocked() + "'" +
+      ", blockedDate='" + getBlockedDate() + "'" +
+      ", reservations='" + getReservations() + "'" +
+      ", authorities='" + getAuthorities() + "'" +
+      "}";
   }
+
 
 }
