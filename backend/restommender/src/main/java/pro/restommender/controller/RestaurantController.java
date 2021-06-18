@@ -50,11 +50,6 @@ public class RestaurantController {
   public ResponseEntity<?> getAll() {
     
     try {
-      User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-      if (user.getType().name().equals("USER"))
-        return new ResponseEntity<>("User must be admin.", HttpStatus.UNAUTHORIZED);
-        
       List<RestaurantResponseDTO> restaurantsDto = restaurantService.getAll();
       
       return new ResponseEntity<>(restaurantsDto, HttpStatus.OK);
