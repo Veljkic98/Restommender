@@ -13,13 +13,12 @@ rule "More than 5 searches in 5 minutes from one user"
         Number(intValue >= 5) from accumulate(
             $t2: SearchEvent(
                 this != $t1,
-                userId == $cId,
-                this meets[5m] $t1
-            ),
+                userId == $cId
+            ) over window:time(5m),
             count($t2)
         )
     then
-        System.out.println("CEP --------------------------- Vise od 5 pokusaja pretraga");
+        System.out.println("CEP --> Isti korisnik vise od 5 pretraga u 5 minuta.");
         modify($user) {setBlocked(true)}
         modify($user) {setBlockedDate(new Date())}
 end

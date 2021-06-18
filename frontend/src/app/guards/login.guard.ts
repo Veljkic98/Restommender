@@ -19,9 +19,6 @@ export class LoginGuard implements CanActivate {
 
     this.router.navigate(['/login']);
 
-    //TODO: baciti neki alert koji kaze da nismo ulogovani za tu opciju i da se moramo ulogovati
-    // ovo vr nece ni trebati jer korisnik ne moze da prostupi opcijama koje su mu nedostupne
-
     return false;
   }
   

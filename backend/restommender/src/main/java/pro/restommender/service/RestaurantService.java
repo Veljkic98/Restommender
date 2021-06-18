@@ -20,6 +20,7 @@ public class RestaurantService {
   private RestaurantMapper restaurantMapper;
 
   public Restaurant add(Restaurant restaurant) {
+
     return restaurantRepository.save(restaurant);
   }
 

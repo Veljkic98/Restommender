@@ -31,7 +31,7 @@ public class SearchService {
 
     public List<Restaurant> findRestaurants(Search search) {
 
-        System.out.println("****** SEARCH SERVICE ******");
+        System.out.println("\n****** SEARCH SERVICE ******");
 
         List<Restaurant> restaurants = restaurantRepository.findAll();
 
@@ -47,7 +47,7 @@ public class SearchService {
 
     private void doLocation(Search search, RelevantRestaurants relevantRestaurants) {
 
-        System.out.println("****** SEARCH LOCATION ******");
+        System.out.println("\n****** SEARCH LOCATION ******");
 
         AuthenticatedUser user = authenticatedUserRepository.findById(search.getUserId()).orElse(null);
 

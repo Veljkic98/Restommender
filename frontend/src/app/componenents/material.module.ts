@@ -28,6 +28,7 @@ import { UsersComponent } from './features/users/users/users.component';
 import { CreateRulesComponent } from './create-rules/create-rules.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ReservationsComponent } from './features/restaurant/reservations/reservations.component';
+import { RestaurantsComponent } from './features/restaurant/restaurants/restaurants.component';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { ReservationsComponent } from './features/restaurant/reservations/reserv
         UsersComponent,
         CreateRulesComponent,
         ReservationsComponent,
+        RestaurantsComponent,
     ],
     imports: [
         CommonModule,

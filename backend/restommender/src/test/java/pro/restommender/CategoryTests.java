@@ -2,7 +2,6 @@ package pro.restommender;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +21,7 @@ import pro.restommender.repository.RestaurantRepository;
 @SpringBootTest
 @TestPropertySource("classpath:test.properties")
 public class CategoryTests {
+
   private KieContainer kContainer;
 
   @Autowired
@@ -41,9 +41,9 @@ public class CategoryTests {
 
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
-		rr.setRelevantRestaurants(restaurants);
+    rr.setRelevantRestaurants(restaurants);
     Search search = new Search();
-		search.setMusic("relaxing");
+    search.setMusic("relaxing");
 
     kieSession.getAgenda().getAgendaGroup("filter").setFocus();
     kieSession.insert(rr);
@@ -61,9 +61,9 @@ public class CategoryTests {
 
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
-		rr.setRelevantRestaurants(restaurants);
+    rr.setRelevantRestaurants(restaurants);
     Search search = new Search();
-		search.setMusic("loud");
+    search.setMusic("loud");
 
     kieSession.getAgenda().getAgendaGroup("filter").setFocus();
     kieSession.insert(rr);
@@ -74,7 +74,7 @@ public class CategoryTests {
     assertEquals(1, rr.getRelevantRestaurants().size());
     assertEquals(1, num);
   }
-  
+
   // ------------------------Pravila drugog nivoa------------------------
   // --------------------------------------------------------------------
   @Test
@@ -84,7 +84,7 @@ public class CategoryTests {
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
     rr.setRelevantRestaurants(restaurants);
-    
+
     Search search = new Search();
     search.setMusic("relaxing");
     search.setAccomodation("udobno");
@@ -105,9 +105,9 @@ public class CategoryTests {
 
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
-		rr.setRelevantRestaurants(restaurants);
+    rr.setRelevantRestaurants(restaurants);
     Search search = new Search();
-		search.setMusic("loud");
+    search.setMusic("loud");
     search.setAccomodation("tradicionalno");
 
     kieSession.getAgenda().getAgendaGroup("filter").setFocus();
@@ -129,7 +129,7 @@ public class CategoryTests {
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
     rr.setRelevantRestaurants(restaurants);
-    
+
     Search search = new Search();
     search.setMusic("relaxing");
     search.setAccomodation("udobno");
@@ -151,9 +151,9 @@ public class CategoryTests {
 
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
-		rr.setRelevantRestaurants(restaurants);
+    rr.setRelevantRestaurants(restaurants);
     Search search = new Search();
-		search.setMusic("loud");
+    search.setMusic("loud");
     search.setAccomodation("tradicionalno");
     search.setSmokingArea(true);
 
@@ -174,7 +174,7 @@ public class CategoryTests {
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
     rr.setRelevantRestaurants(restaurants);
-    
+
     Search search = new Search();
     search.setMusic("relaxing");
     search.setAccomodation("udobno");
@@ -199,7 +199,7 @@ public class CategoryTests {
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
     rr.setRelevantRestaurants(restaurants);
-    
+
     Search search = new Search();
     search.setMusic("relaxing");
     search.setAccomodation("udobno");
@@ -222,9 +222,9 @@ public class CategoryTests {
 
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
-		rr.setRelevantRestaurants(restaurants);
+    rr.setRelevantRestaurants(restaurants);
     Search search = new Search();
-		search.setMusic("loud");
+    search.setMusic("loud");
     search.setAccomodation("tradicionalno");
     search.setSmokingArea(true);
     search.setAlcoholicDrinks(true);
@@ -238,7 +238,7 @@ public class CategoryTests {
     assertEquals(1, rr.getRelevantRestaurants().size());
     assertEquals(4, num);
   }
-  
+
   // ------------------------Pravila petog nivoa----------------------
   // -----------------------------------------------------------------
   @Test
@@ -248,7 +248,7 @@ public class CategoryTests {
     List<Restaurant> restaurants = restaurantRepository.findAll();
     RelevantRestaurants rr = new RelevantRestaurants();
     rr.setRelevantRestaurants(restaurants);
-    
+
     Search search = new Search();
     search.setMusic("relaxing");
     search.setAccomodation("udobno");
@@ -267,4 +267,3 @@ public class CategoryTests {
   }
 
 }
-

@@ -21,7 +21,6 @@ import pro.restommender.model.AuthenticatedUser;
 import pro.restommender.model.RelevantRestaurants;
 import pro.restommender.model.Restaurant;
 import pro.restommender.repository.AuthenticatedUserRepository;
-import pro.restommender.repository.ReservationRepository;
 import pro.restommender.repository.RestaurantRepository;
 
 @SpringBootTest
@@ -34,9 +33,6 @@ public class CepSearchTest {
     private AuthenticatedUserRepository userRepository;
 
     @Autowired
-    private ReservationRepository reservationRepository;
-
-    @Autowired
     private RestaurantRepository restaurantRepository;
 
     @BeforeEach
@@ -44,27 +40,27 @@ public class CepSearchTest {
         KieServices ks = KieServices.Factory.get();
         this.kContainer = ks.newKieContainer(ks.newReleaseId("pro", "drools-kjar", "0.0.1-SNAPSHOT"));
     }
-    
-    @Test
-	void searchLocation_userUnblocked6Searches_blockUser() {
 
-		KieSession kieSession = kContainer.newKieSession("ksession-rules");
+    @Test
+    void searchLocation_userUnblocked6Searches_blockUser() {
+
+        KieSession kieSession = kContainer.newKieSession("ksession-rules");
         Long userId = 2L;
 
         AuthenticatedUser user = userRepository.findById(userId).orElse(null);
 
-		Search s = new Search();
-		s.setLocation(0.6);
+        Search s = new Search();
+        s.setLocation(0.6);
         s.setUserId(2L);
 
-		List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantRepository.findAll();
 
-		RelevantRestaurants rr = new RelevantRestaurants();
-		rr.setRelevantRestaurants(restaurants);
+        RelevantRestaurants rr = new RelevantRestaurants();
+        rr.setRelevantRestaurants(restaurants);
 
-		kieSession.getAgenda().getAgendaGroup("location").setFocus();
-		kieSession.insert(rr);
-		kieSession.insert(s);
+        kieSession.getAgenda().getAgendaGroup("location").setFocus();
+        kieSession.insert(rr);
+        kieSession.insert(s);
 
         kieSession.insert(new SearchEvent(new Date(), userId));
         kieSession.insert(new SearchEvent(new Date(), userId));
@@ -75,35 +71,35 @@ public class CepSearchTest {
 
         FactHandle handle = kieSession.insert(user);
 
-		kieSession.fireAllRules();
+        kieSession.fireAllRules();
 
         kieSession.delete(handle);
 
-		kieSession.dispose();
+        kieSession.dispose();
 
         assertEquals(user.getBlocked(), true);
-	}
+    }
 
     @Test
-	void searchLocation_userUnblocked5Searches_noBlockUser() {
+    void searchLocation_userUnblocked5Searches_noBlockUser() {
 
-		KieSession kieSession = kContainer.newKieSession("ksession-rules");
+        KieSession kieSession = kContainer.newKieSession("ksession-rules");
         Long userId = 2L;
 
         AuthenticatedUser user = userRepository.findById(userId).orElse(null);
 
-		Search s = new Search();
-		s.setLocation(0.6);
+        Search s = new Search();
+        s.setLocation(0.6);
         s.setUserId(2L);
 
-		List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantRepository.findAll();
 
-		RelevantRestaurants rr = new RelevantRestaurants();
-		rr.setRelevantRestaurants(restaurants);
+        RelevantRestaurants rr = new RelevantRestaurants();
+        rr.setRelevantRestaurants(restaurants);
 
-		kieSession.getAgenda().getAgendaGroup("location").setFocus();
-		kieSession.insert(rr);
-		kieSession.insert(s);
+        kieSession.getAgenda().getAgendaGroup("location").setFocus();
+        kieSession.insert(rr);
+        kieSession.insert(s);
 
         kieSession.insert(new SearchEvent(new Date(), userId));
         kieSession.insert(new SearchEvent(new Date(), userId));
@@ -113,47 +109,47 @@ public class CepSearchTest {
 
         FactHandle handle = kieSession.insert(user);
 
-		kieSession.fireAllRules();
+        kieSession.fireAllRules();
 
         kieSession.delete(handle);
 
-		kieSession.dispose();
+        kieSession.dispose();
 
         assertEquals(user.getBlocked(), false);
-	}
+    }
 
     @Test
-	void searchLocation_userUnblocked2Searches_noBlockUser() {
+    void searchLocation_userUnblocked2Searches_noBlockUser() {
 
-		KieSession kieSession = kContainer.newKieSession("ksession-rules");
+        KieSession kieSession = kContainer.newKieSession("ksession-rules");
         Long userId = 2L;
 
         AuthenticatedUser user = userRepository.findById(userId).orElse(null);
 
-		Search s = new Search();
-		s.setLocation(0.6);
+        Search s = new Search();
+        s.setLocation(0.6);
         s.setUserId(2L);
 
-		List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantRepository.findAll();
 
-		RelevantRestaurants rr = new RelevantRestaurants();
-		rr.setRelevantRestaurants(restaurants);
+        RelevantRestaurants rr = new RelevantRestaurants();
+        rr.setRelevantRestaurants(restaurants);
 
-		kieSession.getAgenda().getAgendaGroup("location").setFocus();
-		kieSession.insert(rr);
-		kieSession.insert(s);
+        kieSession.getAgenda().getAgendaGroup("location").setFocus();
+        kieSession.insert(rr);
+        kieSession.insert(s);
 
         kieSession.insert(new SearchEvent(new Date(), userId));
         kieSession.insert(new SearchEvent(new Date(), userId));
 
         FactHandle handle = kieSession.insert(user);
 
-		kieSession.fireAllRules();
+        kieSession.fireAllRules();
 
         kieSession.delete(handle);
 
-		kieSession.dispose();
+        kieSession.dispose();
 
         assertEquals(user.getBlocked(), false);
-	}
+    }
 }

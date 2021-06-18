@@ -23,7 +23,8 @@ import pro.restommender.repository.RestaurantRepository;
 @SpringBootTest
 @TestPropertySource("classpath:test.properties")
 public class MultipleInvocationTests {
-  private KieContainer kContainer;
+	
+	private KieContainer kContainer;
 
 	@Autowired
 	private RestaurantRepository restaurantRepository;
@@ -39,7 +40,7 @@ public class MultipleInvocationTests {
 
 		KieSession kieSession = kContainer.newKieSession("ksession-rules");
 
-    // first invocation
+		// first invocation
 		Search s = new Search();
 		s.setLocation(0.6);
 		List<Restaurant> restaurants = restaurantRepository.findAll();
@@ -51,9 +52,9 @@ public class MultipleInvocationTests {
 		FactHandle sfc = kieSession.insert(s);
 		int num = kieSession.fireAllRules();
 
-    // ovo je neophodno kako se pravila ne bi izvrsila vise puta
-    kieSession.delete(rrfc);
-    kieSession.delete(sfc);
+		// ovo je neophodno kako se pravila ne bi izvrsila vise puta
+		kieSession.delete(rrfc);
+		kieSession.delete(sfc);
 
 		System.out.println("Fired rules: " + num);
 		System.out.println(rr.getRelevantRestaurants().size());
@@ -61,8 +62,8 @@ public class MultipleInvocationTests {
 		assertTrue(rr.getRelevantRestaurants().size() == 1);
 		assertEquals(num, 1);
 
-    // second invocation
-    Search s2 = new Search();
+		// second invocation
+		Search s2 = new Search();
 		s2.setLocation(0.6);
 		List<Restaurant> restaurants2 = restaurantRepository.findAll();
 		RelevantRestaurants rr2 = new RelevantRestaurants();
@@ -72,9 +73,9 @@ public class MultipleInvocationTests {
 		FactHandle rr2fc = kieSession.insert(rr2);
 		FactHandle s2fc = kieSession.insert(s2);
 		int num2 = kieSession.fireAllRules();
-    // ovo je neophodno kako se pravila ne bi izvrsila vise puta
-    kieSession.delete(rr2fc);
-    kieSession.delete(s2fc);
+		// ovo je neophodno kako se pravila ne bi izvrsila vise puta
+		kieSession.delete(rr2fc);
+		kieSession.delete(s2fc);
 
 		System.out.println("Fired rules: " + num2);
 		System.out.println(rr2.getRelevantRestaurants().size());

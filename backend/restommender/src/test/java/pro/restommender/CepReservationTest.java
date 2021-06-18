@@ -1,18 +1,15 @@
 package pro.restommender;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 import java.util.List;
 
-import org.apache.catalina.realm.AuthenticatedUserRealm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.rule.FactHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -88,7 +85,8 @@ public class CepReservationTest {
         kieSession.insert(re4);
         kieSession.insert(re5);
         kieSession.insert(re6);
-        int num = kieSession.fireAllRules();
+        // int num = kieSession.fireAllRules();
+        kieSession.fireAllRules();
 
         kieSession.dispose();
 

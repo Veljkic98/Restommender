@@ -41,27 +41,34 @@ export class SearchComponent implements OnInit {
       petFriendly: false,
       kidFriendly: false,
     });
+
+    this.getAll();
   }
 
-  search() {
+  restaurants: Restaurant[] = [];
+
+  getAll() {
     var search = this.getSearchObj();
-
-    console.log("Ispod printujemo search obj")
-    console.log(search);
-
+    
     this.searchService.getRestaurants(search)
-      .subscribe(
-        data => {
-          // send restaurants to another component
-          this.messageEvent.emit({ restaurants: data, numOfPerson: this.numOfPerson, rate: this.rate });
-        }, error => {
-          if (error.error) {
-            this.openSnackBar(error.error);
-            
-            this.authService.logOut();
-          }
+    .subscribe(
+      data => {
+        this.restaurants = data;
+
+        // send restaurants to another component
+        this.messageEvent.emit({ restaurants: data, numOfPerson: this.numOfPerson, rate: this.rate });
+      }, error => {
+        if (error.error) {
+          this.openSnackBar(error.error);
+
+          this.authService.logOut();
         }
-      )
+      }
+    )
+  }
+
+  sendData() {
+    this.messageEvent.emit({ restaurants: this.restaurants, numOfPerson: this.numOfPerson, rate: this.rate });
   }
 
   getSearchObj(): Search {
