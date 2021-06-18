@@ -16,7 +16,6 @@ import pro.restommender.mapper.ReservationMapper;
 import pro.restommender.model.AuthenticatedUser;
 import pro.restommender.model.RelevantRestaurants;
 import pro.restommender.model.Reservation;
-import pro.restommender.model.Restaurant;
 import pro.restommender.repository.AuthenticatedUserRepository;
 import pro.restommender.repository.ReservationRepository;
 import pro.restommender.repository.RestaurantRepository;
@@ -55,10 +54,9 @@ public class ReservationService {
     
     // save in db
     userRepository.save(user);
+    restaurantRepository.save(reservation.getRestaurant());
     return reservationRepository.save(reservation);
   }
-
-
 
   public List<ReservationResponseDTO> getAll() {
     List<Reservation> reservations = reservationRepository.findAll();
@@ -101,13 +99,17 @@ public class ReservationService {
   }
 
   private void doHighDemandRules(Reservation reservation, AuthenticatedUser user) {
+    RelevantRestaurants rr = new RelevantRestaurants(restaurantRepository.findAll());
+
     kieSession.getAgenda().getAgendaGroup("high-demand").setFocus();
-    FactHandle rFc = kieSession.insert(reservation);
+    FactHandle restaurantFc = kieSession.insert(reservation.getRestaurant());
     FactHandle userFc = kieSession.insert(user);
+    FactHandle rrFc = kieSession.insert(rr);
     kieSession.insert(new ReservationEvent(new Date(), user.getId(), reservation.getRestaurant().getId()));
     int num = kieSession.fireAllRules();
 
-    kieSession.delete(rFc);
+    kieSession.delete(restaurantFc);
     kieSession.delete(userFc);
+    kieSession.delete(rrFc);
   }
 }

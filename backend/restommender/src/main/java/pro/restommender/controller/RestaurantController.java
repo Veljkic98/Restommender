@@ -22,12 +22,6 @@ public class RestaurantController {
   @Autowired
   RestaurantService restaurantService;
   
-  /**
-  curl --header "Content-Type: application/json" \
-  --request POST \
-  --data '{"username":"alek","email":"alek@gmail.com", "petFriendly": "true"}' \
-  http://localhost:8080/restaurants
-   */
   @PostMapping
   public ResponseEntity<?> add(@RequestBody Restaurant restaurant) {
     

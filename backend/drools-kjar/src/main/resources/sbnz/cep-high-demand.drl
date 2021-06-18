@@ -1,78 +1,51 @@
 package sbnz;
 
-import pro.restommender.model.AuthenticatedUser;
-import pro.restommender.event.LoginEvent;
-import java.util.Date;
-import pro.restommender.model.Reservation;
 import pro.restommender.event.SearchEvent;
+import pro.restommender.model.RelevantRestaurants;
+import pro.restommender.model.Restaurant;
+
 
 rule "High rate restaurant in high demand"
+
   agenda-group "high-demand"
+  
   when
-    $reservation: Reservation($restaurantId: restaurant.id, $restaurant: restaurant, $restaurantName: restaurant.name)
-    // $r1: ReservationEvent()
-    $s1: SearchEvent()
+    $restaurant: Restaurant(
+      highDemand == false,
+      $restaurantId: id, 
+      $restaurantName: name, 
+      $restaurantRate: rate
+      )
+      
+    $rr: RelevantRestaurants($restaurants: relevantRestaurants)
 
     $noReservations: Number(intValue > 1) from accumulate(
-      $r2: ReservationEvent(
+      $resEvent: ReservationEvent(
         restaurantId == $restaurantId
-      ) over window:time(10m), 
-      count($r2)
+      ) over window:time(30m), 
+      count($resEvent)
     )
 
-    // $noSearches: Number(intValue > 1) from accumulate(
-    //   $s2: SearchEvent(
-    //     this != $s1,
-    //     restaurantName == $restaurantName
-    //   ) over window:time(5m),
-    //   count($s2)
-    // )
+    $noSearches: Number(intValue > 1) from accumulate(
+      $searchEvent: SearchEvent(
+        restaurantName == $restaurantName
+      ) over window:time(20m),
+      count($searchEvent)
+    )
 
-    // iz restaurant rate ovde dodaj
+    $avgRating: Double() from accumulate(
+      Restaurant(
+        $rate: rate
+      ) from $restaurants,
+      average($rate)
+    )
 
+    eval($restaurantRate > $avgRating)
 
-    // eval($noReservations + $noSearches * 0.5 > 18)
   then
-    System.out.println("*******************************************Restaurant with id: " + $restaurantId + " is in high demand, number of reservations: " + $noReservations);
+    System.out.println("*******************************************");
+    System.out.println("Restaurant with id: " + $restaurantId + " is in high demand, number of reservations: " + $noReservations + "number of searches" + $noSearches);
+    System.out.println("*******************************************");
+    System.out.println("average rate is: " + $avgRating);
+    modify($restaurant) {setHighDemand(true)};
 end
-
-// rule "High rate restaurant in high demand"
-//   when
-//     $reservation: Reservation($currentDiscount: discount, $restaurantId: restaurant.id, $restaurant: restaurant)
-//     $r1: ReservationEvent()
-//     $s1: SearchEvent()
-
-//     accumulate(
-//       $r2: ReservationEvent(
-//         this != $r1,
-//         restaurantId == $restaurantId,
-//         $discount: discount
-//       ) over window:time(10m), 
-//       $noReservations: count($r2),
-//       $avgDiscount: average($discount)
-//     )
-
-//     Number(intValue > 5) from accumulate(
-//       $s2: SearchEvent(
-//         this != $s1,
-//         reastaurantId == $restaurantId,
-//       ) over window:time(5m),
-//       $noSearches: count($s2),
-//     )
-
-//     // iz restaurant rate
-//     $rr: RelevantRestaurants($restaurants: relevantRestaurants)
-//     $num: Double(intValue >= 1) from accumulate(
-//         Restaurant(
-//             rate > 3 && rate <= 5.0,
-//             $r: rate
-//         ) from $restaurants,
-//         init(double count = 0;),
-//         action(count += $r;),
-//         result(count)
-//     )
-
-//     eval($noReservations + $noSearches * 0.5 > 18)
-//   then
-//     System.out.println("Restaurant with id: " + $restaurantId + " is in high demand");
-// end
