@@ -1,6 +1,5 @@
 package pro.restommender.event;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import org.kie.api.definition.type.Expires;
@@ -14,14 +13,21 @@ public class SearchEvent {
 
     private Date executionTime;
     private Long userId;
+    private String restaurantName;
 
     public SearchEvent() {
     }
-
     public SearchEvent(Date executionTime, Long userId) {
         this.executionTime = executionTime;
         this.userId = userId;
     }
+
+    public SearchEvent(Date executionTime, Long userId, String string) {
+        this.executionTime = executionTime;
+        this.userId = userId;
+        this.restaurantName = string;
+    }
+
 
     public Date getExecutionTime() {
         return this.executionTime;
@@ -37,6 +43,22 @@ public class SearchEvent {
 
     public void setuserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getRestaurantName() {
+        return this.restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
 }

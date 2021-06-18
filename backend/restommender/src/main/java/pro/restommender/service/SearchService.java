@@ -55,7 +55,7 @@ public class SearchService {
         FactHandle rrFc = kieSession.insert(relevantRestaurants);
         FactHandle userFc = kieSession.insert(user);
         FactHandle searchFc = kieSession.insert(search);
-        kieSession.insert(new SearchEvent(new Date(), search.getUserId()));
+        kieSession.insert(new SearchEvent(new Date(), search.getUserId(), search.getName()));
         int num = kieSession.fireAllRules();
 
         kieSession.delete(rrFc);

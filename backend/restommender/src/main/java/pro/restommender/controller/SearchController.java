@@ -43,7 +43,6 @@ public class SearchController {
             // User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userRepository.findById(search.getUserId()).orElse(null);
 
-            System.out.println(user);
 
             if (user.getBlocked() && user.getType().name().equals("USER"))
                 return new ResponseEntity<>("User is blocked.", HttpStatus.BAD_REQUEST);
