@@ -13,7 +13,7 @@ rule "Classify Restaurant - In Center"
     $filteredRestaurants: List() from collect(Restaurant(location <= 1) from $restaurants.getRelevantRestaurants())
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    System.out.println( "in center------------------" );
+    System.out.println( "Lokacija restorana U CENTRU");
 end
 
 rule "Classify Restaurant - Near Center"
@@ -24,7 +24,7 @@ rule "Classify Restaurant - Near Center"
     $filteredRestaurants: List() from collect(Restaurant(location > 1 && location <= 5) from $restaurants.getRelevantRestaurants())
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    System.out.println( "near center------------------" );
+    System.out.println( "Lokacija restorana BLIZU CENTRA");
 end
 
 rule "Classify Restaurant - Far Away From Center"
@@ -35,5 +35,5 @@ rule "Classify Restaurant - Far Away From Center"
     $filteredRestaurants: List() from collect(Restaurant(location > 5) from $restaurants.getRelevantRestaurants())
   then 
     modify( $restaurants) { setRelevantRestaurants($filteredRestaurants); }
-    System.out.println( "far away from center------------------" );
+    System.out.println( "Lokacija restorana UDALJENI OD CENTRA.");
 end

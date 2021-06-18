@@ -19,7 +19,7 @@ rule "More than 5 new reservations in an hour from one user"
             count($t2)
         )
     then
-        System.out.println("CEP --------------------------- Vise od 5 pokusaja dodavanja rezervacija");
+        System.out.println("CEP --> Isti korisnik vise od 5 pokusaja dodavanja rezervacija.");
         modify($user) {setBlocked(true)}
         modify($user) {setBlockedDate(new Date())}
 end
@@ -38,7 +38,7 @@ rule "More than 1 same reservation from one user in 1 hour"
             count($resEvent)
         )
     then
-        System.out.println("CEP --------------------------- Korisnik ponovo pokusava istu rezervaciju");
+        System.out.println("CEP --> Korisnik pokusava da napravi drugu rezervaciju sa istim restoranom i istim brojem osoba.");
         modify($user) {setBlocked(true)}
         modify($user) {setBlockedDate(new Date())}
 end
