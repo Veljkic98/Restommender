@@ -13,4 +13,5 @@ public class RestaurantDTO {
   public Boolean nonAlcoholicDrinks;
   public Boolean petFriendly;
   public Boolean kidFriendly;
+  public Boolean highDemand;
 }

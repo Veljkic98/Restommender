@@ -50,9 +50,10 @@ export class DashboardComponent implements OnInit {
 
     this.resService.sendReservation(reservation, this.rate)
       .subscribe(
-        data => {
+        async data => {
           console.log("Sacuvali smo rezervaciju, print ispod");
           console.log(data);
+          await this.getAll();
         }, error => {
           if (error.error) {
             this.openSnackBar(error.error);

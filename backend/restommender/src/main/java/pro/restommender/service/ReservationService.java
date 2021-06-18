@@ -73,8 +73,6 @@ public class ReservationService {
     FactHandle rFc = kieSession.insert(reservation);
     FactHandle rrFc = kieSession.insert(rr);
     FactHandle userFc = kieSession.insert(user);
-    // kieSession.insert(new ReservationEvent(new Date(), user.getId(),
-    // reservation.getRestaurant().getId()));
     int num = kieSession.fireAllRules();
 
     kieSession.delete(searchFc);
