@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pro.restommender.dto.responseDTO.RestaurantResponseDTO;
 import pro.restommender.model.Restaurant;
+import pro.restommender.model.User;
 import pro.restommender.service.RestaurantService;
 
 @RestController
@@ -43,9 +46,15 @@ public class RestaurantController {
   }
 
   @GetMapping
+  @PreAuthorize("hasRole('ROLE_AUTH_USER')")
   public ResponseEntity<?> getAll() {
     
     try {
+      User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+      if (user.getType().name().equals("USER"))
+        return new ResponseEntity<>("User must be admin.", HttpStatus.UNAUTHORIZED);
+        
       List<RestaurantResponseDTO> restaurantsDto = restaurantService.getAll();
       
       return new ResponseEntity<>(restaurantsDto, HttpStatus.OK);
