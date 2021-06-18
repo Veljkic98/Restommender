@@ -11,8 +11,7 @@ rule "More than 5 bad logins"
         Number(intValue >= 5) from accumulate(
             $t2: LoginEvent(
                 this != $t1,
-                userId == $cId,
-                this meets[5m] $t1
+                userId == $cId
             ) over window:time(5m),
             count($t2)
         )

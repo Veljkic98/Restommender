@@ -14,8 +14,7 @@ rule "More than 5 searches in 5 minutes from one user"
             $t2: SearchEvent(
                 this != $t1,
                 userId == $cId
-                // this meets[5m] $t1
-            ) over window:time(1m),
+            ) over window:time(5m),
             count($t2)
         )
     then

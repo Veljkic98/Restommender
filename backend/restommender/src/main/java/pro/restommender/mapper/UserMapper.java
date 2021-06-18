@@ -30,7 +30,7 @@ public class UserMapper {
                 // Calendar date = Calendar.getInstance();
                 // long timeInSecs = date.getTimeInMillis();
                 long userBlockedTimeInSec = user.getBlockedDate().getTime();
-                Date userBlockedDateAfter5min = new Date(userBlockedTimeInSec + (1 * 60 * 1000));
+                Date userBlockedDateAfter5min = new Date(userBlockedTimeInSec + (5 * 60 * 1000));
                 if (now.after(userBlockedDateAfter5min)) {
                     dto.setCanBeUnblocked(true);
                 } else {

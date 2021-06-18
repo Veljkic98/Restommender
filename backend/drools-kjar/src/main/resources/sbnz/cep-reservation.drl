@@ -14,8 +14,7 @@ rule "More than 5 new reservations in an hour from one user"
             $t2: ReservationEvent(
                 this != $t1,
                 userId == $cId
-                // this meets[5m] $t1
-            ) over window:time(1m),
+            ) over window:time(60m),
             count($t2)
         )
     then
