@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Restaurant } from 'src/app/model/restaurant.model';
 import { Search } from 'src/app/model/search.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { RestaurantsService } from 'src/app/services/restaurants.service';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class SearchComponent implements OnInit {
     private authService: AuthService,
     private searchService: SearchService,
     private snackBar: MatSnackBar,
+    private restaurantsService: RestaurantsService,
   ) { }
 
   ngOnInit(): void {
@@ -42,10 +44,14 @@ export class SearchComponent implements OnInit {
       kidFriendly: false,
     });
 
-    this.getAll();
+    this.getAll2();
   }
 
   restaurants: Restaurant[] = [];
+
+  async getAll2() {
+    this.restaurants = await this.restaurantsService.getAll();
+  }
 
   getAll() {
     var search = this.getSearchObj();
@@ -66,6 +72,7 @@ export class SearchComponent implements OnInit {
       }
     )
   }
+  
 
   sendData() {
     this.messageEvent.emit({ restaurants: this.restaurants, numOfPerson: this.numOfPerson, rate: this.rate });

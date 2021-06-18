@@ -32,8 +32,9 @@ export class DashboardComponent implements OnInit {
     private snackBar: MatSnackBar,
     ) { }
 
-  ngOnInit() {
-    this.getAll();
+  async ngOnInit() {
+    await this.getAll();
+    console.log(this.restaurants);
   }
 
   async getAll() {

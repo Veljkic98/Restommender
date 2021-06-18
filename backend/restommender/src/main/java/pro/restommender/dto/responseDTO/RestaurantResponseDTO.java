@@ -17,6 +17,7 @@ public class RestaurantResponseDTO {
     public Boolean kidFriendly;
     public double rate;
     public List<ReservationResponseDTO> reservations;
+    public Boolean highDemand;
 
     public RestaurantResponseDTO() {
     }
