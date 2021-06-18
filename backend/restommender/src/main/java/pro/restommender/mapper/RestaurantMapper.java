@@ -35,7 +35,6 @@ public class RestaurantMapper {
             dto.nonSmokingArea = restaurant.getNonSmokingArea();
             dto.petFriendly = restaurant.getPetFriendly();
             dto.smokingArea = restaurant.getSmokingArea();
-            dto.rate = restaurant.getRate();
 
             dtos.add(dto);
         }
