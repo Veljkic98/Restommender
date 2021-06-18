@@ -42,32 +42,32 @@ export class SearchComponent implements OnInit {
       kidFriendly: false,
     });
 
-    this.search();
+    this.getAll();
   }
 
   restaurants: Restaurant[] = [];
 
-  search() {
+  getAll() {
     var search = this.getSearchObj();
-
+    
     this.searchService.getRestaurants(search)
-      .subscribe(
-        data => {
-          this.restaurants = data;
+    .subscribe(
+      data => {
+        this.restaurants = data;
 
-          // send restaurants to another component
-          this.messageEvent.emit({ restaurants: data, numOfPerson: this.numOfPerson, rate: this.rate });
-        }, error => {
-          if (error.error) {
-            this.openSnackBar(error.error);
+        // send restaurants to another component
+        this.messageEvent.emit({ restaurants: data, numOfPerson: this.numOfPerson, rate: this.rate });
+      }, error => {
+        if (error.error) {
+          this.openSnackBar(error.error);
 
-            this.authService.logOut();
-          }
+          this.authService.logOut();
         }
-      )
+      }
+    )
   }
 
-  proba() {
+  sendData() {
     this.messageEvent.emit({ restaurants: this.restaurants, numOfPerson: this.numOfPerson, rate: this.rate });
   }
 
