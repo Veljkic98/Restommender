@@ -13,7 +13,7 @@ rule "More than 5 bad logins"
                 this != $t1,
                 userId == $cId,
                 this meets[5m] $t1
-            ),
+            ) over window:time(5m),
             count($t2)
         )
     then
