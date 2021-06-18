@@ -52,13 +52,13 @@ public class ReservationService {
     doDiscountRules(s, reservation);
     doHighDemandRules(reservation, user);
     doRateRules(s, reservation, user);
-    
+    doReservationBlockRules(reservation, user);
+
     // save in db
     userRepository.save(user);
+    
     return reservationRepository.save(reservation);
   }
-
-
 
   public List<ReservationResponseDTO> getAll() {
     List<Reservation> reservations = reservationRepository.findAll();
@@ -74,7 +74,8 @@ public class ReservationService {
     FactHandle rFc = kieSession.insert(reservation);
     FactHandle rrFc = kieSession.insert(rr);
     FactHandle userFc = kieSession.insert(user);
-    // kieSession.insert(new ReservationEvent(new Date(), user.getId(), reservation.getRestaurant().getId()));
+    // kieSession.insert(new ReservationEvent(new Date(), user.getId(),
+    // reservation.getRestaurant().getId()));
     int num = kieSession.fireAllRules();
 
     kieSession.delete(searchFc);
@@ -104,7 +105,21 @@ public class ReservationService {
     kieSession.getAgenda().getAgendaGroup("high-demand").setFocus();
     FactHandle rFc = kieSession.insert(reservation);
     FactHandle userFc = kieSession.insert(user);
-    kieSession.insert(new ReservationEvent(new Date(), user.getId(), reservation.getRestaurant().getId()));
+    kieSession.insert(
+        new ReservationEvent(new Date(), user.getId(), reservation.getRestaurant().getId(), reservation.getId(), reservation.getNumOfPersons()));
+    int num = kieSession.fireAllRules();
+
+    kieSession.delete(rFc);
+    kieSession.delete(userFc);
+  }
+
+  private void doReservationBlockRules(Reservation reservation, AuthenticatedUser user) {
+
+    kieSession.getAgenda().getAgendaGroup("reservation-block").setFocus();
+    FactHandle rFc = kieSession.insert(reservation);
+    FactHandle userFc = kieSession.insert(user);
+    
+    // kieSession.insert(new ReservationEvent(new Date(), user.getId(), reservation.getRestaurant().getId(), reservation.getId()));
     int num = kieSession.fireAllRules();
 
     kieSession.delete(rFc);

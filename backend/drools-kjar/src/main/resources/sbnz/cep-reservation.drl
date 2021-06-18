@@ -23,3 +23,22 @@ rule "More than 5 new reservations in an hour from one user"
         modify($user) {setBlocked(true)}
         modify($user) {setBlockedDate(new Date())}
 end
+
+rule "More than 1 same reservation from one user in 1 hour"
+    agenda-group "reservation-block"
+    when
+        $user: AuthenticatedUser(blocked == false, $userId: id)
+        $reservation: Reservation($restaurantId: restaurant.id, $numOfPersons: numOfPersons)
+        Number(intValue > 1) from accumulate(
+            $resEvent: ReservationEvent(
+                userId == $userId,
+                restaurantId == $restaurantId,
+                $numOfPersons == numOfPersons
+            ) over window:time(60m),
+            count($resEvent)
+        )
+    then
+        System.out.println("CEP --------------------------- Korisnik ponovo pokusava istu rezervaciju");
+        modify($user) {setBlocked(true)}
+        modify($user) {setBlockedDate(new Date())}
+end

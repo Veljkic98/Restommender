@@ -66,8 +66,9 @@
         <mat-icon *ngIf="restaurant.kidFriendly" class="yes">done</mat-icon>
         <mat-icon *ngIf="!restaurant.kidFriendly" class="no">close</mat-icon>
 
-        <button mat-raised-button color="accent" style="float: right;" (click)="makeReservation(restaurant.id)">Make
-          Reservation</button>
+        <button mat-raised-button color="accent" style="float: right;" (click)="makeReservation(restaurant.id)">
+          Make Reservation
+        </button>
       </div>
     </mat-card-content>
   </mat-card>
