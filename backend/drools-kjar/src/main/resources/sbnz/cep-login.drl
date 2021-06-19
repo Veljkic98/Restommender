@@ -6,8 +6,8 @@ import java.util.Date;
 
 rule "More than 5 bad logins"
     when
-        $user: AuthenticatedUser(blocked == false, $userIdAlek: id)
-        $t1: LoginEvent($cId: userId, userId == $userIdAlek)
+        $user: AuthenticatedUser(blocked == false, $uID: id)
+        $t1: LoginEvent($cId: userId, userId == $uID)
         Number(intValue >= 5) from accumulate(
             $t2: LoginEvent(
                 this != $t1,
