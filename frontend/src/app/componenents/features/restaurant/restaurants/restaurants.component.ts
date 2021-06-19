@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReservationView } from 'src/app/model/reservation-view.model';
-import { ReservationService } from 'src/app/services/reservation.service';
+import { RestaurantsService } from 'src/app/services/restaurants.service';
 
 @Component({
   selector: 'app-restaurants',
@@ -9,12 +8,12 @@ import { ReservationService } from 'src/app/services/reservation.service';
 })
 export class RestaurantsComponent implements OnInit {
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'restaurant', 'numOfPerson', 'discount'];
+  displayedColumns: string[] = ['name', 'location', 'music', 'accomodation', 'rate', 'resNum'];
 
-  reservations: ReservationView[] = [];
+  restaurants = [];
 
   constructor(
-    private resService: ReservationService,
+    private restaurantService: RestaurantsService,
   ) { }
 
   ngOnInit(): void {
@@ -22,13 +21,15 @@ export class RestaurantsComponent implements OnInit {
   }
 
   getAll() {
-    this.resService.getAllNoPromise()
+    this.restaurantService.getAllNoPromise()
     .subscribe(
       data => {
         console.log(data);
-        this.reservations = data;
+        this.restaurants = data;
+      }, error => {
+        console.log("Error: " + error.error);
       }
-    )
+    );
   }
 
 }

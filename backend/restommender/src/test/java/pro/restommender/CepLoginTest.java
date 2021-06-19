@@ -34,7 +34,7 @@ public class CepLoginTest {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-    
+
     @BeforeEach
     public void init() {
         KieServices ks = KieServices.Factory.get();
@@ -47,12 +47,11 @@ public class CepLoginTest {
         String mail = "mail2@gmail.com";
         String badPassword = "321222";
 
-
         KieSession kieSession = kContainer.newKieSession("ksession-rules");
 
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    mail, badPassword));
+            Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(mail, badPassword));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -60,8 +59,8 @@ public class CepLoginTest {
         } catch (BadCredentialsException e) {
             AuthenticatedUser user = userRepository.findByEmail(mail);
 
-            FactHandle userFc =  kieSession.insert(user);
-            
+            FactHandle userFc = kieSession.insert(user);
+
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
@@ -83,12 +82,11 @@ public class CepLoginTest {
         String mail = "mail2@gmail.com";
         String badPassword = "321222";
 
-
         KieSession kieSession = kContainer.newKieSession("ksession-rules");
 
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    mail, badPassword));
+            Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(mail, badPassword));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -97,13 +95,13 @@ public class CepLoginTest {
             AuthenticatedUser user = userRepository.findByEmail(mail);
 
             kieSession.insert(user);
-            
+
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
-            
+
             FactHandle handle = kieSession.insert(user);
             int num = kieSession.fireAllRules();
 
@@ -120,12 +118,11 @@ public class CepLoginTest {
         String mail = "mail2@gmail.com";
         String badPassword = "321222";
 
-
         KieSession kieSession = kContainer.newKieSession("ksession-rules");
 
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    mail, badPassword));
+            Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(mail, badPassword));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -134,10 +131,10 @@ public class CepLoginTest {
             AuthenticatedUser user = userRepository.findByEmail(mail);
 
             kieSession.insert(user);
-            
+
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
             kieSession.insert(new LoginEvent(new Date(), user.getId()));
-            
+
             FactHandle handle = kieSession.insert(user);
             int num = kieSession.fireAllRules();
 

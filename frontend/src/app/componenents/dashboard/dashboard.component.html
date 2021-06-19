@@ -65,10 +65,17 @@
         kid friendly
         <mat-icon *ngIf="restaurant.kidFriendly" class="yes">done</mat-icon>
         <mat-icon *ngIf="!restaurant.kidFriendly" class="no">close</mat-icon>
-
-        <button mat-raised-button color="accent" style="float: right;" (click)="makeReservation(restaurant.id)">Make
-          Reservation</button>
       </div>
+      <div class="attr" style="height: 25px;">
+        <span *ngIf="restaurant.highDemand" style="color: rgb(160, 20, 20); font-weight: bold;"> 
+          🔥 High Demand 🔥 
+        </span>
+        <div *ngIf="!restaurant.highDemand" style="float:left">  </div>
+        <button mat-raised-button color="accent" style="float: right;" (click)="makeReservation(restaurant.id)">
+          Make Reservation
+        </button>
+      </div>
+
     </mat-card-content>
   </mat-card>
 </div>

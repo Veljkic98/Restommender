@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Reservation } from 'src/app/model/reservation.model';
 import { Restaurant } from 'src/app/model/restaurant.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,10 +29,12 @@ export class DashboardComponent implements OnInit {
     private restaurantsService: RestaurantsService,
     private authService: AuthService,
     private resService: ReservationService,
-  ) { }
+    private snackBar: MatSnackBar,
+    ) { }
 
-  ngOnInit() {
-    this.getAll();
+  async ngOnInit() {
+    await this.getAll();
+    console.log(this.restaurants);
   }
 
   async getAll() {
@@ -48,15 +51,25 @@ export class DashboardComponent implements OnInit {
 
     this.resService.sendReservation(reservation, this.rate)
       .subscribe(
-        data => {
+        async data => {
           console.log("Sacuvali smo rezervaciju, print ispod");
           console.log(data);
-        },
-        error => {
-          console.log("desila se greska");
-          console.log(error)
+          await this.getAll();
+        }, error => {
+          if (error.error) {
+            this.openSnackBar(error.error);
+
+            this.authService.logOut();
+          }
         }
       )
+  }
+
+  openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Dismiss', {
+      verticalPosition: 'top',
+      duration: 4000,
+    });
   }
 
 }

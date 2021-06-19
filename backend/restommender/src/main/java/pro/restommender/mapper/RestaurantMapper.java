@@ -35,7 +35,7 @@ public class RestaurantMapper {
             dto.nonSmokingArea = restaurant.getNonSmokingArea();
             dto.petFriendly = restaurant.getPetFriendly();
             dto.smokingArea = restaurant.getSmokingArea();
-
+            dto.highDemand = restaurant.getHighDemand();
             dtos.add(dto);
         }
 
@@ -59,7 +59,8 @@ public class RestaurantMapper {
             dto.nonSmokingArea = restaurant.getNonSmokingArea();
             dto.petFriendly = restaurant.getPetFriendly();
             dto.smokingArea = restaurant.getSmokingArea();
-
+            dto.rate = restaurant.getRate();
+            dto.highDemand = restaurant.getHighDemand();
             List<ReservationResponseDTO> reservations = reservationMapper.toDtoList(restaurant.getReservations());
             dto.setReservations(reservations);
 

@@ -55,10 +55,13 @@ public class Restaurant {
   @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
   private List<Reservation> reservations;
 
+  @Column(name= "high_demand")
+  private Boolean highDemand;
+
   public Restaurant() {
   }
 
-  public Restaurant(Long id, String name, double location, String music, String accomodation, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, double rate, List<Reservation> reservations) {
+  public Restaurant(Long id, String name, double location, String music, String accomodation, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, double rate, List<Reservation> reservations, Boolean highDemand) {
     this.id = id;
     this.name = name;
     this.location = location;
@@ -72,7 +75,9 @@ public class Restaurant {
     this.kidFriendly = kidFriendly;
     this.rate = rate;
     this.reservations = reservations;
+    this.highDemand = highDemand;
   }
+
 
   public Long getId() {
     return this.id;
@@ -202,6 +207,15 @@ public class Restaurant {
     this.reservations = reservations;
   }
 
+  public Boolean getHighDemand() {
+    return this.highDemand;
+  }
+
+  public void setHighDemand(Boolean highDemand) {
+    this.highDemand = highDemand;
+  }
+
+
   @Override
   public String toString() {
     return "{" +
@@ -218,6 +232,7 @@ public class Restaurant {
       ", kidFriendly='" + isKidFriendly() + "'" +
       ", rate='" + getRate() + "'" +
       ", reservations='" + getReservations() + "'" +
+      ", highDemand='" + getHighDemand() + "'" +
       "}";
   }
 

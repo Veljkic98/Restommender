@@ -10,4 +10,5 @@ export interface Restaurant {
   nonAlcoholicDrinks : boolean,
   petFriendly : boolean,
   kidFriendly : boolean,
+  highDemand: boolean,
 }

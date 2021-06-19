@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Restaurant } from 'src/app/model/restaurant.model';
 import { Search } from 'src/app/model/search.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { RestaurantsService } from 'src/app/services/restaurants.service';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
@@ -20,14 +22,16 @@ export class SearchComponent implements OnInit {
   location: number = 1;
   rate: number = 0;
   musicOptions = ['relaxing', 'loud'];
-  accomodationOptions = ['udobno', ' tradicionalno'];
+  accomodationOptions = ['udobno', 'tradicionalno'];
 
-  @Output() messageEvent = new EventEmitter<{restaurants: Array<Restaurant>, numOfPerson: number, rate: number}>();
+  @Output() messageEvent = new EventEmitter<{ restaurants: Array<Restaurant>, numOfPerson: number, rate: number }>();
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private searchService: SearchService,
+    private snackBar: MatSnackBar,
+    private restaurantsService: RestaurantsService,
   ) { }
 
   ngOnInit(): void {
@@ -39,22 +43,43 @@ export class SearchComponent implements OnInit {
       petFriendly: false,
       kidFriendly: false,
     });
+
+    this.getAll2();
   }
 
-  search() {
-    var search = this.getSearchObj();
+  restaurants: Restaurant[] = [];
 
+  async getAll2() {
+    this.restaurants = await this.restaurantsService.getAll();
+  }
+
+  getAll() {
+    var search = this.getSearchObj();
+    
     this.searchService.getRestaurants(search)
     .subscribe(
       data => {
+        this.restaurants = data;
+
         // send restaurants to another component
-        this.messageEvent.emit({restaurants: data, numOfPerson: this.numOfPerson, rate: this.rate});
+        this.messageEvent.emit({ restaurants: data, numOfPerson: this.numOfPerson, rate: this.rate });
+      }, error => {
+        if (error.error) {
+          this.openSnackBar(error.error);
+
+          this.authService.logOut();
+        }
       }
     )
   }
+  
+
+  sendData() {
+    this.messageEvent.emit({ restaurants: this.restaurants, numOfPerson: this.numOfPerson, rate: this.rate });
+  }
 
   getSearchObj(): Search {
-    
+
     var search: Search = new Search();
 
     search.accomodation = this.accomodation;
@@ -70,8 +95,15 @@ export class SearchComponent implements OnInit {
     search.rate = this.rate;
     search.smokingArea = this.restaurantsSearch.get("smokingArea").value;
     search.userId = this.authService.getId();
-  
+
     return search;
+  }
+
+  openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Dismiss', {
+      verticalPosition: 'top',
+      duration: 4000,
+    });
   }
 
 }

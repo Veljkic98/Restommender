@@ -1,0 +1,51 @@
+package sbnz;
+
+import pro.restommender.event.SearchEvent;
+import pro.restommender.model.RelevantRestaurants;
+import pro.restommender.model.Restaurant;
+
+
+rule "High rate restaurant in high demand"
+
+  agenda-group "high-demand"
+  
+  when
+    $restaurant: Restaurant(
+      highDemand == false,
+      $restaurantId: id, 
+      $restaurantName: name, 
+      $restaurantRate: rate
+      )
+      
+    $rr: RelevantRestaurants($restaurants: relevantRestaurants)
+
+    $noReservations: Number(intValue > 1) from accumulate(
+      $resEvent: ReservationEvent(
+        restaurantId == $restaurantId
+      ) over window:time(30m), 
+      count($resEvent)
+    )
+
+    $noSearches: Number(intValue > 1) from accumulate(
+      $searchEvent: SearchEvent(
+        restaurantName == $restaurantName
+      ) over window:time(20m),
+      count($searchEvent)
+    )
+
+    $avgRating: Double() from accumulate(
+      Restaurant(
+        $rate: rate
+      ) from $restaurants,
+      average($rate)
+    )
+
+    eval($restaurantRate > $avgRating)
+
+  then
+    System.out.println("*******************************************");
+    System.out.println("Restaurant with id: " + $restaurantId + " is in high demand, number of reservations: " + $noReservations + "number of searches" + $noSearches);
+    System.out.println("*******************************************");
+    System.out.println("average rate is: " + $avgRating);
+    modify($restaurant) {setHighDemand(true)};
+end

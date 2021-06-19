@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -19,13 +20,14 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['mail2@gmail.com', [Validators.email, Validators.required]],
+      password: ['123', [Validators.required, Validators.minLength(3)]],
     });
   }
 
@@ -47,6 +49,7 @@ export class LoginComponent implements OnInit {
         data => {
           const payload = JSON.parse(window.atob(data.accessToken.split('.')[1]));
           console.log(payload)
+          
           this.loading = false;
           this.success = true;
 
@@ -58,12 +61,28 @@ export class LoginComponent implements OnInit {
             role: payload.role
           }));
 
-          this.router.navigate(['']);
+          if (payload.role === "USER") {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.router.navigate(['']);
+          }
         },
         error => {
           this.error = error.error ? error.error.message : 'Your account is not verified';
           this.loading = false;
-        });
+          
+          if (error.error) {
+            this.openSnackBar(error.error);
+          }
+        }
+      );
+  }
+
+  openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Dismiss', {
+      verticalPosition: 'top',
+      duration: 4000,
+    });
   }
 
 }

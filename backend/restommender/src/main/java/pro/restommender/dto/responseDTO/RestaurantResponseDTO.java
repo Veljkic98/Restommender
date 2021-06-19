@@ -17,12 +17,14 @@ public class RestaurantResponseDTO {
     public Boolean kidFriendly;
     public double rate;
     public List<ReservationResponseDTO> reservations;
+    public Boolean highDemand;
 
     public RestaurantResponseDTO() {
     }
 
-
-    public RestaurantResponseDTO(Long id, String name, double location, String music, String accomodation, Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks, Boolean petFriendly, Boolean kidFriendly, double rate, List<ReservationResponseDTO> reservations) {
+    public RestaurantResponseDTO(Long id, String name, double location, String music, String accomodation,
+            Boolean smokingArea, Boolean nonSmokingArea, Boolean alcoholicDrinks, Boolean nonAlcoholicDrinks,
+            Boolean petFriendly, Boolean kidFriendly, double rate, List<ReservationResponseDTO> reservations) {
         this.id = id;
         this.name = name;
         this.location = location;

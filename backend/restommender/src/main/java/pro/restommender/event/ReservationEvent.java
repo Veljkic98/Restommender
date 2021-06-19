@@ -13,6 +13,9 @@ public class ReservationEvent {
 
     private Date executionTime;
     private Long userId;
+    private Long restaurantId;
+    private Long reservationId;
+    private int numOfPersons;
 
     public ReservationEvent() {
     }
@@ -20,6 +23,14 @@ public class ReservationEvent {
     public ReservationEvent(Date executionTime, Long userId) {
         this.executionTime = executionTime;
         this.userId = userId;
+    }
+
+    public ReservationEvent(Date executionTime, Long userId, Long restaurantId, Long reservationId, int numOfPersons) {
+        this.executionTime = executionTime;
+        this.userId = userId;
+        this.restaurantId = restaurantId;
+        this.reservationId = reservationId;
+        this.numOfPersons = numOfPersons;
     }
 
     public Date getExecutionTime() {
@@ -30,12 +41,36 @@ public class ReservationEvent {
         this.executionTime = executionTime;
     }
 
-    public Long getuserId() {
+    public Long getUserId() {
         return this.userId;
     }
 
-    public void setuserId(Long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
-    
+
+    public Long getRestaurantId() {
+        return this.restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public Long getReservationId() {
+        return this.reservationId;
+    }
+
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
+    }
+
+    public int getNumOfPersons() {
+        return this.numOfPersons;
+    }
+
+    public void setNumOfPersons(int numOfPersons) {
+        this.numOfPersons = numOfPersons;
+    }
+
 }

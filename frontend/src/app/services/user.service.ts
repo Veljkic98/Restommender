@@ -24,10 +24,10 @@ export class UserService {
   }
 
   block(id: number) {
-    return this.http.put<User>(this.url + "block/" + id, { headers: this.headers });
+    return this.http.put<User>(this.url + "block/" + id, null, { headers: this.headers });
   }
 
   unblock(id: number) {
-    return this.http.put<User>(this.url + "unblock/" + id, { headers: this.headers });
+    return this.http.put<User>(this.url + "unblock/" + id, null, { headers: this.headers });
   }
 }

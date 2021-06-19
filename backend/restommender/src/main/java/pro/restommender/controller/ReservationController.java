@@ -1,6 +1,9 @@
 package pro.restommender.controller;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,9 +59,15 @@ public class ReservationController {
   }
 
   @GetMapping
-  public ResponseEntity<?> getAll() {
+  @PreAuthorize("hasRole('ROLE_AUTH_USER')")
+  public ResponseEntity<?> getAll(HttpServletRequest request) {
 
     try {
+      User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+      if (user.getType().name().equals("USER"))
+        return new ResponseEntity<>("User must be admin.", HttpStatus.UNAUTHORIZED);
+
       List<ReservationResponseDTO> dtos = reservationService.getAll();
 
       return new ResponseEntity<>(dtos, HttpStatus.OK);

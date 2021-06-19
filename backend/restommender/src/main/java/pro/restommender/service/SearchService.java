@@ -1,6 +1,5 @@
 package pro.restommender.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pro.restommender.dto.Search;
-import pro.restommender.dto.responseDTO.UserResponseDTO;
 import pro.restommender.event.SearchEvent;
 import pro.restommender.model.AuthenticatedUser;
 import pro.restommender.model.RelevantRestaurants;
-import pro.restommender.model.Reservation;
 import pro.restommender.model.Restaurant;
 import pro.restommender.repository.AuthenticatedUserRepository;
 import pro.restommender.repository.ReservationRepository;
@@ -22,9 +19,6 @@ import pro.restommender.repository.RestaurantRepository;
 
 @Service
 public class SearchService {
-
-    @Autowired
-    private ReservationRepository reservationRepository;
 
     @Autowired
     private RestaurantRepository restaurantRepository;
@@ -37,10 +31,9 @@ public class SearchService {
 
     public List<Restaurant> findRestaurants(Search search) {
 
-        System.out.println("****** SEARCH SERVICE ******");
+        System.out.println("\n****** SEARCH SERVICE ******");
 
         List<Restaurant> restaurants = restaurantRepository.findAll();
-        List<Reservation> reservations = reservationRepository.findAll();
 
         RelevantRestaurants relevantRestaurants = new RelevantRestaurants();
         relevantRestaurants.setRelevantRestaurants(restaurants);
@@ -49,18 +42,12 @@ public class SearchService {
 
         doLocation(search, relevantRestaurants);
 
-        // doRestourantMusic(search, relevantRestaurants);
-
-        // TODO: izmestiti na pravljenje rezervacija
-        // doDiscount(search, reservations);
-
         return relevantRestaurants.getRelevantRestaurants();
     }
 
-
     private void doLocation(Search search, RelevantRestaurants relevantRestaurants) {
 
-        System.out.println("****** SEARCH LOCATION ******");
+        System.out.println("\n****** SEARCH LOCATION ******");
 
         AuthenticatedUser user = authenticatedUserRepository.findById(search.getUserId()).orElse(null);
 
@@ -68,7 +55,7 @@ public class SearchService {
         FactHandle rrFc = kieSession.insert(relevantRestaurants);
         FactHandle userFc = kieSession.insert(user);
         FactHandle searchFc = kieSession.insert(search);
-        kieSession.insert(new SearchEvent(new Date(), search.getUserId()));
+        kieSession.insert(new SearchEvent(new Date(), search.getUserId(), search.getName()));
         int num = kieSession.fireAllRules();
 
         kieSession.delete(rrFc);
@@ -77,9 +64,9 @@ public class SearchService {
 
         authenticatedUserRepository.save(user);
 
-        System.out.println("User blodked: " + user.getBlocked());
+        System.out.println("User blocked: " + user.getBlocked());
         System.out.println("Fired rules: " + num);
-        System.out.println("RR list size is : " + relevantRestaurants.getRelevantRestaurants().size());
+        System.out.println("RR list size is: " + relevantRestaurants.getRelevantRestaurants().size());
     }
 
     /**
@@ -89,11 +76,11 @@ public class SearchService {
      */
     private void doFilter(Search search, RelevantRestaurants relevantRestaurants) {
 
-        System.out.println("****** SEARCH FILTER ******");
+        System.out.println("\n****** SEARCH FILTER ******");
 
         kieSession.getAgenda().getAgendaGroup("filter").setFocus();
-        FactHandle rrFc =kieSession.insert(relevantRestaurants);
-        FactHandle searchFc =kieSession.insert(search);
+        FactHandle rrFc = kieSession.insert(relevantRestaurants);
+        FactHandle searchFc = kieSession.insert(search);
         int num = kieSession.fireAllRules();
 
         kieSession.delete(rrFc);

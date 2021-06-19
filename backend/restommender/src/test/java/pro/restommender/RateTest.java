@@ -17,7 +17,6 @@ import pro.restommender.dto.Search;
 import pro.restommender.model.RelevantRestaurants;
 import pro.restommender.model.Reservation;
 import pro.restommender.model.Restaurant;
-import pro.restommender.repository.AuthenticatedUserRepository;
 import pro.restommender.repository.ReservationRepository;
 import pro.restommender.repository.RestaurantRepository;
 

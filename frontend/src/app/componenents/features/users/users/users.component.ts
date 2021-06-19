@@ -29,6 +29,7 @@ export class UsersComponent implements OnInit {
       .subscribe(
         data => {
           this.users = data;
+          console.log(data);
         }
       )
   }

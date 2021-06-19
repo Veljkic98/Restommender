@@ -137,8 +137,8 @@ public class DiscountTests {
     assertEquals(2, num);
   }
 
-// ------------------------Pravila treceg nivoa------------------------
-// --------------------------------------------------------------------
+  // ------------------------Pravila treceg nivoa------------------------
+  // --------------------------------------------------------------------
   @Test
   void between10And15ReservationsAndNumberOfPersons_ShouldAdd2PercentDiscount() {
     KieSession kieSession = kContainer.newKieSession("ksession-rules");
@@ -146,7 +146,7 @@ public class DiscountTests {
     AuthenticatedUser u = new AuthenticatedUser();
 
     List<Reservation> reservations = new ArrayList<>();
-    for(int i = 0; i < 14; i++ ){
+    for (int i = 0; i < 14; i++) {
       Reservation r = new Reservation();
       r.setUser(u);
       reservations.add(r);
@@ -154,7 +154,7 @@ public class DiscountTests {
     u.setReservations(reservations);
 
     Reservation r = reservations.get(0);
-    
+
     Search s = new Search();
     s.setNumOfPersons(4);
 
@@ -175,7 +175,7 @@ public class DiscountTests {
     AuthenticatedUser u = new AuthenticatedUser();
 
     List<Reservation> reservations = new ArrayList<>();
-    for(int i = 0; i < 15; i++ ){
+    for (int i = 0; i < 15; i++) {
       Reservation r = new Reservation();
       r.setUser(u);
       reservations.add(r);
@@ -183,7 +183,7 @@ public class DiscountTests {
     u.setReservations(reservations);
 
     Reservation r = reservations.get(0);
-    
+
     Search s = new Search();
     s.setNumOfPersons(4);
 
@@ -204,7 +204,7 @@ public class DiscountTests {
     AuthenticatedUser u = new AuthenticatedUser();
 
     List<Reservation> reservations = new ArrayList<>();
-    for(int i = 0; i < 20; i++ ){
+    for (int i = 0; i < 20; i++) {
       Reservation r = new Reservation();
       r.setUser(u);
       reservations.add(r);
@@ -212,7 +212,7 @@ public class DiscountTests {
     u.setReservations(reservations);
 
     Reservation r = reservations.get(0);
-    
+
     Search s = new Search();
     s.setNumOfPersons(4);
 
