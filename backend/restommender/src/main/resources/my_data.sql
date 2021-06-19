@@ -34,5 +34,15 @@ insert into restaurant (name, location, music, accomodation,  smoking_area, nons
                         ('Cuba', 3, 'loud', 'udobno', false, true, false, false, false, 1.5, false, false);
 
 insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (2, 1, 2, 0);
+
 insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (3, 2, 4, 0);
 insert into reservation (user_id, restaurant_id, num_of_persons, discount) values (4, 3, 5, 0);

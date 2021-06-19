@@ -33,7 +33,10 @@ public class SearchService {
 
         System.out.println("\n****** SEARCH SERVICE ******");
 
-        List<Restaurant> restaurants = restaurantRepository.findAll();
+        System.out.println(search);
+
+        // List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantRepository.findAllNameRegex(search.getName());
 
         RelevantRestaurants relevantRestaurants = new RelevantRestaurants();
         relevantRestaurants.setRelevantRestaurants(restaurants);
