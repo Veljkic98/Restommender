@@ -1,1 +1,1 @@
-URL ka video prezentaciji: 
+URL ka video prezentaciji: https://youtu.be/PfzlDO4VOJM
