@@ -36,7 +36,16 @@ public class SearchService {
         System.out.println(search);
 
         // List<Restaurant> restaurants = restaurantRepository.findAll();
-        List<Restaurant> restaurants = restaurantRepository.findAllNameRegex(search.getName());
+        double rateMin = 0, rateMax = 5;
+
+        if (search.getRate() < 3) {
+            rateMax = 2.999;
+        } else {
+            rateMin = 3;
+            rateMax = 5;
+        }
+        
+        List<Restaurant> restaurants = restaurantRepository.findAllNameRegex(search.getName(), rateMin, rateMax);
 
         RelevantRestaurants relevantRestaurants = new RelevantRestaurants();
         relevantRestaurants.setRelevantRestaurants(restaurants);

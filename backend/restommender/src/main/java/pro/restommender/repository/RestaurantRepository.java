@@ -15,7 +15,8 @@ import pro.restommender.model.Restaurant;
 @Transactional
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
-    @Query(nativeQuery = true, value = "SELECT * FROM restaurant where name ilike %:name%")
-    public List<Restaurant> findAllNameRegex(@Param("name") String name);
+    @Query(nativeQuery = true, value = "SELECT * FROM restaurant where name ilike %:name% and rate between :rateMin and :rateMax")
+    public List<Restaurant> findAllNameRegex(@Param("name") String name, @Param("rateMin") double rateMin,
+            @Param("rateMax") double rateMax);
 
 }
