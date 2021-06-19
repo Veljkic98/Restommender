@@ -24,6 +24,8 @@ export class AuthService {
     localStorage.removeItem('user');
 
     this.router.navigate(['/login']);
+    
+    window.location.reload();
   }
 
   getId(): number {
